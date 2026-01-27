@@ -1,15 +1,15 @@
-				EXAM GUIDE:
+EXAM GUIDE:
 ------------------------------------------------------------------------------------------------
 https://help.offsec.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide#bonus-points
 ------------------------------------------------------------------------------------------------
-				BONUS POINTS:
+BONUS POINTS:
 ------------------------------------------------------------------------------------------------
 - 80% of the module lab questions (module lab exercises) per each learning module: ✅
 - Submit 30 correct proof.txt hashes: 36 ✅
 ------------------------------------------------------------------------------------------------
-				PROOF GUIDE:
+PROOF GUIDE:
 ------------------------------------------------------------------------------------------------
-				MEDTECH: 9 proof.txt
+MEDTECH: 9 proof.txt
 .120 - proof only 	✅
 .121 - proof only 	✅
 .122 - local and proof 	✅
@@ -21,7 +21,7 @@ https://help.offsec.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide#bonus-poi
 .82 - proof only 	✅
 .83 - local and proof	✅
 ------------------------------------------------------------------------------------------------
-				RELIA: 15 proof.txt
+RELIA: 15 proof.txt
 .189 - proof only	✅
 .191 - proof only	✅
 .245 - local and proof	✅
@@ -41,7 +41,7 @@ https://help.offsec.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide#bonus-poi
 .21 - proof only	✅
 .30 - proof only	✅
 ------------------------------------------------------------------------------------------------
-			SKYLARK (credit to @mooni) 19 proof.txt
+SKYLARK (credit to @mooni) 19 proof.txt
 .223 - local + proof	✅
 .225 - local + proof	✅
 .221 - local + proof	✅
@@ -63,7 +63,7 @@ https://help.offsec.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide#bonus-poi
 .30 - local + proof
 .224 - local +  proof
 ------------------------------------------------------------------------------------------------
-				OSCP A: 4 proof.txt
+OSCP A: 4 proof.txt
 .143 - local and proof (standalone) ✅
 .144 - local and proof (standalone) ✅
 .145 - local and proof (standalone) ✅
@@ -72,7 +72,7 @@ https://help.offsec.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide#bonus-poi
 .141 - NONE (domain joined - MS01) ✅
 .142 - NONE (domain joined - MS02) ✅
 ------------------------------------------------------------------------------------------------
-				OSCP B: 4 proof.txt
+OSCP B: 4 proof.txt
 .149 - local and proof (standalone) ✅
 .150 - local and proof (standalone) ✅
 .151 - local and proof (standalone) ✅
@@ -81,7 +81,7 @@ https://help.offsec.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide#bonus-poi
 .147 - NONE (domain joined - MS01)  ✅
 .148 - NONE (domain joined - MS02)  ✅
 ------------------------------------------------------------------------------------------------
-				OSCP C: 4 proof.txt
+OSCP C: 4 proof.txt
 .155 - local and proof (standalone) ✅
 .156 - local and proof (standalone) ✅
 .157 - local and proof (standalone) ✅
