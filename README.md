@@ -81,8 +81,7 @@ OSCP C: 4 proof.txt
 .155 - local and proof (standalone) 
 .156 - local and proof (standalone) 
 .157 - local and proof (standalone) 
-
-.152 - proof only (domain joined - DC01) ✅
-.153 - NONE (domain joined - MS01)  ✅
-.154 - NONE (domain joined - MS02)  ✅
+.152 - proof only (domain joined - DC01)
+.153 - NONE (domain joined - MS01) 
+.154 - NONE (domain joined - MS02)
 ------------------------------------------------------------------------------------------------
