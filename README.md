@@ -39,7 +39,7 @@ RELIA: 15 proof.txt
 .21 - proof only	
 .30 - proof only
 ------------------------------------------------------------------------------------------------
-SKYLARK (credit to @mooni) 19 proof.txt
+SKYLARK 19 proof.txt
 .223 - local + proof
 .225 - local + proof
 .221 - local + proof
